@@ -1,0 +1,1780 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Ressourcendateien">
+      <UniqueIdentifier>{616bf5ac-5300-4863-bf5f-b8006ddc4ab0}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="Dialoge">
+      <UniqueIdentifier>{b7a3803b-7e45-4bb3-8fe5-f14c48bceb86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dialoge\Tool Options">
+      <UniqueIdentifier>{c39fa1ee-2bf5-4242-a969-7fde8cc1b6a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Filter">
+      <UniqueIdentifier>{e54acdfc-9a66-49c3-a7d6-4f17f1e02a0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ToolWindows">
+      <UniqueIdentifier>{fede9f88-0643-425d-b10a-172bf099cc98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Datenklassen">
+      <UniqueIdentifier>{5ece5fa0-0cbe-4583-9a17-8e96f38e4674}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Undo">
+      <UniqueIdentifier>{674df480-652d-4a27-82e7-558e83e32f37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actions">
+      <UniqueIdentifier>{c52f2c29-0853-4daa-9296-8bd1e2bc12db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{03d8635f-5adb-4408-a9af-38d030f769aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Grafik">
+      <UniqueIdentifier>{5f2fb4c1-e9c3-4d30-a5ee-f949da1f08d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Grafik\JPEG">
+      <UniqueIdentifier>{29e1caf6-e2a0-4d2b-ad4c-8086f4bbd256}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Grafik\PNG">
+      <UniqueIdentifier>{00b244ae-2149-41d3-8ef3-ed549a0bfb0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\MFC">
+      <UniqueIdentifier>{ae7637b7-b4e6-4499-be3f-1391d205aa0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\zlib">
+      <UniqueIdentifier>{a8f02fa0-c330-43c6-ad9a-8df1714d2916}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripting">
+      <UniqueIdentifier>{a594c5eb-bfbf-4085-b62a-c760a6cfa651}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Functions">
+      <UniqueIdentifier>{f46fb3f1-4acb-4948-93de-fd6a72bd722e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Custom CWnd">
+      <UniqueIdentifier>{a92ee034-bc30-4094-9bb9-3c3b0e5296b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{3286d1aa-5ab0-4f55-bae5-1df4376f9307}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Common\LUA">
+      <UniqueIdentifier>{3108df11-12e0-47bc-9020-3249154d7d64}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ChildFrm.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ColorPicker.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ColorReducer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ConvertOptions.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="DocumentInfo.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="FormatManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GFXUtil.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Import.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrm.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="MaskedContextDescriptor.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="painter.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="painterDoc.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PainterFontDoc.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PainterFontView.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PainterGfxTools.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="painterView.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PhotoShopFilterHandler.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PolygonFillAA.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Progress.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PropDocInfo.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PropDocInfo2.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PropGrid.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PropPrompts.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Resampler.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Settings.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="StdAfx.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewInfo.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\lapi.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\lauxlib.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\lbaselib.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\lbitlib.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\lcode.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\lcorolib.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\lctype.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\ldblib.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\ldebug.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\ldo.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\ldump.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\lfunc.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\lgc.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\linit.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\liolib.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\llex.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\lmathlib.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\lmem.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\loadlib.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\lobject.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\lopcodes.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\loslib.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\lparser.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\lstate.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\lstring.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\lstrlib.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\ltable.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\ltablib.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\ltm.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\lundump.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\lvm.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lua\lua\lzio.c">
+      <Filter>Common\LUA</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogAnimationErstellen.cpp">
+      <Filter>Dialoge</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogBatchConversion.cpp">
+      <Filter>Dialoge</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogCreateMask.cpp">
+      <Filter>Dialoge</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogResize.cpp">
+      <Filter>Dialoge</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogVerlauf.cpp">
+      <Filter>Dialoge</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgCreateFontFromWindowsFont.cpp">
+      <Filter>Dialoge</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgCustomizeToolBars.cpp">
+      <Filter>Dialoge</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgEffekte.cpp">
+      <Filter>Dialoge</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgFileOpenPreview.cpp">
+      <Filter>Dialoge</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgFreeRotate.cpp">
+      <Filter>Dialoge</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgLoadPalette.cpp">
+      <Filter>Dialoge</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgPSFilter.cpp">
+      <Filter>Dialoge</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgRename.cpp">
+      <Filter>Dialoge</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgRenameLayer.cpp">
+      <Filter>Dialoge</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgReplaceColor.cpp">
+      <Filter>Dialoge</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgResizeCanvas.cpp">
+      <Filter>Dialoge</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgSaveIGF.cpp">
+      <Filter>Dialoge</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgSelectEffekt.cpp">
+      <Filter>Dialoge</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgSelector.cpp">
+      <Filter>Dialoge</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgSelectPattern.cpp">
+      <Filter>Dialoge</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgTEAura.cpp">
+      <Filter>Dialoge</Filter>
+    </ClCompile>
+    <ClCompile Include="JpegSaveOptions.cpp">
+      <Filter>Dialoge</Filter>
+    </ClCompile>
+    <ClCompile Include="NewDocumentDialog.cpp">
+      <Filter>Dialoge</Filter>
+    </ClCompile>
+    <ClCompile Include="PaletteDialog.cpp">
+      <Filter>Dialoge</Filter>
+    </ClCompile>
+    <ClCompile Include="TextDialog.cpp">
+      <Filter>Dialoge</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgTOptionsFill.cpp">
+      <Filter>Dialoge\Tool Options</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgTOptionsFreehand2.cpp">
+      <Filter>Dialoge\Tool Options</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgTOptionsLine.cpp">
+      <Filter>Dialoge\Tool Options</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgTOptionsSelection.cpp">
+      <Filter>Dialoge\Tool Options</Filter>
+    </ClCompile>
+    <ClCompile Include="EffektAura.cpp">
+      <Filter>Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="EffektBevel.cpp">
+      <Filter>Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="EffektBrightness.cpp">
+      <Filter>Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="EffektColorDiffusor.cpp">
+      <Filter>Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="EffektColorize.cpp">
+      <Filter>Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="EffektContrast.cpp">
+      <Filter>Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="EffektDiffusor.cpp">
+      <Filter>Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="EffektGrayScale.cpp">
+      <Filter>Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="EffektJalousie.cpp">
+      <Filter>Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="EffektPerlinNoise.cpp">
+      <Filter>Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="EffektPixelize.cpp">
+      <Filter>Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="EffektPlasma.cpp">
+      <Filter>Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="EffektReduce.cpp">
+      <Filter>Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="EffektShadow.cpp">
+      <Filter>Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="EffektSmoothen.cpp">
+      <Filter>Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="EffektTemplate.cpp">
+      <Filter>Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="EffektTileable.cpp">
+      <Filter>Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgPToolAnimation.cpp">
+      <Filter>ToolWindows</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgPToolBrowser.cpp">
+      <Filter>ToolWindows</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgPToolBrush.cpp">
+      <Filter>ToolWindows</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgPToolFarben.cpp">
+      <Filter>ToolWindows</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgPToolFunctionOptions.cpp">
+      <Filter>ToolWindows</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgPToolLayer.cpp">
+      <Filter>ToolWindows</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgPToolTileTester.cpp">
+      <Filter>ToolWindows</Filter>
+    </ClCompile>
+    <ClCompile Include="BrushTip.cpp">
+      <Filter>Datenklassen</Filter>
+    </ClCompile>
+    <ClCompile Include="Frame.cpp">
+      <Filter>Datenklassen</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\Gradient.cpp">
+      <Filter>Datenklassen</Filter>
+    </ClCompile>
+    <ClCompile Include="ImagePackage.cpp">
+      <Filter>Datenklassen</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer.cpp">
+      <Filter>Datenklassen</Filter>
+    </ClCompile>
+    <ClCompile Include="PainterBrush.cpp">
+      <Filter>Datenklassen</Filter>
+    </ClCompile>
+    <ClCompile Include="PImage.cpp">
+      <Filter>Datenklassen</Filter>
+    </ClCompile>
+    <ClCompile Include="UndoDepthChange.cpp">
+      <Filter>Undo</Filter>
+    </ClCompile>
+    <ClCompile Include="UndoFrameChange.cpp">
+      <Filter>Undo</Filter>
+    </ClCompile>
+    <ClCompile Include="UndoImageChange.cpp">
+      <Filter>Undo</Filter>
+    </ClCompile>
+    <ClCompile Include="UndoLayerChange.cpp">
+      <Filter>Undo</Filter>
+    </ClCompile>
+    <ClCompile Include="UndoManager.cpp">
+      <Filter>Undo</Filter>
+    </ClCompile>
+    <ClCompile Include="UndoSizeChange.cpp">
+      <Filter>Undo</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionBrightness.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionContrast.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionConvert.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionPlasma.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageAction.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptActions.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptTool.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Memory\ByteBuffer.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\String\Convert.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\DateTime\DateTime.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\IO\FileStream.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\IO\FileUtil.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Misc\Format.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Setup\Groups.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Lua\LuaInstance.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Memory\MemoryStream.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Misc\Misc.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\String\Path.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Grafik\PolygonFill.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lang\RefCountObject.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\WinSys\RegistryHelper.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Lang\Service.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\WinSys\WinUtils.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\String\XML.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\Animation.cpp">
+      <Filter>Common\Grafik</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ContextDescriptor.cpp">
+      <Filter>Common\Grafik</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\Font.cpp">
+      <Filter>Common\Grafik</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\FormatBMP.cpp">
+      <Filter>Common\Grafik</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\FormatBTN.cpp">
+      <Filter>Common\Grafik</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\FormatDDS.cpp">
+      <Filter>Common\Grafik</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\FormatGif.cpp">
+      <Filter>Common\Grafik</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\FormatIcon.cpp">
+      <Filter>Common\Grafik</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\FormatIGF.cpp">
+      <Filter>Common\Grafik</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\FormatJPG.cpp">
+      <Filter>Common\Grafik</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\FormatPCX.cpp">
+      <Filter>Common\Grafik</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\FormatPNG.cpp">
+      <Filter>Common\Grafik</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\FormatTGA.cpp">
+      <Filter>Common\Grafik</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\GFXHelper.cpp">
+      <Filter>Common\Grafik</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\GfxPage.cpp">
+      <Filter>Common\Grafik</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\Image.cpp">
+      <Filter>Common\Grafik</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\ImageFormatManager.cpp">
+      <Filter>Common\Grafik</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\Palette.cpp">
+      <Filter>Common\Grafik</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageGenerator\Plasma.cpp">
+      <Filter>Common\Grafik</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jcomapi.c">
+      <Filter>Common\Grafik\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jdapimin.c">
+      <Filter>Common\Grafik\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jdapistd.c">
+      <Filter>Common\Grafik\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jdatasrc.c">
+      <Filter>Common\Grafik\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jdcoefct.c">
+      <Filter>Common\Grafik\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jdcolor.c">
+      <Filter>Common\Grafik\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jddctmgr.c">
+      <Filter>Common\Grafik\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jdhuff.c">
+      <Filter>Common\Grafik\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jdinput.c">
+      <Filter>Common\Grafik\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jdmainct.c">
+      <Filter>Common\Grafik\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jdmarker.c">
+      <Filter>Common\Grafik\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jdmaster.c">
+      <Filter>Common\Grafik\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jdmerge.c">
+      <Filter>Common\Grafik\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jdphuff.c">
+      <Filter>Common\Grafik\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jdpostct.c">
+      <Filter>Common\Grafik\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jdsample.c">
+      <Filter>Common\Grafik\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jerror.c">
+      <Filter>Common\Grafik\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jidctflt.c">
+      <Filter>Common\Grafik\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jidctfst.c">
+      <Filter>Common\Grafik\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jidctint.c">
+      <Filter>Common\Grafik\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jidctred.c">
+      <Filter>Common\Grafik\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jmemansi.c">
+      <Filter>Common\Grafik\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jmemmgr.c">
+      <Filter>Common\Grafik\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jpeg.cpp">
+      <Filter>Common\Grafik\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jquant1.c">
+      <Filter>Common\Grafik\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jquant2.c">
+      <Filter>Common\Grafik\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jutils.c">
+      <Filter>Common\Grafik\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\png.c">
+      <Filter>Common\Grafik\PNG</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\pngerror.c">
+      <Filter>Common\Grafik\PNG</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\pngget.c">
+      <Filter>Common\Grafik\PNG</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\pngmem.c">
+      <Filter>Common\Grafik\PNG</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\pngpread.c">
+      <Filter>Common\Grafik\PNG</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\pngread.c">
+      <Filter>Common\Grafik\PNG</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\pngrio.c">
+      <Filter>Common\Grafik\PNG</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\pngrtran.c">
+      <Filter>Common\Grafik\PNG</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\pngrutil.c">
+      <Filter>Common\Grafik\PNG</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\pngset.c">
+      <Filter>Common\Grafik\PNG</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\pngtrans.c">
+      <Filter>Common\Grafik\PNG</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\pngwio.c">
+      <Filter>Common\Grafik\PNG</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\pngwrite.c">
+      <Filter>Common\Grafik\PNG</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\pngwtran.c">
+      <Filter>Common\Grafik\PNG</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\pngwutil.c">
+      <Filter>Common\Grafik\PNG</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\MFC\AngleWnd.cpp">
+      <Filter>Common\MFC</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\MFC\ColoredButton.cpp">
+      <Filter>Common\MFC</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\MFC\FileDialogEx.cpp">
+      <Filter>Common\MFC</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\MFC\GradientCtrl.cpp">
+      <Filter>Common\MFC</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\MFC\IconButton.cpp">
+      <Filter>Common\MFC</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\MFC\ImageWnd.cpp">
+      <Filter>Common\MFC</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\MFC\ODListBox.cpp">
+      <Filter>Common\MFC</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\MFC\RangeEdit.cpp">
+      <Filter>Common\MFC</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\libs\zlib\adler32.c">
+      <Filter>Common\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\libs\zlib\compress.c">
+      <Filter>Common\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\libs\zlib\crc32.c">
+      <Filter>Common\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\libs\zlib\deflate.c">
+      <Filter>Common\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\libs\zlib\infback.c">
+      <Filter>Common\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\libs\zlib\inffast.c">
+      <Filter>Common\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\libs\zlib\inflate.c">
+      <Filter>Common\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\libs\zlib\inftrees.c">
+      <Filter>Common\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\libs\zlib\trees.c">
+      <Filter>Common\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\libs\zlib\uncompr.c">
+      <Filter>Common\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\libs\zlib\zutil.c">
+      <Filter>Common\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="PainterLua.cpp">
+      <Filter>Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="FunctionFill.cpp">
+      <Filter>Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\MFC\ColorRangeEdit.cpp">
+      <Filter>Custom CWnd</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\MFC\GradientRangeEdit.cpp">
+      <Filter>Custom CWnd</Filter>
+    </ClCompile>
+    <ClCompile Include="GRControlBar.cpp">
+      <Filter>Custom CWnd</Filter>
+    </ClCompile>
+    <ClCompile Include="GRDialogBar.cpp">
+      <Filter>Custom CWnd</Filter>
+    </ClCompile>
+    <ClCompile Include="GRDockingManager.cpp">
+      <Filter>Custom CWnd</Filter>
+    </ClCompile>
+    <ClCompile Include="GRMenuBar.cpp">
+      <Filter>Custom CWnd</Filter>
+    </ClCompile>
+    <ClCompile Include="GRMiniDockFrameWnd.cpp">
+      <Filter>Custom CWnd</Filter>
+    </ClCompile>
+    <ClCompile Include="GRODMenuBar.cpp">
+      <Filter>Custom CWnd</Filter>
+    </ClCompile>
+    <ClCompile Include="GRToolBar.cpp">
+      <Filter>Custom CWnd</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\MFC\ODMenu.cpp">
+      <Filter>Custom CWnd</Filter>
+    </ClCompile>
+    <ClCompile Include="p:\common\MFC\SplitterBar.cpp">
+      <Filter>Custom CWnd</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\FormatCur.cpp">
+      <Filter>Common\Grafik</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Grafik\ImageData.cpp">
+      <Filter>Common\Grafik</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Grafik\GDIPage.cpp">
+      <Filter>Common\Grafik</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaImage.cpp">
+      <Filter>Scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\IO\FileChunk.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="FormatPNT.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgGIFOptions.cpp">
+      <Filter>Dialoge</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GFXUtil.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="PhotoShopFilterHandler.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Lua\lua\lapi.h">
+      <Filter>Common\LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Lua\lua\lauxlib.h">
+      <Filter>Common\LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Lua\lua\lcode.h">
+      <Filter>Common\LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Lua\lua\lctype.h">
+      <Filter>Common\LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Lua\lua\ldebug.h">
+      <Filter>Common\LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Lua\lua\ldo.h">
+      <Filter>Common\LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Lua\lua\lfunc.h">
+      <Filter>Common\LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Lua\lua\lgc.h">
+      <Filter>Common\LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Lua\lua\llex.h">
+      <Filter>Common\LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Lua\lua\llimits.h">
+      <Filter>Common\LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Lua\lua\lmem.h">
+      <Filter>Common\LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Lua\lua\lobject.h">
+      <Filter>Common\LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Lua\lua\lopcodes.h">
+      <Filter>Common\LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Lua\lua\lparser.h">
+      <Filter>Common\LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Lua\lua\lstate.h">
+      <Filter>Common\LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Lua\lua\lstring.h">
+      <Filter>Common\LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Lua\lua\ltable.h">
+      <Filter>Common\LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Lua\lua\ltm.h">
+      <Filter>Common\LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Lua\lua\lua.h">
+      <Filter>Common\LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Lua\lua\lua.hpp">
+      <Filter>Common\LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Lua\lua\luaconf.h">
+      <Filter>Common\LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Lua\lua\lualib.h">
+      <Filter>Common\LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Lua\lua\luna.h">
+      <Filter>Common\LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Lua\lua\lundump.h">
+      <Filter>Common\LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Lua\lua\lvm.h">
+      <Filter>Common\LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Lua\lua\lzio.h">
+      <Filter>Common\LUA</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgCreateFontFromWindowsFont.h">
+      <Filter>Dialoge</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgCustomizeToolBars.h">
+      <Filter>Dialoge</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgDebug.h">
+      <Filter>Dialoge</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgEffekte.h">
+      <Filter>Dialoge</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgFileOpenPreview.h">
+      <Filter>Dialoge</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgFreeRotate.h">
+      <Filter>Dialoge</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgLoadPalette.h">
+      <Filter>Dialoge</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgPSFilter.h">
+      <Filter>Dialoge</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgRename.h">
+      <Filter>Dialoge</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgRenameLayer.h">
+      <Filter>Dialoge</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgReplaceColor.h">
+      <Filter>Dialoge</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgResizeCanvas.h">
+      <Filter>Dialoge</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgSaveIGF.h">
+      <Filter>Dialoge</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgSelectEffekt.h">
+      <Filter>Dialoge</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgSelector.h">
+      <Filter>Dialoge</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgSelectPattern.h">
+      <Filter>Dialoge</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgTEAura.h">
+      <Filter>Dialoge</Filter>
+    </ClInclude>
+    <ClInclude Include="TextDialog.h">
+      <Filter>Dialoge</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgTOptionsFill.h">
+      <Filter>Dialoge\Tool Options</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgTOptionsFreehand2.h">
+      <Filter>Dialoge\Tool Options</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgTOptionsLine.h">
+      <Filter>Dialoge\Tool Options</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgTOptionsSelection.h">
+      <Filter>Dialoge\Tool Options</Filter>
+    </ClInclude>
+    <ClInclude Include="EffektAura.h">
+      <Filter>Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="EffektBevel.h">
+      <Filter>Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="EffektBrightness.h">
+      <Filter>Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="EffektColorDiffusor.h">
+      <Filter>Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="EffektColorize.h">
+      <Filter>Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="EffektContrast.h">
+      <Filter>Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="EffektDiffusor.h">
+      <Filter>Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="EffektGrayScale.h">
+      <Filter>Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="EffektJalousie.h">
+      <Filter>Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="EffektPerlinNoise.h">
+      <Filter>Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="EffektPixelize.h">
+      <Filter>Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="EffektPlasma.h">
+      <Filter>Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="EffektReduce.h">
+      <Filter>Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="EffektShadow.h">
+      <Filter>Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="EffektSmoothen.h">
+      <Filter>Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="EffektTemplate.h">
+      <Filter>Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="EffektTileable.h">
+      <Filter>Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgPToolAnimation.h">
+      <Filter>ToolWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgPToolBrowser.h">
+      <Filter>ToolWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgPToolBrush.h">
+      <Filter>ToolWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgPToolFarben.h">
+      <Filter>ToolWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgPToolFunctionOptions.h">
+      <Filter>ToolWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgPToolLayer.h">
+      <Filter>ToolWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgPToolTileTester.h">
+      <Filter>ToolWindows</Filter>
+    </ClInclude>
+    <ClInclude Include="BrushTip.h">
+      <Filter>Datenklassen</Filter>
+    </ClInclude>
+    <ClInclude Include="Frame.h">
+      <Filter>Datenklassen</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\Grafik\Gradient.h">
+      <Filter>Datenklassen</Filter>
+    </ClInclude>
+    <ClInclude Include="ImagePackage.h">
+      <Filter>Datenklassen</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>Datenklassen</Filter>
+    </ClInclude>
+    <ClInclude Include="PainterBrush.h">
+      <Filter>Datenklassen</Filter>
+    </ClInclude>
+    <ClInclude Include="UndoDepthChange.h">
+      <Filter>Undo</Filter>
+    </ClInclude>
+    <ClInclude Include="UndoFrameChange.h">
+      <Filter>Undo</Filter>
+    </ClInclude>
+    <ClInclude Include="UndoImageChange.h">
+      <Filter>Undo</Filter>
+    </ClInclude>
+    <ClInclude Include="UndoLayerChange.h">
+      <Filter>Undo</Filter>
+    </ClInclude>
+    <ClInclude Include="UndoManager.h">
+      <Filter>Undo</Filter>
+    </ClInclude>
+    <ClInclude Include="UndoSizeChange.h">
+      <Filter>Undo</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionBrightness.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionContrast.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionConvert.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionPlasma.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptActions.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptTool.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Memory\ByteBuffer.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\String\Convert.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\DateTime\DateTime.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\IO\FileStream.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\IO\FileUtil.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Misc\format.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\Setup\Groups.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\Lua\LuaInstance.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Memory\MemoryStream.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\Misc\Misc.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\String\Path.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Grafik\PolygonFill.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Lang\RefCountObject.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\WinSys\RegistryHelper.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Lang\Service.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\WinSys\WinUtils.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\String\XML.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\Grafik\Animation.h">
+      <Filter>Common\Grafik</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\Grafik\Color.h">
+      <Filter>Common\Grafik</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\Grafik\ContextDescriptor.h">
+      <Filter>Common\Grafik</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\Grafik\Font.h">
+      <Filter>Common\Grafik</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\Grafik\ImageFormate\FormatBMP.h">
+      <Filter>Common\Grafik</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\Grafik\ImageFormate\FormatBTN.h">
+      <Filter>Common\Grafik</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\Grafik\ImageFormate\FormatDDS.h">
+      <Filter>Common\Grafik</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\Grafik\ImageFormate\FormatGif.h">
+      <Filter>Common\Grafik</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\Grafik\ImageFormate\FormatIcon.h">
+      <Filter>Common\Grafik</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\Grafik\ImageFormate\FormatIGF.h">
+      <Filter>Common\Grafik</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\Grafik\ImageFormate\FormatJPG.h">
+      <Filter>Common\Grafik</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\Grafik\ImageFormate\FormatPCX.h">
+      <Filter>Common\Grafik</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\Grafik\ImageFormate\FormatPNG.h">
+      <Filter>Common\Grafik</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\Grafik\ImageFormate\FormatTGA.h">
+      <Filter>Common\Grafik</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\Grafik\GFXHelper.h">
+      <Filter>Common\Grafik</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\Grafik\GfxPage.h">
+      <Filter>Common\Grafik</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\Grafik\Image.h">
+      <Filter>Common\Grafik</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\Grafik\ImageFormate\ImageFormatManager.h">
+      <Filter>Common\Grafik</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\Grafik\Palette.h">
+      <Filter>Common\Grafik</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\Grafik\ImageGenerator\Plasma.h">
+      <Filter>Common\Grafik</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\Grafik\ImageFormate\Jpeg\jdhuff.h">
+      <Filter>Common\Grafik\JPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\Grafik\ImageFormate\Jpeg\jpeg.h">
+      <Filter>Common\Grafik\JPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Grafik\ImageFormate\PNG\png.h">
+      <Filter>Common\Grafik\PNG</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Grafik\ImageFormate\PNG\pngconf.h">
+      <Filter>Common\Grafik\PNG</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Grafik\ImageFormate\PNG\pngdebug.h">
+      <Filter>Common\Grafik\PNG</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Grafik\ImageFormate\PNG\pnginfo.h">
+      <Filter>Common\Grafik\PNG</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Grafik\ImageFormate\PNG\pnglibconf.h">
+      <Filter>Common\Grafik\PNG</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Grafik\ImageFormate\PNG\pngpriv.h">
+      <Filter>Common\Grafik\PNG</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Grafik\ImageFormate\PNG\pngstruct.h">
+      <Filter>Common\Grafik\PNG</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Grafik\ImageFormate\PNG\zconf.h">
+      <Filter>Common\Grafik\PNG</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Grafik\ImageFormate\PNG\zlib.h">
+      <Filter>Common\Grafik\PNG</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\MFC\AngleWnd.h">
+      <Filter>Common\MFC</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\MFC\ColoredButton.h">
+      <Filter>Common\MFC</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\MFC\FileDialogEx.h">
+      <Filter>Common\MFC</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\MFC\GradientCtrl.h">
+      <Filter>Common\MFC</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\MFC\iconbutton.h">
+      <Filter>Common\MFC</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\MFC\ImageWnd.h">
+      <Filter>Common\MFC</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\MFC\ODListBox.h">
+      <Filter>Common\MFC</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\MFC\RangeEdit.h">
+      <Filter>Common\MFC</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\libs\zlib\crc32.h">
+      <Filter>Common\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\libs\zlib\deflate.h">
+      <Filter>Common\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\libs\zlib\gzguts.h">
+      <Filter>Common\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\libs\zlib\inffast.h">
+      <Filter>Common\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\libs\zlib\inffixed.h">
+      <Filter>Common\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\libs\zlib\inflate.h">
+      <Filter>Common\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\libs\zlib\inftrees.h">
+      <Filter>Common\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\libs\zlib\trees.h">
+      <Filter>Common\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\libs\zlib\zconf.h">
+      <Filter>Common\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\libs\zlib\zlib.h">
+      <Filter>Common\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\libs\zlib\zutil.h">
+      <Filter>Common\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="PainterLua.h">
+      <Filter>Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="FunctionFill.h">
+      <Filter>Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="IPainterFunction.h">
+      <Filter>Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\MFC\ColorRangeEdit.h">
+      <Filter>Custom CWnd</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\MFC\GradientRangeEdit.h">
+      <Filter>Custom CWnd</Filter>
+    </ClInclude>
+    <ClInclude Include="GRControlBar.h">
+      <Filter>Custom CWnd</Filter>
+    </ClInclude>
+    <ClInclude Include="GRDialogBar.h">
+      <Filter>Custom CWnd</Filter>
+    </ClInclude>
+    <ClInclude Include="GRDockingManager.h">
+      <Filter>Custom CWnd</Filter>
+    </ClInclude>
+    <ClInclude Include="GRMenuBar.h">
+      <Filter>Custom CWnd</Filter>
+    </ClInclude>
+    <ClInclude Include="GRMiniDockFrameWnd.h">
+      <Filter>Custom CWnd</Filter>
+    </ClInclude>
+    <ClInclude Include="GRODMenuBar.h">
+      <Filter>Custom CWnd</Filter>
+    </ClInclude>
+    <ClInclude Include="GRToolBar.h">
+      <Filter>Custom CWnd</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\MFC\ODMenu.h">
+      <Filter>Custom CWnd</Filter>
+    </ClInclude>
+    <ClInclude Include="p:\common\MFC\SplitterBar.h">
+      <Filter>Custom CWnd</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Grafik\ImageFormate\FormatCur.h">
+      <Filter>Common\Grafik</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Grafik\ImageData.h">
+      <Filter>Common\Grafik</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Grafik\GDIPage.h">
+      <Filter>Common\Grafik</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageAction.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="PImage.h">
+      <Filter>Datenklassen</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogAnimationErstellen.h">
+      <Filter>Dialoge</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogCreateMask.h">
+      <Filter>Dialoge</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogResize.h">
+      <Filter>Dialoge</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogVerlauf.h">
+      <Filter>Dialoge</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogBatchConversion.h">
+      <Filter>Dialoge</Filter>
+    </ClInclude>
+    <ClInclude Include="JpegSaveOptions.h">
+      <Filter>Dialoge</Filter>
+    </ClInclude>
+    <ClInclude Include="NewDocumentDialog.h">
+      <Filter>Dialoge</Filter>
+    </ClInclude>
+    <ClInclude Include="PaletteDialog.h">
+      <Filter>Dialoge</Filter>
+    </ClInclude>
+    <ClInclude Include="ChildFrm.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorPicker.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorReducer.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="DocumentInfo.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="FormatManager.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Import.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrm.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="MaskedContextDescriptor.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="painter.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="painterDoc.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="PainterFontDoc.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="PainterFontView.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="PainterGfxTools.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="painterView.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="PolygonFillAA.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Progress.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="PropDocInfo.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="PropDocInfo2.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="PropGrid.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="PropPrompts.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Resampler.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Settings.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="StdAfx.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewInfo.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaImage.h">
+      <Filter>Scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\IO\FileChunk.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="FormatPNT.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgGIFOptions.h">
+      <Filter>Dialoge</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="painter.rc">
+      <Filter>Source</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\anim_delete.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\anim_end.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\anim_home.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\anim_insert.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\anim_insert_behind.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\anim_next.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\anim_play.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\anim_prev.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\anim_stop.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\Bit.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\bitmap1.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\bmp00001.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\bmp00002.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\Doc.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\ico00001.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\ico00002.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\ico00003.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\ico00004.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\ico00005.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\ico00006.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\ico00007.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\ico00008.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\ico00009.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\ico00010.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\ico00011.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\ico00012.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\ico00013.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\icon1.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\icon_act.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\icon_browser.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\icon_des.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\icon_fol.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\icon_ina.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\icon_lay.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\icon_layer_editmask.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\icon_layer_mask.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\icon_layer_no_mask.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\icon_layer_trash.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\icon_layer_visible.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\icon_layer_work.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\icon_no_.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\icon_too.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\icon_vis.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\main_doc_props.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\main_new.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\main_open.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\main_props.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\main_save.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\main_zoomin.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\main_zoomout.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\mdi.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="mdi.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\painter.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\painterDoc.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\tool_box.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\tool_clear.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\tool_ellipse.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\tool_ellipse_filled.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\tool_fill.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\tool_freehand_line.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\tool_freehand_pixel.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\tool_line.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\tool_none.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\tool_rect.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\tool_redo.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\tool_select.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\tool_snap.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\tool_text.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\tool_undo.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\tool_zoom.ico">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\Toolbar.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="res\toolbar1.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\resource\Icons\cur00001.cur">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="res\cur00001.cur">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="..\resource\Icons\cur00002.cur">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="res\cur00002.cur">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="..\resource\Icons\cur00003.cur">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="res\cur00003.cur">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="..\resource\Icons\cur00004.cur">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="res\cur00004.cur">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="res\cur00005.cur">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="..\resource\Icons\cur00005.cur">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="..\resource\Icons\cur00006.cur">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="res\cur00006.cur">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="..\resource\Icons\cur00007.cur">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="res\cur00007.cur">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="res\cur00008.cur">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="res\cursor1.cur">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="..\resource\Icons\cursor1.cur">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="..\resource\Icons\cursor_c.cur">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="res\cursor_c.cur">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="..\resource\Icons\cursor_f.cur">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="res\cursor_f.cur">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="res\cursor_l.cur">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="..\resource\Icons\cursor_l.cur">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="res\cursor_r.cur">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="..\resource\Icons\cursor_r.cur">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="res\cursor_s.cur">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="..\resource\Icons\cursor_s.cur">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="res\draghand.cur">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="res\painter.rc2">
+      <Filter>Ressourcendateien</Filter>
+    </None>
+    <None Include="freeimage.dll" />
+    <None Include="BrushTips\square1.igf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="FreeImage.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="todo.txt" />
+  </ItemGroup>
+</Project>

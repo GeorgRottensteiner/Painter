@@ -1,0 +1,731 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{9159C96B-728E-465D-A79F-2C927C7B2C5F}</ProjectGuid>
+    <Keyword>MFCProj</Keyword>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <UseOfMfc>Static</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <UseOfMfc>Static</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>12.0.30501.0</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>.\Release\</OutDir>
+    <IntDir>.\Release\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);p:\common</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>.\Debug\</OutDir>
+    <IntDir>.\Debug\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);p:\common</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Release/painter.tlb</TypeLibraryName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm200 %(AdditionalOptions)</AdditionalOptions>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;__NO_DIRECT_X__;WINVER=0x0501;_HAS_ITERATOR_DEBUGGING=0;_SECURE_SCL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeaderOutputFile>.\Release/painter.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Release/</AssemblerListingLocation>
+      <ObjectFileName>.\Release/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Release/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_AFXDLL;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0407</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalOptions>/MACHINE:I386 %(AdditionalOptions)</AdditionalOptions>
+      <OutputFile>.\Release/painter.exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <ProgramDatabaseFile>.\Release/painter.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+    </Link>
+    <PostBuildEvent>
+      <Command>copy release\painter.exe Painter.exe</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Debug/painter.tlb</TypeLibraryName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Zm200 %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;WIN32;_WINDOWS;__NO_DIRECT_X__;WINVER=0x0501;_HAS_ITERATOR_DEBUGGING=0;_SECURE_SCL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>.\Debug/painter.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Debug/</AssemblerListingLocation>
+      <ObjectFileName>.\Debug/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Debug/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_AFXDLL;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0407</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalOptions>/MACHINE:I386 %(AdditionalOptions)</AdditionalOptions>
+      <OutputFile>.\Debug/painter.exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>.\Debug/painter.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="ActionBrightness.cpp" />
+    <ClCompile Include="ActionContrast.cpp" />
+    <ClCompile Include="ActionConvert.cpp" />
+    <ClCompile Include="ActionPlasma.cpp" />
+    <ClCompile Include="BrushTip.cpp" />
+    <ClCompile Include="ChildFrm.cpp" />
+    <ClCompile Include="ColorPicker.cpp" />
+    <ClCompile Include="ColorReducer.cpp" />
+    <ClCompile Include="ConvertOptions.cpp" />
+    <ClCompile Include="DialogAnimationErstellen.cpp" />
+    <ClCompile Include="DialogBatchConversion.cpp" />
+    <ClCompile Include="DialogCreateMask.cpp" />
+    <ClCompile Include="DialogResize.cpp" />
+    <ClCompile Include="DialogVerlauf.cpp" />
+    <ClCompile Include="DlgCreateFontFromWindowsFont.cpp" />
+    <ClCompile Include="DlgCustomizeToolBars.cpp" />
+    <ClCompile Include="DlgEffekte.cpp" />
+    <ClCompile Include="DlgFileOpenPreview.cpp" />
+    <ClCompile Include="DlgFreeRotate.cpp" />
+    <ClCompile Include="DlgGIFOptions.cpp" />
+    <ClCompile Include="DlgLoadPalette.cpp" />
+    <ClCompile Include="DlgPSFilter.cpp" />
+    <ClCompile Include="DlgPToolAnimation.cpp" />
+    <ClCompile Include="DlgPToolBrowser.cpp" />
+    <ClCompile Include="DlgPToolBrush.cpp" />
+    <ClCompile Include="DlgPToolFarben.cpp" />
+    <ClCompile Include="DlgPToolFunctionOptions.cpp" />
+    <ClCompile Include="DlgPToolLayer.cpp" />
+    <ClCompile Include="DlgPToolTileTester.cpp" />
+    <ClCompile Include="DlgRename.cpp" />
+    <ClCompile Include="DlgRenameLayer.cpp" />
+    <ClCompile Include="DlgReplaceColor.cpp" />
+    <ClCompile Include="DlgResizeCanvas.cpp" />
+    <ClCompile Include="DlgSaveIGF.cpp" />
+    <ClCompile Include="DlgSelectEffekt.cpp" />
+    <ClCompile Include="DlgSelector.cpp" />
+    <ClCompile Include="DlgSelectPattern.cpp" />
+    <ClCompile Include="DlgTEAura.cpp" />
+    <ClCompile Include="DlgTOptionsFill.cpp" />
+    <ClCompile Include="DlgTOptionsFreehand2.cpp" />
+    <ClCompile Include="DlgTOptionsLine.cpp" />
+    <ClCompile Include="DlgTOptionsSelection.cpp" />
+    <ClCompile Include="DocumentInfo.cpp" />
+    <ClCompile Include="EffektAura.cpp" />
+    <ClCompile Include="EffektBevel.cpp" />
+    <ClCompile Include="EffektBrightness.cpp" />
+    <ClCompile Include="EffektColorDiffusor.cpp" />
+    <ClCompile Include="EffektColorize.cpp" />
+    <ClCompile Include="EffektContrast.cpp" />
+    <ClCompile Include="EffektDiffusor.cpp" />
+    <ClCompile Include="EffektGrayScale.cpp" />
+    <ClCompile Include="EffektJalousie.cpp" />
+    <ClCompile Include="EffektPerlinNoise.cpp" />
+    <ClCompile Include="EffektPixelize.cpp" />
+    <ClCompile Include="EffektPlasma.cpp" />
+    <ClCompile Include="EffektReduce.cpp" />
+    <ClCompile Include="EffektShadow.cpp" />
+    <ClCompile Include="EffektSmoothen.cpp" />
+    <ClCompile Include="EffektTemplate.cpp" />
+    <ClCompile Include="EffektTileable.cpp" />
+    <ClCompile Include="FormatManager.cpp" />
+    <ClCompile Include="FormatPNT.cpp" />
+    <ClCompile Include="Frame.cpp" />
+    <ClCompile Include="FunctionFill.cpp" />
+    <ClCompile Include="GFXUtil.cpp" />
+    <ClCompile Include="GRControlBar.cpp" />
+    <ClCompile Include="GRDialogBar.cpp" />
+    <ClCompile Include="GRDockingManager.cpp" />
+    <ClCompile Include="GRMenuBar.cpp" />
+    <ClCompile Include="GRMiniDockFrameWnd.cpp" />
+    <ClCompile Include="GRODMenuBar.cpp" />
+    <ClCompile Include="GRToolBar.cpp" />
+    <ClCompile Include="ImageAction.cpp" />
+    <ClCompile Include="ImagePackage.cpp" />
+    <ClCompile Include="Import.cpp" />
+    <ClCompile Include="JpegSaveOptions.cpp" />
+    <ClCompile Include="Layer.cpp" />
+    <ClCompile Include="LuaImage.cpp" />
+    <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="MaskedContextDescriptor.cpp" />
+    <ClCompile Include="NewDocumentDialog.cpp" />
+    <ClCompile Include="P:\Common\DateTime\DateTime.cpp" />
+    <ClCompile Include="p:\common\Grafik\Animation.cpp" />
+    <ClCompile Include="p:\common\Grafik\ContextDescriptor.cpp" />
+    <ClCompile Include="p:\common\Grafik\Font.cpp" />
+    <ClCompile Include="P:\Common\Grafik\GDIPage.cpp" />
+    <ClCompile Include="p:\common\Grafik\GFXHelper.cpp" />
+    <ClCompile Include="p:\common\Grafik\GfxPage.cpp" />
+    <ClCompile Include="p:\common\Grafik\Gradient.cpp" />
+    <ClCompile Include="p:\common\Grafik\Image.cpp" />
+    <ClCompile Include="P:\Common\Grafik\ImageData.cpp" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\FormatBMP.cpp" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\FormatBTN.cpp" />
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\FormatCur.cpp" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\FormatDDS.cpp" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\FormatGif.cpp" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\FormatIcon.cpp" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\FormatIGF.cpp" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\FormatJPG.cpp" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\FormatPCX.cpp" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\FormatPNG.cpp" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\FormatTGA.cpp" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\ImageFormatManager.cpp" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jcomapi.c" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jdapimin.c" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jdapistd.c" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jdatasrc.c" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jdcoefct.c" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jdcolor.c" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jddctmgr.c" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jdhuff.c" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jdinput.c" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jdmainct.c" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jdmarker.c" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jdmaster.c" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jdmerge.c" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jdphuff.c" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jdpostct.c" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jdsample.c" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jerror.c" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jidctflt.c" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jidctfst.c" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jidctint.c" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jidctred.c" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jmemansi.c" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jmemmgr.c" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jpeg.cpp" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jquant1.c" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jquant2.c" />
+    <ClCompile Include="p:\common\Grafik\ImageFormate\Jpeg\jutils.c" />
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\png.c" />
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\pngerror.c" />
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\pngget.c" />
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\pngmem.c" />
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\pngpread.c" />
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\pngread.c" />
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\pngrio.c" />
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\pngrtran.c" />
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\pngrutil.c" />
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\pngset.c" />
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\pngtrans.c" />
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\pngwio.c" />
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\pngwrite.c" />
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\pngwtran.c" />
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\PNG\pngwutil.c" />
+    <ClCompile Include="p:\common\Grafik\ImageGenerator\Plasma.cpp" />
+    <ClCompile Include="p:\common\Grafik\Palette.cpp" />
+    <ClCompile Include="P:\Common\Grafik\PolygonFill.cpp" />
+    <ClCompile Include="P:\Common\IO\FileChunk.cpp" />
+    <ClCompile Include="p:\common\IO\FileStream.cpp" />
+    <ClCompile Include="P:\Common\IO\FileUtil.cpp" />
+    <ClCompile Include="P:\Common\Lang\RefCountObject.cpp" />
+    <ClCompile Include="P:\Common\Lang\Service.cpp" />
+    <ClCompile Include="P:\Common\libs\zlib\adler32.c" />
+    <ClCompile Include="P:\Common\libs\zlib\compress.c" />
+    <ClCompile Include="P:\Common\libs\zlib\crc32.c" />
+    <ClCompile Include="P:\Common\libs\zlib\deflate.c" />
+    <ClCompile Include="P:\Common\libs\zlib\infback.c" />
+    <ClCompile Include="P:\Common\libs\zlib\inffast.c" />
+    <ClCompile Include="P:\Common\libs\zlib\inflate.c" />
+    <ClCompile Include="P:\Common\libs\zlib\inftrees.c" />
+    <ClCompile Include="P:\Common\libs\zlib\trees.c" />
+    <ClCompile Include="P:\Common\libs\zlib\uncompr.c" />
+    <ClCompile Include="P:\Common\libs\zlib\zutil.c" />
+    <ClCompile Include="p:\common\Lua\LuaInstance.cpp" />
+    <ClCompile Include="P:\Common\Lua\lua\lapi.c" />
+    <ClCompile Include="P:\Common\Lua\lua\lauxlib.c" />
+    <ClCompile Include="P:\Common\Lua\lua\lbaselib.c" />
+    <ClCompile Include="P:\Common\Lua\lua\lbitlib.c" />
+    <ClCompile Include="P:\Common\Lua\lua\lcode.c" />
+    <ClCompile Include="P:\Common\Lua\lua\lcorolib.c" />
+    <ClCompile Include="P:\Common\Lua\lua\lctype.c" />
+    <ClCompile Include="P:\Common\Lua\lua\ldblib.c" />
+    <ClCompile Include="P:\Common\Lua\lua\ldebug.c" />
+    <ClCompile Include="P:\Common\Lua\lua\ldo.c" />
+    <ClCompile Include="P:\Common\Lua\lua\ldump.c" />
+    <ClCompile Include="P:\Common\Lua\lua\lfunc.c" />
+    <ClCompile Include="P:\Common\Lua\lua\lgc.c" />
+    <ClCompile Include="P:\Common\Lua\lua\linit.c" />
+    <ClCompile Include="P:\Common\Lua\lua\liolib.c" />
+    <ClCompile Include="P:\Common\Lua\lua\llex.c" />
+    <ClCompile Include="P:\Common\Lua\lua\lmathlib.c" />
+    <ClCompile Include="P:\Common\Lua\lua\lmem.c" />
+    <ClCompile Include="P:\Common\Lua\lua\loadlib.c" />
+    <ClCompile Include="P:\Common\Lua\lua\lobject.c" />
+    <ClCompile Include="P:\Common\Lua\lua\lopcodes.c" />
+    <ClCompile Include="P:\Common\Lua\lua\loslib.c" />
+    <ClCompile Include="P:\Common\Lua\lua\lparser.c" />
+    <ClCompile Include="P:\Common\Lua\lua\lstate.c" />
+    <ClCompile Include="P:\Common\Lua\lua\lstring.c" />
+    <ClCompile Include="P:\Common\Lua\lua\lstrlib.c" />
+    <ClCompile Include="P:\Common\Lua\lua\ltable.c" />
+    <ClCompile Include="P:\Common\Lua\lua\ltablib.c" />
+    <ClCompile Include="P:\Common\Lua\lua\ltm.c" />
+    <ClCompile Include="P:\Common\Lua\lua\lundump.c" />
+    <ClCompile Include="P:\Common\Lua\lua\lvm.c" />
+    <ClCompile Include="P:\Common\Lua\lua\lzio.c" />
+    <ClCompile Include="P:\Common\Memory\ByteBuffer.cpp" />
+    <ClCompile Include="P:\Common\Memory\MemoryStream.cpp" />
+    <ClCompile Include="p:\common\MFC\AngleWnd.cpp" />
+    <ClCompile Include="p:\common\MFC\ColoredButton.cpp" />
+    <ClCompile Include="p:\common\MFC\ColorRangeEdit.cpp" />
+    <ClCompile Include="p:\common\MFC\FileDialogEx.cpp" />
+    <ClCompile Include="p:\common\MFC\GradientCtrl.cpp" />
+    <ClCompile Include="p:\common\MFC\GradientRangeEdit.cpp" />
+    <ClCompile Include="p:\common\MFC\IconButton.cpp" />
+    <ClCompile Include="p:\common\MFC\ImageWnd.cpp" />
+    <ClCompile Include="p:\common\MFC\ODListBox.cpp" />
+    <ClCompile Include="p:\common\MFC\ODMenu.cpp" />
+    <ClCompile Include="p:\common\MFC\RangeEdit.cpp" />
+    <ClCompile Include="p:\common\MFC\SplitterBar.cpp" />
+    <ClCompile Include="P:\Common\Misc\Format.cpp" />
+    <ClCompile Include="p:\common\Misc\Misc.cpp" />
+    <ClCompile Include="p:\common\Setup\Groups.cpp" />
+    <ClCompile Include="P:\Common\String\Convert.cpp" />
+    <ClCompile Include="p:\common\String\Path.cpp" />
+    <ClCompile Include="p:\common\String\XML.cpp" />
+    <ClCompile Include="p:\common\WinSys\RegistryHelper.cpp" />
+    <ClCompile Include="p:\common\WinSys\WinUtils.cpp" />
+    <ClCompile Include="painter.cpp" />
+    <ClCompile Include="PainterBrush.cpp" />
+    <ClCompile Include="painterDoc.cpp" />
+    <ClCompile Include="PainterFontDoc.cpp" />
+    <ClCompile Include="PainterFontView.cpp" />
+    <ClCompile Include="PainterGfxTools.cpp" />
+    <ClCompile Include="PainterLua.cpp" />
+    <ClCompile Include="painterView.cpp" />
+    <ClCompile Include="PaletteDialog.cpp" />
+    <ClCompile Include="PhotoShopFilterHandler.cpp" />
+    <ClCompile Include="PImage.cpp" />
+    <ClCompile Include="PolygonFillAA.cpp" />
+    <ClCompile Include="Progress.cpp" />
+    <ClCompile Include="PropDocInfo.cpp" />
+    <ClCompile Include="PropDocInfo2.cpp" />
+    <ClCompile Include="PropGrid.cpp" />
+    <ClCompile Include="PropPrompts.cpp" />
+    <ClCompile Include="Resampler.cpp" />
+    <ClCompile Include="ScriptActions.cpp" />
+    <ClCompile Include="ScriptTool.cpp" />
+    <ClCompile Include="Settings.cpp" />
+    <ClCompile Include="StdAfx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="TextDialog.cpp" />
+    <ClCompile Include="UndoDepthChange.cpp" />
+    <ClCompile Include="UndoFrameChange.cpp" />
+    <ClCompile Include="UndoImageChange.cpp" />
+    <ClCompile Include="UndoLayerChange.cpp" />
+    <ClCompile Include="UndoManager.cpp" />
+    <ClCompile Include="UndoSizeChange.cpp" />
+    <ClCompile Include="ViewInfo.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ActionBrightness.h" />
+    <ClInclude Include="ActionContrast.h" />
+    <ClInclude Include="ActionConvert.h" />
+    <ClInclude Include="ActionPlasma.h" />
+    <ClInclude Include="BrushTip.h" />
+    <ClInclude Include="ChildFrm.h" />
+    <ClInclude Include="ColorPicker.h" />
+    <ClInclude Include="ColorReducer.h" />
+    <ClInclude Include="DialogAnimationErstellen.h" />
+    <ClInclude Include="DialogBatchConversion.h" />
+    <ClInclude Include="DialogCreateMask.h" />
+    <ClInclude Include="DialogResize.h" />
+    <ClInclude Include="DialogVerlauf.h" />
+    <ClInclude Include="DlgCreateFontFromWindowsFont.h" />
+    <ClInclude Include="DlgCustomizeToolBars.h" />
+    <ClInclude Include="DlgDebug.h" />
+    <ClInclude Include="DlgEffekte.h" />
+    <ClInclude Include="DlgFileOpenPreview.h" />
+    <ClInclude Include="DlgFreeRotate.h" />
+    <ClInclude Include="DlgGIFOptions.h" />
+    <ClInclude Include="DlgLoadPalette.h" />
+    <ClInclude Include="DlgPSFilter.h" />
+    <ClInclude Include="DlgPToolAnimation.h" />
+    <ClInclude Include="DlgPToolBrowser.h" />
+    <ClInclude Include="DlgPToolBrush.h" />
+    <ClInclude Include="DlgPToolFarben.h" />
+    <ClInclude Include="DlgPToolFunctionOptions.h" />
+    <ClInclude Include="DlgPToolLayer.h" />
+    <ClInclude Include="DlgPToolTileTester.h" />
+    <ClInclude Include="DlgRename.h" />
+    <ClInclude Include="DlgRenameLayer.h" />
+    <ClInclude Include="DlgReplaceColor.h" />
+    <ClInclude Include="DlgResizeCanvas.h" />
+    <ClInclude Include="DlgSaveIGF.h" />
+    <ClInclude Include="DlgSelectEffekt.h" />
+    <ClInclude Include="DlgSelector.h" />
+    <ClInclude Include="DlgSelectPattern.h" />
+    <ClInclude Include="DlgTEAura.h" />
+    <ClInclude Include="DlgTOptionsFill.h" />
+    <ClInclude Include="DlgTOptionsFreehand2.h" />
+    <ClInclude Include="DlgTOptionsLine.h" />
+    <ClInclude Include="DlgTOptionsSelection.h" />
+    <ClInclude Include="DocumentInfo.h" />
+    <ClInclude Include="EffektAura.h" />
+    <ClInclude Include="EffektBevel.h" />
+    <ClInclude Include="EffektBrightness.h" />
+    <ClInclude Include="EffektColorDiffusor.h" />
+    <ClInclude Include="EffektColorize.h" />
+    <ClInclude Include="EffektContrast.h" />
+    <ClInclude Include="EffektDiffusor.h" />
+    <ClInclude Include="EffektGrayScale.h" />
+    <ClInclude Include="EffektJalousie.h" />
+    <ClInclude Include="EffektPerlinNoise.h" />
+    <ClInclude Include="EffektPixelize.h" />
+    <ClInclude Include="EffektPlasma.h" />
+    <ClInclude Include="EffektReduce.h" />
+    <ClInclude Include="EffektShadow.h" />
+    <ClInclude Include="EffektSmoothen.h" />
+    <ClInclude Include="EffektTemplate.h" />
+    <ClInclude Include="EffektTileable.h" />
+    <ClInclude Include="FormatManager.h" />
+    <ClInclude Include="FormatPNT.h" />
+    <ClInclude Include="Frame.h" />
+    <ClInclude Include="FunctionFill.h" />
+    <ClInclude Include="GFXUtil.h" />
+    <ClInclude Include="GRControlBar.h" />
+    <ClInclude Include="GRDialogBar.h" />
+    <ClInclude Include="GRDockingManager.h" />
+    <ClInclude Include="GRMenuBar.h" />
+    <ClInclude Include="GRMiniDockFrameWnd.h" />
+    <ClInclude Include="GRODMenuBar.h" />
+    <ClInclude Include="GRToolBar.h" />
+    <ClInclude Include="ImageAction.h" />
+    <ClInclude Include="ImagePackage.h" />
+    <ClInclude Include="Import.h" />
+    <ClInclude Include="IPainterFunction.h" />
+    <ClInclude Include="JpegSaveOptions.h" />
+    <ClInclude Include="Layer.h" />
+    <ClInclude Include="LuaImage.h" />
+    <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="MaskedContextDescriptor.h" />
+    <ClInclude Include="NewDocumentDialog.h" />
+    <ClInclude Include="P:\Common\DateTime\DateTime.h" />
+    <ClInclude Include="p:\common\Grafik\Animation.h" />
+    <ClInclude Include="p:\common\Grafik\Color.h" />
+    <ClInclude Include="p:\common\Grafik\ContextDescriptor.h" />
+    <ClInclude Include="p:\common\Grafik\Font.h" />
+    <ClInclude Include="P:\Common\Grafik\GDIPage.h" />
+    <ClInclude Include="p:\common\Grafik\GFXHelper.h" />
+    <ClInclude Include="p:\common\Grafik\GfxPage.h" />
+    <ClInclude Include="p:\common\Grafik\Gradient.h" />
+    <ClInclude Include="p:\common\Grafik\Image.h" />
+    <ClInclude Include="P:\Common\Grafik\ImageData.h" />
+    <ClInclude Include="p:\common\Grafik\ImageFormate\FormatBMP.h" />
+    <ClInclude Include="p:\common\Grafik\ImageFormate\FormatBTN.h" />
+    <ClInclude Include="P:\Common\Grafik\ImageFormate\FormatCur.h" />
+    <ClInclude Include="p:\common\Grafik\ImageFormate\FormatDDS.h" />
+    <ClInclude Include="p:\common\Grafik\ImageFormate\FormatGif.h" />
+    <ClInclude Include="p:\common\Grafik\ImageFormate\FormatIcon.h" />
+    <ClInclude Include="p:\common\Grafik\ImageFormate\FormatIGF.h" />
+    <ClInclude Include="p:\common\Grafik\ImageFormate\FormatJPG.h" />
+    <ClInclude Include="p:\common\Grafik\ImageFormate\FormatPCX.h" />
+    <ClInclude Include="p:\common\Grafik\ImageFormate\FormatPNG.h" />
+    <ClInclude Include="p:\common\Grafik\ImageFormate\FormatTGA.h" />
+    <ClInclude Include="p:\common\Grafik\ImageFormate\ImageFormatManager.h" />
+    <ClInclude Include="p:\common\Grafik\ImageFormate\Jpeg\jdhuff.h" />
+    <ClInclude Include="p:\common\Grafik\ImageFormate\Jpeg\jpeg.h" />
+    <ClInclude Include="P:\Common\Grafik\ImageFormate\PNG\png.h" />
+    <ClInclude Include="P:\Common\Grafik\ImageFormate\PNG\pngconf.h" />
+    <ClInclude Include="P:\Common\Grafik\ImageFormate\PNG\pngdebug.h" />
+    <ClInclude Include="P:\Common\Grafik\ImageFormate\PNG\pnginfo.h" />
+    <ClInclude Include="P:\Common\Grafik\ImageFormate\PNG\pnglibconf.h" />
+    <ClInclude Include="P:\Common\Grafik\ImageFormate\PNG\pngpriv.h" />
+    <ClInclude Include="P:\Common\Grafik\ImageFormate\PNG\pngstruct.h" />
+    <ClInclude Include="P:\Common\Grafik\ImageFormate\PNG\zconf.h" />
+    <ClInclude Include="P:\Common\Grafik\ImageFormate\PNG\zlib.h" />
+    <ClInclude Include="p:\common\Grafik\ImageGenerator\Plasma.h" />
+    <ClInclude Include="p:\common\Grafik\Palette.h" />
+    <ClInclude Include="P:\Common\Grafik\PolygonFill.h" />
+    <ClInclude Include="P:\Common\IO\FileChunk.h" />
+    <ClInclude Include="p:\common\IO\FileStream.h" />
+    <ClInclude Include="P:\Common\IO\FileUtil.h" />
+    <ClInclude Include="P:\Common\Lang\RefCountObject.h" />
+    <ClInclude Include="P:\Common\Lang\Service.h" />
+    <ClInclude Include="P:\Common\libs\zlib\crc32.h" />
+    <ClInclude Include="P:\Common\libs\zlib\deflate.h" />
+    <ClInclude Include="P:\Common\libs\zlib\gzguts.h" />
+    <ClInclude Include="P:\Common\libs\zlib\inffast.h" />
+    <ClInclude Include="P:\Common\libs\zlib\inffixed.h" />
+    <ClInclude Include="P:\Common\libs\zlib\inflate.h" />
+    <ClInclude Include="P:\Common\libs\zlib\inftrees.h" />
+    <ClInclude Include="P:\Common\libs\zlib\trees.h" />
+    <ClInclude Include="P:\Common\libs\zlib\zconf.h" />
+    <ClInclude Include="P:\Common\libs\zlib\zlib.h" />
+    <ClInclude Include="P:\Common\libs\zlib\zutil.h" />
+    <ClInclude Include="p:\common\Lua\LuaInstance.h" />
+    <ClInclude Include="P:\Common\Lua\lua\lapi.h" />
+    <ClInclude Include="P:\Common\Lua\lua\lauxlib.h" />
+    <ClInclude Include="P:\Common\Lua\lua\lcode.h" />
+    <ClInclude Include="P:\Common\Lua\lua\lctype.h" />
+    <ClInclude Include="P:\Common\Lua\lua\ldebug.h" />
+    <ClInclude Include="P:\Common\Lua\lua\ldo.h" />
+    <ClInclude Include="P:\Common\Lua\lua\lfunc.h" />
+    <ClInclude Include="P:\Common\Lua\lua\lgc.h" />
+    <ClInclude Include="P:\Common\Lua\lua\llex.h" />
+    <ClInclude Include="P:\Common\Lua\lua\llimits.h" />
+    <ClInclude Include="P:\Common\Lua\lua\lmem.h" />
+    <ClInclude Include="P:\Common\Lua\lua\lobject.h" />
+    <ClInclude Include="P:\Common\Lua\lua\lopcodes.h" />
+    <ClInclude Include="P:\Common\Lua\lua\lparser.h" />
+    <ClInclude Include="P:\Common\Lua\lua\lstate.h" />
+    <ClInclude Include="P:\Common\Lua\lua\lstring.h" />
+    <ClInclude Include="P:\Common\Lua\lua\ltable.h" />
+    <ClInclude Include="P:\Common\Lua\lua\ltm.h" />
+    <ClInclude Include="P:\Common\Lua\lua\lua.h" />
+    <ClInclude Include="P:\Common\Lua\lua\lua.hpp" />
+    <ClInclude Include="P:\Common\Lua\lua\luaconf.h" />
+    <ClInclude Include="P:\Common\Lua\lua\lualib.h" />
+    <ClInclude Include="P:\Common\Lua\lua\luna.h" />
+    <ClInclude Include="P:\Common\Lua\lua\lundump.h" />
+    <ClInclude Include="P:\Common\Lua\lua\lvm.h" />
+    <ClInclude Include="P:\Common\Lua\lua\lzio.h" />
+    <ClInclude Include="P:\Common\Memory\ByteBuffer.h" />
+    <ClInclude Include="P:\Common\Memory\MemoryStream.h" />
+    <ClInclude Include="p:\common\MFC\AngleWnd.h" />
+    <ClInclude Include="p:\common\MFC\ColoredButton.h" />
+    <ClInclude Include="p:\common\MFC\ColorRangeEdit.h" />
+    <ClInclude Include="p:\common\MFC\FileDialogEx.h" />
+    <ClInclude Include="p:\common\MFC\GradientCtrl.h" />
+    <ClInclude Include="p:\common\MFC\GradientRangeEdit.h" />
+    <ClInclude Include="p:\common\MFC\iconbutton.h" />
+    <ClInclude Include="p:\common\MFC\ImageWnd.h" />
+    <ClInclude Include="p:\common\MFC\ODListBox.h" />
+    <ClInclude Include="p:\common\MFC\ODMenu.h" />
+    <ClInclude Include="p:\common\MFC\RangeEdit.h" />
+    <ClInclude Include="p:\common\MFC\SplitterBar.h" />
+    <ClInclude Include="P:\Common\Misc\format.h" />
+    <ClInclude Include="p:\common\Misc\Misc.h" />
+    <ClInclude Include="p:\common\Setup\Groups.h" />
+    <ClInclude Include="P:\Common\String\Convert.h" />
+    <ClInclude Include="p:\common\String\Path.h" />
+    <ClInclude Include="p:\common\String\XML.h" />
+    <ClInclude Include="p:\common\WinSys\RegistryHelper.h" />
+    <ClInclude Include="p:\common\WinSys\WinUtils.h" />
+    <ClInclude Include="painter.h" />
+    <ClInclude Include="PainterBrush.h" />
+    <ClInclude Include="painterDoc.h" />
+    <ClInclude Include="PainterFontDoc.h" />
+    <ClInclude Include="PainterFontView.h" />
+    <ClInclude Include="PainterGfxTools.h" />
+    <ClInclude Include="PainterLua.h" />
+    <ClInclude Include="painterView.h" />
+    <ClInclude Include="PaletteDialog.h" />
+    <ClInclude Include="PhotoShopFilterHandler.h" />
+    <ClInclude Include="PImage.h" />
+    <ClInclude Include="PolygonFillAA.h" />
+    <ClInclude Include="Progress.h" />
+    <ClInclude Include="PropDocInfo.h" />
+    <ClInclude Include="PropDocInfo2.h" />
+    <ClInclude Include="PropGrid.h" />
+    <ClInclude Include="PropPrompts.h" />
+    <ClInclude Include="Resampler.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="ScriptActions.h" />
+    <ClInclude Include="ScriptTool.h" />
+    <ClInclude Include="Settings.h" />
+    <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="TextDialog.h" />
+    <ClInclude Include="UndoDepthChange.h" />
+    <ClInclude Include="UndoFrameChange.h" />
+    <ClInclude Include="UndoImageChange.h" />
+    <ClInclude Include="UndoLayerChange.h" />
+    <ClInclude Include="UndoManager.h" />
+    <ClInclude Include="UndoSizeChange.h" />
+    <ClInclude Include="ViewInfo.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="painter.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="mdi.ico" />
+    <Image Include="res\anim_delete.ico" />
+    <Image Include="res\anim_end.ico" />
+    <Image Include="res\anim_home.ico" />
+    <Image Include="res\anim_insert.ico" />
+    <Image Include="res\anim_insert_behind.ico" />
+    <Image Include="res\anim_next.ico" />
+    <Image Include="res\anim_play.ico" />
+    <Image Include="res\anim_prev.ico" />
+    <Image Include="res\anim_stop.ico" />
+    <Image Include="res\Bit.ico" />
+    <Image Include="res\bitmap1.bmp" />
+    <Image Include="res\bmp00001.bmp" />
+    <Image Include="res\bmp00002.bmp" />
+    <Image Include="res\Doc.ico" />
+    <Image Include="res\ico00001.ico" />
+    <Image Include="res\ico00002.ico" />
+    <Image Include="res\ico00003.ico" />
+    <Image Include="res\ico00004.ico" />
+    <Image Include="res\ico00005.ico" />
+    <Image Include="res\ico00006.ico" />
+    <Image Include="res\ico00007.ico" />
+    <Image Include="res\ico00008.ico" />
+    <Image Include="res\ico00009.ico" />
+    <Image Include="res\ico00010.ico" />
+    <Image Include="res\ico00011.ico" />
+    <Image Include="res\ico00012.ico" />
+    <Image Include="res\ico00013.ico" />
+    <Image Include="res\icon1.ico" />
+    <Image Include="res\icon_act.ico" />
+    <Image Include="res\icon_browser.ico" />
+    <Image Include="res\icon_des.ico" />
+    <Image Include="res\icon_fol.ico" />
+    <Image Include="res\icon_ina.ico" />
+    <Image Include="res\icon_lay.ico" />
+    <Image Include="res\icon_layer_editmask.ico" />
+    <Image Include="res\icon_layer_mask.ico" />
+    <Image Include="res\icon_layer_no_mask.ico" />
+    <Image Include="res\icon_layer_trash.ico" />
+    <Image Include="res\icon_layer_visible.ico" />
+    <Image Include="res\icon_layer_work.ico" />
+    <Image Include="res\icon_no_.ico" />
+    <Image Include="res\icon_too.ico" />
+    <Image Include="res\icon_vis.ico" />
+    <Image Include="res\main_doc_props.ico" />
+    <Image Include="res\main_new.ico" />
+    <Image Include="res\main_open.ico" />
+    <Image Include="res\main_props.ico" />
+    <Image Include="res\main_save.ico" />
+    <Image Include="res\main_zoomin.ico" />
+    <Image Include="res\main_zoomout.ico" />
+    <Image Include="res\mdi.ico" />
+    <Image Include="res\painter.ico" />
+    <Image Include="res\painterDoc.ico" />
+    <Image Include="res\Toolbar.bmp" />
+    <Image Include="res\toolbar1.bmp" />
+    <Image Include="res\tool_box.ico" />
+    <Image Include="res\tool_clear.ico" />
+    <Image Include="res\tool_ellipse.ico" />
+    <Image Include="res\tool_ellipse_filled.ico" />
+    <Image Include="res\tool_fill.ico" />
+    <Image Include="res\tool_freehand_line.ico" />
+    <Image Include="res\tool_freehand_pixel.ico" />
+    <Image Include="res\tool_line.ico" />
+    <Image Include="res\tool_none.ico" />
+    <Image Include="res\tool_rect.ico" />
+    <Image Include="res\tool_redo.ico" />
+    <Image Include="res\tool_select.ico" />
+    <Image Include="res\tool_snap.ico" />
+    <Image Include="res\tool_text.ico" />
+    <Image Include="res\tool_undo.ico" />
+    <Image Include="res\tool_zoom.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\resource\Icons\cur00001.cur" />
+    <None Include="..\resource\Icons\cur00002.cur" />
+    <None Include="..\resource\Icons\cur00003.cur" />
+    <None Include="..\resource\Icons\cur00004.cur" />
+    <None Include="..\resource\Icons\cur00005.cur" />
+    <None Include="..\resource\Icons\cur00006.cur" />
+    <None Include="..\resource\Icons\cur00007.cur" />
+    <None Include="..\resource\Icons\cursor1.cur" />
+    <None Include="..\resource\Icons\cursor_c.cur" />
+    <None Include="..\resource\Icons\cursor_f.cur" />
+    <None Include="..\resource\Icons\cursor_l.cur" />
+    <None Include="..\resource\Icons\cursor_r.cur" />
+    <None Include="..\resource\Icons\cursor_s.cur" />
+    <None Include="BrushTips\square1.igf" />
+    <None Include="freeimage.dll" />
+    <None Include="res\cur00001.cur" />
+    <None Include="res\cur00002.cur" />
+    <None Include="res\cur00003.cur" />
+    <None Include="res\cur00004.cur" />
+    <None Include="res\cur00005.cur" />
+    <None Include="res\cur00006.cur" />
+    <None Include="res\cur00007.cur" />
+    <None Include="res\cur00008.cur" />
+    <None Include="res\cursor1.cur" />
+    <None Include="res\cursor_c.cur" />
+    <None Include="res\cursor_f.cur" />
+    <None Include="res\cursor_l.cur" />
+    <None Include="res\cursor_r.cur" />
+    <None Include="res\cursor_s.cur" />
+    <None Include="res\draghand.cur" />
+    <None Include="res\painter.rc2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="FreeImage.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="todo.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="painter.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

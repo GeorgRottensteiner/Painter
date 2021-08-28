@@ -1,0 +1,11 @@
+TODO:
+* ein Font auf alle Farbtiefen!
+* Konvertierung absturzsicherer
+  (und mehrere Layer!)
+* Palettisieren auch mit mehreren Layern
+* Rectangle/Box-Fehler bei 24bit! (?)
+* Filter-Preview clippen
+* alle Formate einladen
+  (JPEGs!)
+* Photoshop-Plugin-Schnittstelle
+* Zoom reparieren
