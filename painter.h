@@ -85,7 +85,7 @@ public:
 
   void ShowStatusMessage( void );
   DocumentInfo* GetActiveDocumentInfo();
-  CViewInfo* GetActiveViewInfo();
+  ViewInfo* GetActiveViewInfo();
 
   DocumentInfo* GetDocumentInfoFromDocument( CDocument* pDoc );
 

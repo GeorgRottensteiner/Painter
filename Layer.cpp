@@ -610,9 +610,9 @@ void CLayer::DrawLayerWithMask32( GR::Graphic::Image* pImage, int iX, int iY, GR
                       iG[2],
                       iB[2];
 
-  BYTE                *pMask,
-                      *pPImage,
-                      *pPPage;
+  GR::u8*             pMask = NULL;
+  GR::u8*             pPImage = NULL;
+  GR::u8*             pPPage = NULL;
 
 
   GR::Graphic::ContextDescriptor  cdImage( m_PImage.m_pImage );
@@ -759,14 +759,12 @@ void CLayer::SetTransparencyIndex( bool Transparent, GR::u32 TransparentColor )
 
 void CLayer::SetLayerImage( GR::Graphic::Image* pImage )
 {
-
   if ( m_PImage.m_pImage )
   {
     delete m_PImage.m_pImage;
   }
 
   m_PImage.m_pImage = pImage;
-
 }
 
 

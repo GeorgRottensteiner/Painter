@@ -27,6 +27,8 @@ enum SaveType
   SAVETYPE_PNG,
   SAVETYPE_ICON,
   SAVETYPE_CURSOR,
+  SAVETYPE_IFF,
+  SAVETYPE_GRI,
 
   SAVETYPE_LASTENTRY,
 };
@@ -41,6 +43,7 @@ enum eNotifyMessage
   NF_BRUSH_MODE_CHANGED,      // der Brush-Typ hat sich geändert
   NF_DOC_ADDED,
   NF_DOC_REMOVED,
+  NF_FRAME_CHANGED
 };
 
 struct tPainterFunction

@@ -15,7 +15,7 @@ class CFunctionFill : public IPainterFunction
   public:
 
 
-    virtual void          ApplyAt( CViewInfo* pViewInfo, int X, int Y );
+    virtual void          ApplyAt( ViewInfo* pViewInfo, int X, int Y );
 
     bool                  CompareColors( GR::u32 Color1, GR::u32 Color2 );
 

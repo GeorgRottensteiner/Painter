@@ -28,7 +28,7 @@ static char THIS_FILE[]=__FILE__;
 #endif
 
 
-CViewInfo::CViewInfo() :
+ViewInfo::ViewInfo() :
     m_ZoomFaktor( 100 ),
     m_RedrawFlags( 0 ),
     m_pView( NULL ),
@@ -85,7 +85,7 @@ CViewInfo::CViewInfo() :
 
 
 
-CViewInfo::~CViewInfo()
+ViewInfo::~ViewInfo()
 {
   SafeDelete( m_pImageFloatingSelection );
   SafeDelete( m_pImageFloatingSelectionMask );
@@ -97,7 +97,7 @@ CViewInfo::~CViewInfo()
 
 
 
-void CViewInfo::InitializePage( eViewInfoType vNewType )
+void ViewInfo::InitializePage( eViewInfoType vNewType )
 {
   SafeDelete( m_pPage );
   SafeDelete( m_pPalette );
@@ -143,7 +143,7 @@ void CViewInfo::InitializePage( eViewInfoType vNewType )
 
 
 
-void CViewInfo::AdjustWindowSize( int iCenteredX, int iCenteredY )
+void ViewInfo::AdjustWindowSize( int iCenteredX, int iCenteredY )
 {
 
   RECT        rc;
@@ -264,7 +264,7 @@ void CViewInfo::AdjustWindowSize( int iCenteredX, int iCenteredY )
 
 
 
-void CViewInfo::AddUndoRect( int iX1, int iY1, int iX2, int iY2, int iFrame, int iLayer, BOOL bStartNewUndoGroup )
+void ViewInfo::AddUndoRect( int iX1, int iY1, int iX2, int iY2, int iFrame, int iLayer, BOOL bStartNewUndoGroup )
 {
   if ( m_Type == VI_ALPHA )
   {
@@ -278,14 +278,14 @@ void CViewInfo::AddUndoRect( int iX1, int iY1, int iX2, int iY2, int iFrame, int
 
 
 
-void CViewInfo::DrawFloatingSelection( CLayer* pLayer, GR::Graphic::ContextDescriptor& cdTarget, int iX, int iY, bool bInsert )
+void ViewInfo::DrawFloatingSelection( CLayer* pLayer, GR::Graphic::ContextDescriptor& cdTarget, int iX, int iY, bool bInsert )
 {
   if ( !m_FloatingSelection )
   {
     return;
   }
 
-  DWORD         dwTransparentColor = pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2 );
+  GR::u32 dwTransparentColor = pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2 );
 
 
   if ( m_pImageFloatingSelectionMask )
@@ -329,7 +329,7 @@ void CViewInfo::DrawFloatingSelection( CLayer* pLayer, GR::Graphic::ContextDescr
     cdFloating.CopyAreaAlphaTransparent( 0, 0, cdFloating.Width(), cdFloating.Height(),
                           m_pDocInfo->m_ActX, m_pDocInfo->m_ActY,
                           pLayer->m_Alpha,
-                          pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2 ),
+                          pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2 ),
                           &cdTarget );
   }
   else
@@ -351,7 +351,7 @@ void CViewInfo::DrawFloatingSelection( CLayer* pLayer, GR::Graphic::ContextDescr
  |                                                                            |
  +----------------------------------------------------------------------------*/
 
-void CViewInfo::DrawSelectionFrame( HDC hdc )
+void ViewInfo::DrawSelectionFrame( HDC hdc )
 {
 
   if ( !m_pDocInfo )
@@ -851,12 +851,12 @@ void CViewInfo::DrawSelectionFrame( HDC hdc )
   {
     int iValue = ( GetTickCount() & 0xc00 ) >> 10;
 
-    DWORD   dwDotColor[4] = { 0xffffff, 0, 0xffffff, 0xffffff };
+    GR::u32   dwDotColor[4] = { 0xffffff, 0, 0xffffff, 0xffffff };
 
     while ( iValue )
     {
-      DWORD dwTemp = dwDotColor[0];
-      memcpy( dwDotColor, &dwDotColor[1], 3 * sizeof( DWORD ) );
+      GR::u32 dwTemp = dwDotColor[0];
+      memcpy( dwDotColor, &dwDotColor[1], 3 * sizeof( GR::u32 ) );
       dwDotColor[3] = dwTemp;
       iValue--;
     }
@@ -918,7 +918,7 @@ void CViewInfo::DrawSelectionFrame( HDC hdc )
 
 
 
-CMaskedContextDescriptor* CViewInfo::GetCD()
+CMaskedContextDescriptor* ViewInfo::GetCD()
 {
 
   CMaskedContextDescriptor  *pCD;
@@ -967,12 +967,12 @@ CMaskedContextDescriptor* CViewInfo::GetCD()
 
 
 
-void CViewInfo::DoFunction( CMaskedContextDescriptor *pCD, DWORD dwFunction, int iX, int iY, int iX2, int iY2 )
+void ViewInfo::DoFunction( CMaskedContextDescriptor *pCD, GR::u32 dwFunction, int iX, int iY, int iX2, int iY2 )
 {
 
   bool    bMask = false;
 
-  if ( m_Type == CViewInfo::VI_ALPHA )
+  if ( m_Type == ViewInfo::VI_ALPHA )
   {
     bMask = true;
   }
@@ -1123,7 +1123,7 @@ void CViewInfo::DoFunction( CMaskedContextDescriptor *pCD, DWORD dwFunction, int
 
 
 
-void CViewInfo::DoLeftButton( POINT point, int iFlags, BOOL bFirstDown )
+void ViewInfo::DoLeftButton( POINT point, int iFlags, BOOL bFirstDown )
 {
   if ( m_pDocInfo->m_MButton1Released )
   {
@@ -1450,7 +1450,7 @@ void CViewInfo::DoLeftButton( POINT point, int iFlags, BOOL bFirstDown )
 
 
 
-void CViewInfo::DoLeftButtonUp( POINT point, int nFlags )
+void ViewInfo::DoLeftButtonUp( POINT point, int nFlags )
 {
   m_pDocInfo->m_ActX = point.x;
   m_pDocInfo->m_ActY = point.y;
@@ -1472,18 +1472,18 @@ void CViewInfo::DoLeftButtonUp( POINT point, int nFlags )
 
   GR::tRect      rcRedrawRect( 0, 0, m_pDocInfo->Width(), m_pDocInfo->Height() );
 
-  DWORD   dwColor = pSettings->GetRGBColor( CSettings::CO_WORKCOLOR );
+  GR::u32   dwColor = pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR );
 
   if ( m_Type == VI_ALPHA )
   {
-    dwColor = pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_8BIT );
+    dwColor = pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_8BIT );
     bMask = true;
   }
   else if ( m_Type == VI_RGB )
   {
     if ( m_pDocInfo->m_BitDepth <= 8 )
     {
-      dwColor = pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_8BIT );
+      dwColor = pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_8BIT );
     }
   }
 
@@ -1698,7 +1698,7 @@ void CViewInfo::DoLeftButtonUp( POINT point, int nFlags )
 
 
 
-GR::Graphic::Palette* CViewInfo::GetActivePalette() 
+GR::Graphic::Palette* ViewInfo::GetActivePalette() 
 {
   if ( m_Type == VI_ALPHA )
   {
@@ -1713,14 +1713,10 @@ GR::Graphic::Palette* CViewInfo::GetActivePalette()
 
 
 
-/*-GetRGBColor----------------------------------------------------------------+
- |                                                                            |
- +----------------------------------------------------------------------------*/
-
-DWORD CViewInfo::GetRGBColor( DWORD dwOrigIndex )
+GR::u32 ViewInfo::GetRGBColor( GR::u32 dwOrigIndex )
 {
 
-  DWORD   dwResult = dwOrigIndex;
+  GR::u32   dwResult = dwOrigIndex;
 
 
   switch ( m_Type )
@@ -1763,7 +1759,7 @@ DWORD CViewInfo::GetRGBColor( DWORD dwOrigIndex )
  |                                                                            |
  +----------------------------------------------------------------------------*/
 
-GR::Graphic::Image *CViewInfo::GetActiveImage()
+GR::Graphic::Image *ViewInfo::GetActiveImage()
 {
 
   switch ( m_Type )
@@ -1785,25 +1781,19 @@ GR::Graphic::Image *CViewInfo::GetActiveImage()
 
 
 
-/*-GetBitDepth----------------------------------------------------------------+
- |                                                                            |
- +----------------------------------------------------------------------------*/
-
-DWORD CViewInfo::GetViewBitDepth()
+GR::u32 ViewInfo::GetViewBitDepth()
 {
-
   // BAUSTELLE - aber kann man erstmal so lassen
   if ( m_pPage == NULL )
   {
     return 0;
   }
   return m_pPage->GetDepth();
-
 }
 
 
 
-void CViewInfo::CopyToClipboard()
+void ViewInfo::CopyToClipboard()
 {
   GR::Graphic::Image*   pWorkImage = GetWorkImage();
   if ( pWorkImage == NULL )
@@ -1871,9 +1861,9 @@ void CViewInfo::CopyToClipboard()
 
       BYTE*   pData = (BYTE*)GlobalLock( hGlobal );
 
-      *(DWORD*)pData = cdTemp.Width();
-      *(DWORD*)(pData + 4 ) = cdTemp.Height();
-      *(DWORD*)(pData + 8 ) = cdTemp.BitsProPixel();
+      *(GR::u32*)pData = cdTemp.Width();
+      *(GR::u32*)(pData + 4 ) = cdTemp.Height();
+      *(GR::u32*)(pData + 8 ) = cdTemp.BitsProPixel();
 
       int   iMaskOffset = 12 + cdTemp.DataSize();
 
@@ -1924,7 +1914,7 @@ void CViewInfo::CopyToClipboard()
 
 
 
-GR::Graphic::Image *CViewInfo::GetWorkImage()
+GR::Graphic::Image *ViewInfo::GetWorkImage()
 {
 
   GR::Graphic::Image       *pImage,
@@ -2007,7 +1997,7 @@ GR::Graphic::Image *CViewInfo::GetWorkImage()
  |                                                                            |
  +----------------------------------------------------------------------------*/
 
-GR::Graphic::ContextDescriptor* CViewInfo::GetWorkCD()
+GR::Graphic::ContextDescriptor* ViewInfo::GetWorkCD()
 {
 
   GR::Graphic::Image*       pActiveImage;
@@ -2058,7 +2048,7 @@ GR::Graphic::ContextDescriptor* CViewInfo::GetWorkCD()
 
 
 
-void CViewInfo::GetWorkColorFromPixel( int iX, int iY )
+void ViewInfo::GetWorkColorFromPixel( int iX, int iY )
 {
 
   CMaskedContextDescriptor  *pCD = NULL;
@@ -2072,10 +2062,10 @@ void CViewInfo::GetWorkColorFromPixel( int iX, int iY )
   }
   pCD = new CMaskedContextDescriptor( pImage, m_pPalette );
 
-  pSettings->SetColor( CSettings::CO_WORKCOLOR,     pCD->GetPixel( iX, iY ) );
+  pSettings->SetColor( CSettings::ColorCategory::WORKCOLOR,     pCD->GetPixel( iX, iY ) );
   if ( pImage->GetDepth() <= 8 )
   {
-    pSettings->SetColor( CSettings::CO_WORKCOLOR_8BIT,  pCD->GetDirectPixel( iX, iY ) );
+    pSettings->SetColor( CSettings::ColorCategory::WORKCOLOR_8BIT,  pCD->GetDirectPixel( iX, iY ) );
   }
   pSettings->SetSetting( "GetColorDepth", pImage->GetDepth() );
 
@@ -2086,7 +2076,7 @@ void CViewInfo::GetWorkColorFromPixel( int iX, int iY )
 
 
 
-void CViewInfo::RedrawView()
+void ViewInfo::RedrawView()
 {
   if ( !m_pDocInfo )
   {
@@ -2116,7 +2106,7 @@ void CViewInfo::RedrawView()
 
 
 
-void CViewInfo::DisplayPage()
+void ViewInfo::DisplayPage()
 {
   if ( m_pPage == NULL )
   {
@@ -2130,7 +2120,7 @@ void CViewInfo::DisplayPage()
 
   RECT      rc;
 
-  DWORD     dwWidth,
+  GR::u32   dwWidth,
             dwHeight;
 
 
@@ -2151,12 +2141,12 @@ void CViewInfo::DisplayPage()
       dwWidth = 0;
     }
     if ( ( pTopLayerImage )
-    &&   ( dwWidth > (DWORD)pTopLayerImage->GetWidth() ) )
+    &&   ( dwWidth > (GR::u32)pTopLayerImage->GetWidth() ) )
     {
       dwWidth = pTopLayerImage->GetWidth();
     }
   }
-  if ( dwWidth > (DWORD)m_pPage->GetWidth() )
+  if ( dwWidth > (GR::u32)m_pPage->GetWidth() )
   {
     dwWidth = m_pPage->GetWidth();
   }
@@ -2164,7 +2154,7 @@ void CViewInfo::DisplayPage()
   if ( m_pDocInfo->m_DocType == DT_FONT )
   {
     if ( ( pTopLayerImage )
-    &&   ( dwHeight > (DWORD)pTopLayerImage->GetHeight() ) )
+    &&   ( dwHeight > (GR::u32)pTopLayerImage->GetHeight() ) )
     {
       dwHeight = pTopLayerImage->GetHeight();
     }
@@ -2239,7 +2229,7 @@ void CViewInfo::DisplayPage()
 
 
 
-void CViewInfo::Invert()
+void ViewInfo::Invert()
 {
   if ( m_Type != VI_ALPHA )
   {
@@ -2250,11 +2240,11 @@ void CViewInfo::Invert()
 
   CLayer*   pLayer = m_pDocInfo->ActiveLayer();
 
-  for ( DWORD j = 0; j < m_pDocInfo->Height(); j++ )
+  for ( GR::u32 j = 0; j < m_pDocInfo->Height(); j++ )
   {
     BYTE*   pData = ( (BYTE*)pLayer->GetMask()->GetData() ) + j * m_pDocInfo->Width();
 
-    for ( DWORD i = 0; i < m_pDocInfo->Width(); i++ )
+    for ( GR::u32 i = 0; i < m_pDocInfo->Width(); i++ )
     {
       *pData = 255 - *pData;
       pData++;
@@ -2266,13 +2256,13 @@ void CViewInfo::Invert()
 
 
 
-DWORD CViewInfo::ToLocalColor( DWORD dwColor )
+GR::u32 ViewInfo::ToLocalColor( CSettings::ColorCategory Color )
 {
   if ( GetViewBitDepth() <= 8 )
   {
-    return pSettings->GetRGBColor( dwColor + 2 );
+    return pSettings->GetRGBColor( (CSettings::ColorCategory)( (int)Color + 2 ) );
   }
-  return pSettings->GetRGBColor( dwColor );
+  return pSettings->GetRGBColor( Color );
 }
 
 

@@ -109,10 +109,10 @@ CSettings::CSettings()
     }
   }
 
-  m_dwColor[0] = 0xffffffff;
-  m_dwColor[1] = 0xff000000;
-  m_dwColor[2] = 0;
-  m_dwColor[3] = 255;
+  m_Color[0] = 0xffffffff;
+  m_Color[1] = 0xff000000;
+  m_Color[2] = 0;
+  m_Color[3] = 255;
 
 }
 
@@ -147,8 +147,8 @@ CSettings::~CSettings()
   SetSetting( "BrushBackgroundType", brushBackground.Type );
   SetSettingFloat( "BrushBackgroundAngle", brushBackground.Angle );
 
-  SetSetting( "ForeColor", GetRGBColor( CSettings::CO_WORKCOLOR ) );
-  SetSetting( "BackColor", GetRGBColor( CSettings::CO_WORKCOLOR_2 ) );
+  SetSetting( "ForeColor", GetRGBColor( ColorCategory::WORKCOLOR ) );
+  SetSetting( "BackColor", GetRGBColor( ColorCategory::WORKCOLOR_2 ) );
 
   // Patterns rauswerfen
   SetSetting( "PatternCount", m_listPatterns.size() );
@@ -296,35 +296,27 @@ GR::String CSettings::GetSettingString( const GR::String& strName, const GR::Str
 
 
 
-void CSettings::SetColor( GR::u32 dwIndex, GR::u32 dwColor )
+void CSettings::SetColor( ColorCategory Index, GR::u32 Color )
 {
-  if ( dwIndex >= 4 )
-  {
-    return;
-  }
-  m_dwColor[dwIndex] = dwColor;
+  m_Color[(int)Index] = Color;
 }
 
 
 
-GR::u32 CSettings::GetRGBColor( GR::u32 dwIndex )
+GR::u32 CSettings::GetRGBColor( ColorCategory Index )
 {
-  if ( dwIndex >= 4 )
-  {
-    return 0;
-  }
-  return m_dwColor[dwIndex];
+  return m_Color[(int)Index];
 }
 
 
 
-GR::u32 CSettings::GetColorRef( GR::u32 dwIndex )
+GR::u32 CSettings::GetColorRef( ColorCategory Index )
 {
-  GR::u32     dwColor = GetRGBColor( dwIndex );
+  GR::u32     Color = GetRGBColor( Index );
 
-  return   ( ( dwColor & 0xff0000 ) >> 16 )
-         +   ( dwColor & 0x00ff00 )
-         + ( ( dwColor & 0x0000ff ) << 16 );
+  return   ( ( Color & 0xff0000 ) >> 16 )
+         +   ( Color & 0x00ff00 )
+         + ( ( Color & 0x0000ff ) << 16 );
 }
 
 
@@ -404,7 +396,7 @@ void CSettings::Log( const GR::Char* Text )
 void CSettings::UpdateActiveViewInfo()
 {
   // Heul, ist das häßlich, bloß weil ActivateView nicht ganz das tut, was es tun sollte
-  m_pActiveViewInfo = (CViewInfo*)SendMessage( m_hwndMainFrame, WM_USER, 0, 0 );
+  m_pActiveViewInfo = (ViewInfo*)SendMessage( m_hwndMainFrame, WM_USER, 0, 0 );
 
   if ( m_pActiveViewInfo )
   {

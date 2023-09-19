@@ -809,6 +809,15 @@
     <ClCompile Include="DlgGIFOptions.cpp">
       <Filter>Dialoge</Filter>
     </ClCompile>
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\FormatIFF.cpp">
+      <Filter>Common\Grafik</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\FormatGRI.cpp">
+      <Filter>Common\Grafik</Filter>
+    </ClCompile>
+    <ClCompile Include="P:\Common\Codec\Base64.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GFXUtil.h">
@@ -1455,6 +1464,15 @@
     </ClInclude>
     <ClInclude Include="DlgGIFOptions.h">
       <Filter>Dialoge</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Grafik\ImageFormate\FormatIFF.h">
+      <Filter>Common\Grafik</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Grafik\ImageFormate\FormatGRI.h">
+      <Filter>Common\Grafik</Filter>
+    </ClInclude>
+    <ClInclude Include="P:\Common\Codec\Base64.h">
+      <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

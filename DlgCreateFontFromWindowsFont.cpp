@@ -113,8 +113,8 @@ void CDlgCreateFontFromWindowsFont::OnOK()
 
   HFONT hOldFont = (HFONT)SelectObject( hdc, hFont );
 
-  SetTextColor( hdc, pSettings->GetColorRef( CSettings::CO_WORKCOLOR ) );
-  SetBkColor( hdc, pSettings->GetColorRef( CSettings::CO_WORKCOLOR_2 ) );
+  SetTextColor( hdc, pSettings->GetColorRef( CSettings::ColorCategory::WORKCOLOR ) );
+  SetBkColor( hdc, pSettings->GetColorRef( CSettings::ColorCategory::WORKCOLOR_2 ) );
 
 
   CPainterFontDoc       *pDoc;

@@ -41,7 +41,7 @@ public:
 // Attribute
 public:
 
-  CViewInfo             m_viewInfo;
+  ViewInfo             m_viewInfo;
 
   CPainterFontDoc*      GetDocument();
 

@@ -5,6 +5,7 @@
 #include <Grafik/ImageFormate/FormatIGF.h>
 #include <Grafik/ImageFormate/FormatJPG.h>
 #include <Grafik/ImageFormate/FormatGIF.h>
+#include <Grafik/ImageFormate/FormatGRI.h>
 #include <Grafik/ImageFormate/FormatBMP.h>
 #include <Grafik/ImageFormate/FormatPCX.h>
 #include <Grafik/ImageFormate/FormatTGA.h>
@@ -12,6 +13,7 @@
 #include <Grafik/ImageFormate/FormatPNG.h>
 #include <Grafik/ImageFormate/FormatIcon.h>
 #include <Grafik/ImageFormate/FormatCur.h>
+#include <Grafik/ImageFormate/FormatIFF.h>
 
 #include <String/Convert.h>
 
@@ -29,27 +31,16 @@
 
 CFormatManager::CFormatManager()
 {
-  /*
-  SAVETYPE_UNKNOWN = 0,
-  SAVETYPE_BTH,
-  SAVETYPE_FNH,
-  SAVETYPE_FNX,
-  SAVETYPE_ANX,
-  SAVETYPE_ANH,
-  SAVETYPE_FNXL,
-  SAVETYPE_PNT,
-  SAVETYPE_PNG,
-  SAVETYPE_ICON,
-  */
-
-  m_mapSupportedFormats[SAVETYPE_IGF]   = tFileFormatSupport( "IGF", "igf", &globalIGFPlugin, &globalIGFPlugin );
-  m_mapSupportedFormats[SAVETYPE_JPEG]  = tFileFormatSupport( "JPeg", "jpg", &globalJPGPlugin, -1, NULL, FIF_JPEG );
-  m_mapSupportedFormats[SAVETYPE_GIF]   = tFileFormatSupport( "GIF", "gif", &globalGIFPlugin, &globalGIFPlugin );
-  m_mapSupportedFormats[SAVETYPE_BMP]   = tFileFormatSupport( "BMP Windows Bitmap", "bmp", &globalBMPPlugin, &globalBMPPlugin );
-  m_mapSupportedFormats[SAVETYPE_PCX]   = tFileFormatSupport( "PCX", "pcx", &globalPCXPlugin, &globalPCXPlugin );
-  m_mapSupportedFormats[SAVETYPE_TGA]   = tFileFormatSupport( "TGA", "tga", &globalTGAPlugin, &globalTGAPlugin );
-  m_mapSupportedFormats[SAVETYPE_BTN]   = tFileFormatSupport( "BTN", "btn", &globalBTNPlugin, &globalBTNPlugin );
-  m_mapSupportedFormats[SAVETYPE_CURSOR] = tFileFormatSupport( "CUR", "cur", &globalCursorPlugin, &globalCursorPlugin );
+  m_mapSupportedFormats[SAVETYPE_IGF]     = tFileFormatSupport( "IGF", "igf", &globalIGFPlugin, &globalIGFPlugin );
+  m_mapSupportedFormats[SAVETYPE_GRI]     = tFileFormatSupport( "GRI", "gri", &globalGRIPlugin, &globalGRIPlugin );
+  m_mapSupportedFormats[SAVETYPE_JPEG]    = tFileFormatSupport( "JPeg", "jpg", &globalJPGPlugin, -1, NULL, FIF_JPEG );
+  m_mapSupportedFormats[SAVETYPE_GIF]     = tFileFormatSupport( "GIF", "gif", &globalGIFPlugin, &globalGIFPlugin );
+  m_mapSupportedFormats[SAVETYPE_BMP]     = tFileFormatSupport( "BMP Windows Bitmap", "bmp", &globalBMPPlugin, &globalBMPPlugin );
+  m_mapSupportedFormats[SAVETYPE_PCX]     = tFileFormatSupport( "PCX", "pcx", &globalPCXPlugin, &globalPCXPlugin );
+  m_mapSupportedFormats[SAVETYPE_TGA]     = tFileFormatSupport( "TGA", "tga", &globalTGAPlugin, &globalTGAPlugin );
+  m_mapSupportedFormats[SAVETYPE_BTN]     = tFileFormatSupport( "BTN", "btn", &globalBTNPlugin, &globalBTNPlugin );
+  m_mapSupportedFormats[SAVETYPE_CURSOR]  = tFileFormatSupport( "CUR", "cur", &globalCursorPlugin, &globalCursorPlugin );
+  m_mapSupportedFormats[SAVETYPE_IFF]     = tFileFormatSupport( "IFF", "iff", &globalIFFPlugin, &globalIFFPlugin );
   //m_mapSupportedFormats[SAVETYPE_PNG]   = tFileFormatSupport( "PNG", "png", &globalPNGPlugin, &globalPNGPlugin );
 }
 
@@ -139,7 +130,7 @@ bool CFormatManager::Save( const SaveType saveType, const GR::Char* FileName, Im
         {
           GR::Graphic::ContextDescriptor    cdDummy( &imgToSave, &pImage->Palette() );
 
-          imgToSave.SetTransparentColor( cdDummy.MapColor( pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2 ) ) );
+          imgToSave.SetTransparentColor( cdDummy.MapColor( pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2 ) ) );
           imgToSave.Compress();
         }
         if ( dlgIGF.m_SaveMitPalette )
@@ -203,14 +194,12 @@ bool CFormatManager::Save( const SaveType saveType, const GR::Char* FileName, Im
 
 bool CFormatManager::SupportsFormat( const SaveType saveType )
 {
-
   tMapSupportedFormats::iterator    it( m_mapSupportedFormats.find( saveType ) );
   if ( it == m_mapSupportedFormats.end() )
   {
     return false;
   }
   return true;
-
 }
 
 
@@ -319,7 +308,7 @@ bool CFormatManager::ExtraProcessing( const GR::Char* FileName, const SaveType s
           
           GR::Graphic::ContextDescriptor    cdDummy( &imageToSave, &pData->Palette() );
 
-          imageToSave.SetTransparentColor( cdDummy.MapColor( pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2 ) ) );
+          imageToSave.SetTransparentColor( cdDummy.MapColor( pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2 ) ) );
           imageToSave.Compress();
         }
         if ( dlgIGF.m_SaveMitPalette )

@@ -31,7 +31,7 @@ class GR::Graphic::Image;
 
 class DocumentInfo;
 
-class CViewInfo;
+class ViewInfo;
 
 class CDlgDebug;
 
@@ -73,7 +73,7 @@ class CSettings : public INotifyMember<GR::u32>
 
   protected:
 
-    GR::u32                                   m_dwColor[4];
+    GR::u32                                   m_Color[4];
 
     std::map<GR::String, GR::String>  m_mapSettings;
 
@@ -82,12 +82,12 @@ class CSettings : public INotifyMember<GR::u32>
 
   public:
 
-    enum eColor
+    enum class ColorCategory
     {
-      CO_WORKCOLOR = 0,
-      CO_WORKCOLOR_2,
-      CO_WORKCOLOR_8BIT,
-      CO_WORKCOLOR_2_8BIT,
+      WORKCOLOR = 0,
+      WORKCOLOR_2,
+      WORKCOLOR_8BIT,
+      WORKCOLOR_2_8BIT,
     };
 
     enum eBrushType
@@ -159,7 +159,7 @@ class CSettings : public INotifyMember<GR::u32>
 
     DocumentInfo                       *m_pActiveDocInfo;
 
-    CViewInfo                           *m_pActiveViewInfo;
+    ViewInfo                           *m_pActiveViewInfo;
 
     tBrushTip*                          m_pCurrentBrushTip;
 
@@ -168,9 +168,9 @@ class CSettings : public INotifyMember<GR::u32>
 	  virtual ~CSettings();
 
 
-    void SetColor( GR::u32 dwIndex, GR::u32 dwColor );
-    GR::u32 GetRGBColor( GR::u32 dwIndex );
-    GR::u32 GetColorRef( GR::u32 dwIndex );
+    void                                SetColor( ColorCategory Index, GR::u32 Color );
+    GR::u32                             GetRGBColor( ColorCategory Index );
+    GR::u32                             GetColorRef( ColorCategory Index );
 
     void SetSetting( const GR::String& strName, int iValue );
     void SetSettingFloat( const GR::String& strName, float fValue );

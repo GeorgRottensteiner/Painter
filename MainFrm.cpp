@@ -94,6 +94,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CMDIFrameWnd)
 	ON_COMMAND(ID_SPECIAL_SELECTION_FROM_DIALOG, OnSpecialSelectionFromDialog)
 	//}}AFX_MSG_MAP
   ON_WM_DESTROY()
+  ON_WM_CLOSE()
   ON_COMMAND(ID_MENU_TOOLBARS, OnMenuToolbars)
   ON_COMMAND(ID_BEARBEITEN_ISOMETRISIEREN, OnBearbeitenIsometrisieren)
 //  ON_WM_INITMENUPOPUP()
@@ -163,6 +164,19 @@ void CMainFrame::DockControlBarLeftOf( CControlBar* Bar, CControlBar* LeftOf )
   // each Toolbar on a seperate line. By calculating a rectangle, we
   // are simulating a Toolbar being dragged to that location and docked.
   DockControlBar( Bar, n, &rect );
+}
+
+
+
+void CMainFrame::OnClose()
+{
+  // always force a safety save
+  OnQueryEndSession();
+  OnEndSession( TRUE );
+
+  pSettings->RemoveAllNotifyMembers();
+
+  CMDIFrameWnd::OnClose();
 }
 
 
@@ -399,8 +413,8 @@ int CMainFrame::OnCreate( LPCREATESTRUCT lpCreateStruct )
 
   pSettings->m_hwndMainFrame = GetSafeHwnd();
 
-  pSettings->SetColor( CSettings::CO_WORKCOLOR,   pSettings->GetSetting( "ForeColor", 0xffffffff ) );
-  pSettings->SetColor( CSettings::CO_WORKCOLOR_2, pSettings->GetSetting( "BackColor", 0 ) );
+  pSettings->SetColor( CSettings::ColorCategory::WORKCOLOR,   pSettings->GetSetting( "ForeColor", 0xffffffff ) );
+  pSettings->SetColor( CSettings::ColorCategory::WORKCOLOR_2, pSettings->GetSetting( "BackColor", 0 ) );
 
   {
     AddNotifyMember( &m_dlgFarben );
@@ -624,7 +638,7 @@ void CMainFrame::OnBearbeitenDokumenteinstellungen()
   CPropDocInfo *pPropDocInfo = new CPropDocInfo();
   pPropDocInfo->m_pDocInfo = pDocInfo;
 
-  CViewInfo *pVI = pSettings->m_pActiveViewInfo;
+  ViewInfo *pVI = pSettings->m_pActiveViewInfo;
   if ( pVI == NULL )
   {
     return;
@@ -711,7 +725,7 @@ void CMainFrame::OnUpdateMenuToggleSnap(CCmdUI* pCmdUI)
 void CMainFrame::OnSpecialSelectionVonMaske() 
 {
 
-	CViewInfo *pViewInfo = theApp.GetActiveViewInfo();
+	ViewInfo *pViewInfo = theApp.GetActiveViewInfo();
 
   if ( !pViewInfo )
   {
@@ -742,7 +756,7 @@ void CMainFrame::OnSpecialSelectionVonMaske()
 void CMainFrame::OnSpecialSelectionInvert() 
 {
 
-	CViewInfo *pViewInfo = theApp.GetActiveViewInfo();
+	ViewInfo *pViewInfo = theApp.GetActiveViewInfo();
 
   if ( !pViewInfo )
   {
@@ -800,16 +814,10 @@ void CMainFrame::OnNotify( const GR::u32& NotifyMessage, INotifyMember<GR::u32>*
 
 
 
-/*-OnUser---------------------------------------------------------------------+
- |                                                                            |
- +----------------------------------------------------------------------------*/
-
 LRESULT CMainFrame::OnUser( WPARAM wParam, LPARAM lParam )
 {
-
-  CScrollView         *pView;
-
-  CDocument           *pDoc;
+  CScrollView*    pView;
+  CDocument*      pDoc;
 
 
   if ( MDIGetActive() == NULL )
@@ -822,25 +830,19 @@ LRESULT CMainFrame::OnUser( WPARAM wParam, LPARAM lParam )
   {
     if ( pDoc->GetDocTemplate() == theApp.pDocTemplate )
     {
-      // ein PainterDoc
       return (LRESULT)&( (CPainterView*)pView )->m_viewInfo;
     }
     else if ( pDoc->GetDocTemplate() == theApp.pFontTemplate )
     {
-      // ein PainterFontDoc
       return (LRESULT)&( (CPainterFontView*)pView )->m_viewInfo;
     }
   }
 
   return 0;
-
 }
 
 
 
-/*-OnSpecialRemoveSelection---------------------------------------------------+
- |                                                                            |
- +----------------------------------------------------------------------------*/
 
 void CMainFrame::OnSpecialRemoveSelection() 
 {
@@ -997,15 +999,15 @@ void CMainFrame::OnSpecialReplace()
 
   CDlgReplaceColor    dlgColor;
 
-  dlgColor.m_Color1   = pSettings->GetRGBColor( CSettings::CO_WORKCOLOR );
-  dlgColor.m_Color2   = pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2 );
+  dlgColor.m_Color1   = pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR );
+  dlgColor.m_Color2   = pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2 );
 
   if ( dlgColor.DoModal() == IDOK )
   {
     if ( pDocInfo->m_BitDepth <= 8 )
     {
-      dlgColor.m_Color1   = pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_8BIT );
-      dlgColor.m_Color2   = pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2_8BIT );
+      dlgColor.m_Color1   = pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_8BIT );
+      dlgColor.m_Color2   = pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2_8BIT );
     }
     pDocInfo->ReplaceColor( dlgColor.m_Color1, dlgColor.m_Color2 );
   }
@@ -1013,9 +1015,8 @@ void CMainFrame::OnSpecialReplace()
 
 
 
-
 #include "ActionConvert.h"
-#include ".\mainfrm.h"
+
 
 void CMainFrame::OnMenuScriptTest() 
 {
@@ -1059,35 +1060,24 @@ void CMainFrame::OnMenuScriptTest()
 
 
 
-/*-OnMenuPhotoshopFilter------------------------------------------------------+
- |                                                                            |
- +----------------------------------------------------------------------------*/
-
 void CMainFrame::OnMenuPhotoshopFilter() 
 {
-
 	CDlgPSFilter    dlgFilter;
 
   dlgFilter.DoModal();
-	
 }
 
 
 
-/*-OnSpecialSelectionFromDialog-----------------------------------------------+
- |                                                                            |
- +----------------------------------------------------------------------------*/
-
 void CMainFrame::OnSpecialSelectionFromDialog() 
 {
-
   CDlgSelector    dlgSelector;
 
   if ( dlgSelector.DoModal() == IDOK )
   {
   }
-	
 }
+
 
 
 void CMainFrame::SaveBarSetup( const char* szProfileName )
@@ -1179,13 +1169,12 @@ void CMainFrame::OnDestroy()
 {
 
   __super::OnDestroy();
-
-  // TODO: Fügen Sie hier Ihren Meldungsbehandlungscode ein.
 }
+
+
 
 BOOL CMainFrame::DestroyWindow()
 {
-
   // Bar-States speichern
   SaveBarSetup( "GRPainterBarStates" );
 
@@ -1197,7 +1186,6 @@ BOOL CMainFrame::DestroyWindow()
     ++itCB;
   }
 
-
   return __super::DestroyWindow();
 }
 
@@ -1205,7 +1193,6 @@ BOOL CMainFrame::DestroyWindow()
 
 void CMainFrame::OnMenuToolbars()
 {
-
   CDlgCustomizeToolBars   dlgCTB;
 
   dlgCTB.DoModal();
@@ -1263,7 +1250,6 @@ void CMainFrame::OnBearbeitenIsometrisieren()
 
 void CMainFrame::OnNcLButtonDown(UINT nHitTest, CPoint point)
 {
-
   if ( nHitTest == HTSYSMENU )
   {
     ODMenu   odSysMenu( ODMenu::ODMS_XP );
@@ -1294,7 +1280,6 @@ void CMainFrame::OnNcLButtonDown(UINT nHitTest, CPoint point)
 
     return;
   }
-
   __super::OnNcLButtonDown(nHitTest, point);
 }
 
@@ -1302,7 +1287,6 @@ void CMainFrame::OnNcLButtonDown(UINT nHitTest, CPoint point)
 
 void CMainFrame::OnContextMenu(CWnd* pWnd, CPoint point )
 {
-
   if ( SendMessage( WM_NCHITTEST, 0, MAKELPARAM( point.x, point.y ) ) == HTCAPTION )
   {
     ODMenu   odSysMenu( ODMenu::ODMS_XP );
@@ -1324,8 +1308,6 @@ void CMainFrame::OnContextMenu(CWnd* pWnd, CPoint point )
 
     return;
   }
-
-  // TODO: Fügen Sie hier Ihren Meldungsbehandlungscode ein.
 }
 
 
@@ -1373,18 +1355,15 @@ LRESULT CMainFrame::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 
 void CMainFrame::OnActivateApp(BOOL bActive, DWORD dwThreadID)
 {
-
   if ( bActive )
   {
-    CViewInfo*    pViewInfo = theApp.GetActiveViewInfo();
+    ViewInfo*    pViewInfo = theApp.GetActiveViewInfo();
     if ( pViewInfo )
     {
-      pViewInfo->m_pDocInfo->m_pDoc->UpdateAllViews( NULL, CViewInfo::REDRAW_ALL );
+      pViewInfo->m_pDocInfo->m_pDoc->UpdateAllViews( NULL, ViewInfo::REDRAW_ALL );
     }
   }
-
   __super::OnActivateApp(bActive, dwThreadID);
-
 }
 
 
@@ -1399,11 +1378,11 @@ void CMainFrame::OnSpecialExchangecolor()
 
   if ( pDocInfo->m_BitDepth <= 8 )
   {
-    pDocInfo->SwapColor( pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_8BIT ), pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2_8BIT ) );
+    pDocInfo->SwapColor( pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_8BIT ), pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2_8BIT ) );
   }
   else
   {
-    pDocInfo->SwapColor( pSettings->GetRGBColor( CSettings::CO_WORKCOLOR ), pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2 ) );
+    pDocInfo->SwapColor( pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR ), pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2 ) );
   }
 }
 

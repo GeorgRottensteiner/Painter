@@ -5,7 +5,7 @@
 
 
 class CPattern;
-class CViewInfo;
+class ViewInfo;
 class CMaskedContextDescriptor;
 
 class PainterBrush
@@ -25,8 +25,8 @@ class PainterBrush
 
     void                SetPattern( CPattern* pP );
 
-    void                PutBrush( CViewInfo* pViewInfo, CMaskedContextDescriptor *pCD, int iX, int iY, int iAlphaValue, GR::tRect* pRCBounds = NULL );
-    void                ApplyBrushTipOnMask( CViewInfo *pViewInfo, 
+    void                PutBrush( ViewInfo* pViewInfo, CMaskedContextDescriptor *pCD, int iX, int iY, int iAlphaValue, GR::tRect* pRCBounds = NULL );
+    void                ApplyBrushTipOnMask( ViewInfo *pViewInfo, 
                                              CMaskedContextDescriptor *pCD, 
                                              GR::Graphic::Image *pImageMask, 
                                              GR::tRect* pRect = NULL );

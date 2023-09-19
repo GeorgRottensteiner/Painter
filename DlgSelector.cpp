@@ -129,8 +129,8 @@ void CDlgSelector::OnOK()
 
   GR::Graphic::ContextDescriptor    cdSelection( pSettings->m_pActiveDocInfo->m_pImageSelection );
 
-  GR::u32   col1 = pSettings->GetRGBColor( CSettings::CO_WORKCOLOR );
-  GR::u32   col2 = pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2 );
+  GR::u32   col1 = pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR );
+  GR::u32   col2 = pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2 );
 
   for ( int i = 0; i < pCD->Width(); ++i )
   {

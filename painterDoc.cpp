@@ -32,6 +32,7 @@
 #include <Grafik\ImageFormate\FormatBMP.h>
 #include <Grafik\ImageFormate\FormatIGF.h>
 #include <Grafik\ImageFormate\FormatGIF.h>
+#include <Grafik\ImageFormate\FormatGRI.h>
 #include <Grafik\ImageFormate\FormatJPG.h>
 #include <Grafik\ImageFormate\FormatIcon.h>
 #include <Grafik\ImageFormate\FormatCur.h>
@@ -113,7 +114,7 @@ CPainterDoc::~CPainterDoc()
 
 BOOL CPainterDoc::OnCreateDocumentFromClipboard()
 {
-  SetTitle( _T( "Neues Dokument" ) );
+  SetTitle( _T( "New Document" ) );
 
   POSITION              pos = GetFirstViewPosition();
   CView*                pFirstView = GetNextView( pos );
@@ -147,20 +148,6 @@ BOOL CPainterDoc::OnCreateDocumentFromClipboard()
 
 
 
-#ifdef _DEBUG
-void CPainterDoc::AssertValid() const
-{
-	CDocument::AssertValid();
-}
-
-void CPainterDoc::Dump(CDumpContext& dc) const
-{
-	CDocument::Dump(dc);
-}
-#endif //_DEBUG
-
-
-
 BOOL SaveBTH( GR::Graphic::Image *pImage, const GR::Char* File )
 {
   if ( pImage == NULL )
@@ -188,6 +175,17 @@ BOOL SaveBTH( GR::Graphic::Image *pImage, const GR::Char* File )
   ioOut.Close();
 
   return TRUE;
+}
+
+
+
+BOOL CPainterDoc::SaveModified()
+{
+  if ( theApp.pMainFrame->m_SessionEnding )
+  {
+    return TRUE;
+  }
+  return CDocument::SaveModified();
 }
 
 
@@ -246,6 +244,10 @@ BOOL CPainterDoc::OnSaveDocument( LPCTSTR lpszPathName )
     else if ( diInfo.m_SaveType == SAVETYPE_GIF )
     {
       fileName += ".gif";
+    }
+    else if ( diInfo.m_SaveType == SAVETYPE_IFF )
+    {
+      fileName += ".iff";
     }
     else if ( diInfo.m_SaveType == SAVETYPE_JPEG )
     {
@@ -815,6 +817,10 @@ BOOL CPainterDoc::OnOpenDocument( LPCTSTR lpszPathName )
     {
       diInfo.m_SaveType = SAVETYPE_IGF;
     }
+    else if ( pFormat == &globalGRIPlugin )
+    {
+      diInfo.m_SaveType = SAVETYPE_GRI;
+    }
     else if ( pFormat == &globalPCXPlugin )
     {
       diInfo.m_SaveType = SAVETYPE_PCX;
@@ -1011,7 +1017,7 @@ BOOL CPainterDoc::OnOpenDocument( LPCTSTR lpszPathName )
                        diInfo.AddFrame() );
     }
 
-    SetTitle( _T( "Neues Dokument" ) );
+    SetTitle( _T( "New Document" ) );
   }
   else if ( extension == "FNH" )
   {
@@ -1034,7 +1040,7 @@ BOOL CPainterDoc::OnOpenDocument( LPCTSTR lpszPathName )
                        diInfo.AddFrame() );
     }
 
-    SetTitle( _T( "Neues Dokument" ) );
+    SetTitle( _T( "New Document" ) );
   }
   else if ( extension == "BTH" )
   {
@@ -1083,7 +1089,7 @@ BOOL CPainterDoc::OnOpenDocument( LPCTSTR lpszPathName )
     if ( pPackage->m_pImage == NULL )
     {
       delete pPackage;
-      MessageBoxA( NULL, "Ungültiges oder nicht unterstütztes Dateiformat!\n(weniger als 256 Farben?)", "Fehler", MB_OK | MB_APPLMODAL );
+      MessageBoxA( NULL, "Invalid or not supported file format!\n(less than 256 colors?)", "Error", MB_OK | MB_APPLMODAL );
       return FALSE;
     }
 
@@ -1142,7 +1148,7 @@ BOOL CPainterDoc::OnOpenDocument( LPCTSTR lpszPathName )
   else
   {
     // Die Datei hat wohl ein unbekanntes Format...
-    AfxMessageBox( _T( "Unbekanntes Dateiformat" ) );
+    AfxMessageBox( _T( "Unknown file format" ) );
     return FALSE;
   }
 
@@ -1288,7 +1294,7 @@ void CPainterDoc::OnBearbeitenMirrorV()
 
 void CPainterDoc::OnBearbeitenRotieren()
 {
-  CViewInfo *pViewInfo = theApp.GetActiveViewInfo();
+  ViewInfo *pViewInfo = theApp.GetActiveViewInfo();
   if ( pViewInfo->m_pImageFloatingSelection != NULL )
   {
     return;

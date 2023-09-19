@@ -29,6 +29,8 @@
 
 #include <debug/debugclient.h>
 
+#include <WinSys/WinUtils.h>
+
 #include <set>
 
 
@@ -75,10 +77,10 @@ DocumentInfo::~DocumentInfo()
   tVectLayeredFrames::iterator    itFrames( m_LayeredFrames.begin() );
   while ( itFrames != m_LayeredFrames.end() )
   {
-    tVectLayers&    vectm_vectLayers = itFrames->Layers;
+    tVectLayers&    layers = itFrames->Layers;
 
-    tVectLayers::iterator   itLayer( vectm_vectLayers.begin() );
-    while ( itLayer != vectm_vectLayers.end() )
+    tVectLayers::iterator   itLayer( layers.begin() );
+    while ( itLayer != layers.end() )
     {
       CLayer*   pLayer = *itLayer;
 
@@ -110,7 +112,7 @@ void DocumentInfo::RedrawAllViews()
       dh::Log( "DocumentInfo::RedrawAllViews unsupported Document type\n" );
       break;
   }
-  m_pDoc->UpdateAllViews( NULL, CViewInfo::REDRAW_RECT, (CObject*)&rcRedraw );
+  m_pDoc->UpdateAllViews( NULL, ViewInfo::REDRAW_RECT, (CObject*)&rcRedraw );
 }
 
 
@@ -119,7 +121,7 @@ void DocumentInfo::RedrawAllViews( const GR::tRect& rc, bool bRedrawNow )
 {
   if ( bRedrawNow )
   {
-    m_pDoc->UpdateAllViews( NULL, CViewInfo::REDRAW_RECT, (CObject*)&rc );
+    m_pDoc->UpdateAllViews( NULL, ViewInfo::REDRAW_RECT, (CObject*)&rc );
   }
 }
 
@@ -365,12 +367,13 @@ void DocumentInfo::SetModify( BOOL bModified )
 
 
 
-bool DocumentInfo::PasteFromClipBoard( int iMode, CViewInfo* pAlternativeViewInfo )
+bool DocumentInfo::PasteFromClipBoard( int iMode, ViewInfo* pAlternativeViewInfo )
 {
   // zuerst auf Formate prüfen
 
   HANDLE          hPrivateData  = NULL;
   HANDLE          hBitmap       = NULL;
+  HANDLE          hText         = NULL;
   HENHMETAFILE    hEnhMF        = NULL;
 
   hPrivateData = GetClipboardData( pSettings->m_dwClipboardFormat );
@@ -380,18 +383,24 @@ bool DocumentInfo::PasteFromClipBoard( int iMode, CViewInfo* pAlternativeViewInf
     if ( hBitmap == NULL )
     {
       hEnhMF = (HENHMETAFILE)GetClipboardData( CF_ENHMETAFILE );
+      if ( hEnhMF == NULL )
+      {
+        // Get handle of clipboard object for ANSI text
+        hText = GetClipboardData( CF_UNICODETEXT );
+      }
     }
   }
 
   if ( ( hBitmap == NULL )
   &&   ( hPrivateData == NULL )
-  &&   ( hEnhMF == NULL ) )
+  &&   ( hEnhMF == NULL )
+  &&   ( hText == NULL ) )
   {
     MessageBoxA( AfxGetMainWnd()->GetSafeHwnd(), "Clipboard doesn't contain any paste-able image or is empty!", "Error", MB_OK | MB_APPLMODAL | MB_ICONSTOP );
     return false;
   }
 
-  CViewInfo*    pViewInfo = pAlternativeViewInfo;
+  ViewInfo*    pViewInfo = pAlternativeViewInfo;
   if ( pViewInfo == NULL )
   {
     pViewInfo = theApp.GetActiveViewInfo();
@@ -491,6 +500,29 @@ bool DocumentInfo::PasteFromClipBoard( int iMode, CViewInfo* pAlternativeViewInf
     page.ReleaseDC();
 
     pPack->m_pImage->GetImage( &page, 0, 0 );
+  } 
+  else if ( hText != NULL )
+  {
+    GR::String    clipText;
+
+    HANDLE hClipboardData = GetClipboardData( CF_UNICODETEXT );
+    if ( hClipboardData )
+    {
+      WCHAR* pchData = (WCHAR*)GlobalLock( hClipboardData );
+      if ( pchData )
+      {
+        GR::WString   wString = pchData;
+        GlobalUnlock( hClipboardData );
+
+        clipText = GR::Convert::ToUTF8( wString );
+
+        if ( clipText.StartsWith( "<img " ) )
+        {
+          // it's an HTML image (Teams you stupid POS)
+          pPack = CreateImagePackFromHTMLTag( clipText );
+        }
+      }
+    }
   }
   else
   {
@@ -1557,7 +1589,6 @@ void DocumentInfo::Undo()
 
 void DocumentInfo::SetSize( DWORD dwWidth, DWORD dwHeight )
 {
-
   m_DocWidth  = dwWidth;
   m_DocHeight = dwHeight;
 
@@ -1568,14 +1599,12 @@ void DocumentInfo::SetSize( DWORD dwWidth, DWORD dwHeight )
   m_pImageEffectMask  = new GR::Graphic::Image( m_DocWidth, m_DocHeight, 8 );
 
   UpdateMarchingAnts();
-
 }
 
 
 
 void DocumentInfo::EmptySelection()
 {
-
   CMaskedContextDescriptor *pCD = new CMaskedContextDescriptor( m_pImageSelection, &pSettings->m_AlphaPalette );
 
   pCD->Box( 0, 0, m_DocWidth, m_DocHeight, 0 );
@@ -1584,14 +1613,12 @@ void DocumentInfo::EmptySelection()
 
   m_HasSelection = false;
   UpdateMarchingAnts();
-
 }
 
 
 
 void DocumentInfo::AddRectSelection( int iX, int iY, int iWidth, int iHeight )
 {
-
   m_HasSelection = true;
 
   for ( int j = iY; j < iY + iHeight; j++ )
@@ -1599,27 +1626,23 @@ void DocumentInfo::AddRectSelection( int iX, int iY, int iWidth, int iHeight )
     memset( ( (BYTE*)m_pImageSelection->GetData() ) + iX + j * m_pImageSelection->GetWidth(), 255, iWidth );
   }
   UpdateMarchingAnts();
-
 }
 
 
 
 void DocumentInfo::RemoveRectSelection( int iX, int iY, int iWidth, int iHeight )
 {
-
   for ( int j = iY; j < iY + iHeight; j++ )
   {
     memset( ( (BYTE*)m_pImageSelection->GetData() ) + iX + j * m_pImageSelection->GetWidth(), 0, iWidth );
   }
   UpdateMarchingAnts();
-
 }
 
 
 
 void DocumentInfo::UpdateMarchingAnts()
 {
-
   // alle Marching Ants töten
   m_MarchingAnts.clear();
   m_MarchingAntCount = 0;
@@ -2409,9 +2432,8 @@ void DocumentInfo::RemoveFrame( size_t dwFrameNr )
 
 
 
-DWORD DocumentInfo::CountUsedColors()
+GR::u32 DocumentInfo::CountUsedColors()
 {
-
   std::set<DWORD>     setColors;
 
   for ( size_t iFrame = 0; iFrame < m_LayeredFrames.size(); ++iFrame )
@@ -2432,49 +2454,40 @@ DWORD DocumentInfo::CountUsedColors()
     }
   }
 
-  return setColors.size();
-
+  return (GR::u32)setColors.size();
 }
 
 
 
 CMaskedContextDescriptor DocumentInfo::GetCD()
 {
-
   return CMaskedContextDescriptor( GetImage( CurrentFrame(), CurrentLayer() ), GetPalette( CurrentFrame() ) );
-
 }
 
 
 
-DWORD DocumentInfo::ToLocalColor( DWORD dwColor )
+GR::u32 DocumentInfo::ToLocalColor( CSettings::ColorCategory Color )
 {
-
   if ( GetTrueBitDepth() <= 8 )
   {
-    return pSettings->GetRGBColor( dwColor + 2 );
+    return pSettings->GetRGBColor( (CSettings::ColorCategory)( (int)Color + 2 ) );
   }
 
-  return pSettings->GetRGBColor( dwColor );
-
+  return pSettings->GetRGBColor( Color );
 }
 
 
 
 bool DocumentInfo::HasSelection() const
 {
-
   return m_HasSelection;
-
 }
 
 
 
 void DocumentInfo::HasSelection( bool bSetSelection )
 {
-
   m_HasSelection = bSetSelection;
-
 }
 
 

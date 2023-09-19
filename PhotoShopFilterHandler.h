@@ -6,7 +6,7 @@
 #endif // _MSC_VER > 1000
 
 
-class CViewInfo;
+class ViewInfo;
 class GR::Graphic::Image;
 struct FilterRecord;
 struct Rect
@@ -38,7 +38,7 @@ class CPhotoShopFilterHandler
 	  virtual ~CPhotoShopFilterHandler();
 
 
-    void                  OpenPhotoShopFilter( CViewInfo& viewInfo, const GR::String& strFilterFileName );
+    void                  OpenPhotoShopFilter( ViewInfo& viewInfo, const GR::String& strFilterFileName );
     void                  PSStoreResult( FilterRecord& filter, GR::Graphic::Image *pImage );
     void                  PSPrepareFilterRect( FilterRecord& filter, GR::Graphic::Image *pImage, GR::Graphic::Image *pOut );
     void                  PSReportError( FilterRecord& filter, short result );

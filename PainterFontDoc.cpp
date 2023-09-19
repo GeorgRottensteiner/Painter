@@ -109,7 +109,7 @@ BOOL SaveFNXL( CPainterFontDoc *pDoc, const GR::Char* File )
   ioOut.WriteU16( 256 ); // max. Breite
   ioOut.WriteU16( 256 ); // max. Höhe
   ioOut.WriteU16( 256 ); // max. Größe
-  ucDummy = (BYTE)pDoc->diInfo.ToLocalColor( CSettings::CO_WORKCOLOR );
+  ucDummy = (BYTE)pDoc->diInfo.ToLocalColor( CSettings::ColorCategory::WORKCOLOR );
   ioOut.WriteU8( ucDummy ); // Default-Farbe des Fonts
   for ( i = 0; i < 256; i++ )
   {
@@ -156,7 +156,7 @@ BOOL SaveFNX( CPainterFontDoc *pDoc, const GR::Char* File )
   ioOut.WriteU16( 256 ); // max. Höhe
   ioOut.WriteU16( 256 ); // max. Größe
 
-  ucDummy = (BYTE)pDoc->diInfo.ToLocalColor( CSettings::CO_WORKCOLOR );
+  ucDummy = (BYTE)pDoc->diInfo.ToLocalColor( CSettings::ColorCategory::WORKCOLOR );
   ioOut.WriteU8( ucDummy );
   for ( i = 0; i < 256; i++ )
   {
@@ -202,7 +202,7 @@ BOOL SaveFNH( CPainterFontDoc *pDoc, const GR::Char* File )
   ioOut.WriteU16( 256 ); // max. Breite
   ioOut.WriteU16( 256 ); // max. Höhe
   ioOut.WriteU16( 256 ); // max. Größe
-  ucDummy = (BYTE)pDoc->diInfo.ToLocalColor( CSettings::CO_WORKCOLOR );
+  ucDummy = (BYTE)pDoc->diInfo.ToLocalColor( CSettings::ColorCategory::WORKCOLOR );
   ioOut.WriteU8( ucDummy );
   for ( i = 0; i < 256; i++ )
   {
@@ -256,7 +256,7 @@ BOOL CPainterFontDoc::OnOpenDocument( LPCTSTR lpszPathName )
                        diInfo.AddFrame() );
     }
 
-    SetTitle( _T( "Neues Dokument" ) );
+    SetTitle( _T( "New Document" ) );
 
     diInfo.CurrentFrame( 65 );
   }
@@ -286,7 +286,7 @@ BOOL CPainterFontDoc::OnOpenDocument( LPCTSTR lpszPathName )
       }
     }
 
-    SetTitle( _T( "Neues Dokument" ) );
+    SetTitle( _T( "New Document" ) );
 
     diInfo.CurrentFrame( 65 );
   }
@@ -330,7 +330,7 @@ BOOL CPainterFontDoc::OnOpenDocument( LPCTSTR lpszPathName )
       }
     }
 
-    SetTitle( _T( "Neues Dokument" ) );
+    SetTitle( _T( "New Document" ) );
 
     diInfo.CurrentFrame( 65 );
   }

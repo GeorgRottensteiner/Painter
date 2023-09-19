@@ -31,10 +31,7 @@ bool SavePNT( DocumentInfo& DocInfo, IIOStream& IOOut )
 
   CLayer*         pLayer;
 
-  unsigned char   ucDummy,
-    ucFaktor;
-
-  DWORD           dwDummy;
+  unsigned char   ucDummy;
 
   char            szHead[10];
 
@@ -48,29 +45,16 @@ bool SavePNT( DocumentInfo& DocInfo, IIOStream& IOOut )
 
   IOOut.WriteBlock( (BYTE*)szHead, 4 );
 
-  //pFile->WriteU16( 17 );     // Magic-Version-Number
-  IOOut.WriteU16( 18 );     // Magic-Version-Number
+  IOOut.WriteU16( 19 );     // Magic-Version-Number - with palette
 
   IOOut.WriteU32( DocInfo.Width() );
   IOOut.WriteU32( DocInfo.Height() );
   IOOut.WriteU8( DocInfo.m_BitDepth );
 
-  ucFaktor = 0;
-  switch ( DocInfo.m_BitDepth )
+  GR::u8 bitsPerPixel = DocInfo.m_BitDepth;
+  if ( bitsPerPixel == 15 )
   {
-    case 8:
-      ucFaktor = 1;
-      break;
-    case 15:
-    case 16:
-      ucFaktor = 2;
-      break;
-    case 24:
-      ucFaktor = 3;
-      break;
-    case 32:
-      ucFaktor = 4;
-      break;
+    bitsPerPixel = 16;
   }
 
   // Frames durchzählen
@@ -89,13 +73,13 @@ bool SavePNT( DocumentInfo& DocInfo, IIOStream& IOOut )
       pLayer = DocInfo.GetLayer( iFrame, i );
 
       // Layer-Flags zusammensetzen
-      dwDummy = 0;
+      GR::u32 layerFlags = 0;
       if ( pLayer->GetMask() != NULL )
       {
         // dieser Layer hat eine Maske
-        dwDummy |= 1;
+        layerFlags |= 1;
       }
-      IOOut.WriteU32( dwDummy );
+      IOOut.WriteU32( layerFlags );
       IOOut.WriteU32( pLayer->m_Alpha );
       IOOut.WriteU32( pLayer->m_Type );
       IOOut.WriteU32( pLayer->m_Transparenz );
@@ -104,13 +88,16 @@ bool SavePNT( DocumentInfo& DocInfo, IIOStream& IOOut )
       IOOut.WriteU32( 0 );
       IOOut.WriteU32( 0 );
       IOOut.WriteU32( 0 );
-      IOOut.WriteBlock( (BYTE*)pLayer->GetImage()->GetData(), pLayer->GetImage()->GetWidth() * pLayer->GetImage()->GetHeight() * ucFaktor );
+      IOOut.WriteBlock( (BYTE*)pLayer->GetImage()->GetData(), ( pLayer->GetImage()->GetWidth() * pLayer->GetImage()->GetHeight() * bitsPerPixel ) / 8 );
       if ( pLayer->GetMask() != NULL )
       {
         IOOut.WriteBlock( (BYTE*)pLayer->GetMask()->GetData(), pLayer->GetImage()->GetWidth() * pLayer->GetImage()->GetHeight() );
       }
       IOOut.WriteString( pLayer->m_Name );
     }
+
+    IOOut.WriteU32( (GR::u32)DocInfo.m_LayeredFrames[iFrame].Palette.Entries() );
+    IOOut.WriteBlock( DocInfo.m_LayeredFrames[iFrame].Palette.Data(), DocInfo.m_LayeredFrames[iFrame].Palette.Entries() * 3 );
   }
 
   IOOut.Close();
@@ -144,8 +131,6 @@ bool LoadPNT( DocumentInfo& DocInfo, IIOStream& IOIn )
                         ucI,
                         ucFaktor;
 
-  WORD                  wDummy;
-
   char                  szHead[10];
 
 
@@ -155,14 +140,15 @@ bool LoadPNT( DocumentInfo& DocInfo, IIOStream& IOIn )
   }
 
   IOIn.ReadBlock( (BYTE*)szHead, 4 );
-  wDummy = IOIn.ReadU16();
+  GR::u16 version = IOIn.ReadU16();
 
   if ( ( szHead[0] != 'P' )
-    || ( szHead[1] != 'N' )
-    || ( szHead[2] != 'T' )
-    || ( szHead[3] != 'F' )
-    || ( ( wDummy != 17 )
-      && ( wDummy != 18 ) ) )
+  ||   ( szHead[1] != 'N' )
+  ||   ( szHead[2] != 'T' )
+  ||   ( szHead[3] != 'F' )
+  ||   ( ( version != 17 )
+  &&     ( version != 18 )
+  &&     ( version != 19 ) ) )
   {
     // kein PNTF!
     MessageBoxA( NULL, "Keine gültige PNT-Datei.", "Fehler", MB_OK | MB_APPLMODAL );
@@ -177,35 +163,16 @@ bool LoadPNT( DocumentInfo& DocInfo, IIOStream& IOIn )
   DocInfo.SetSize( dwWidth, dwHeight );
   DocInfo.m_BitDepth = IOIn.ReadU8();
 
-  /*
-  if ( DocInfo.m_BitDepth == 16 )
+  ucFaktor = DocInfo.m_BitDepth;
+  if ( ucFaktor == 15 )
   {
-  DocInfo.m_BitDepth = 15;
-  }
-  */
-
-  ucFaktor = 0;
-  switch ( DocInfo.m_BitDepth )
-  {
-    case 8:
-      ucFaktor = 1;
-      break;
-    case 15:
-    case 16:
-      ucFaktor = 2;
-      break;
-    case 24:
-      ucFaktor = 3;
-      break;
-    case 32:
-      ucFaktor = 4;
-      break;
+    ucFaktor = 16;
   }
 
   POSITION pos = DocInfo.m_pDoc->GetFirstViewPosition();
   CView* pView = DocInfo.m_pDoc->GetNextView( pos );
 
-  if ( wDummy == 17 )
+  if ( version == 17 )
   {
     DocInfo.AddFrame();
 
@@ -234,7 +201,7 @@ bool LoadPNT( DocumentInfo& DocInfo, IIOStream& IOIn )
       {
         // der erste Layer
         pImage = new GR::Graphic::Image( (WORD)DocInfo.Width(), (WORD)DocInfo.Height(), DocInfo.m_BitDepth, 0, 0 );
-        IOIn.ReadBlock( (BYTE*)pImage->GetData(), pImage->GetWidth() * pImage->GetHeight() * ucFaktor );
+        IOIn.ReadBlock( (BYTE*)pImage->GetData(), ( pImage->GetWidth() * pImage->GetHeight() * ucFaktor ) / 8 );
         DocInfo.AddLayer( pImage );
       }
       else
@@ -242,7 +209,7 @@ bool LoadPNT( DocumentInfo& DocInfo, IIOStream& IOIn )
         // ein weiterer Layer
         GR::Graphic::Image*    pImage = new GR::Graphic::Image( DocInfo.GetImage( 0, 0 ) );
         CLayer*   pLayer = DocInfo.AddLayer( pImage );
-        IOIn.ReadBlock( (BYTE*)pLayer->GetImage()->GetData(), pLayer->GetImage()->GetWidth() * pLayer->GetImage()->GetHeight() * ucFaktor );
+        IOIn.ReadBlock( (BYTE*)pLayer->GetImage()->GetData(), ( pLayer->GetImage()->GetWidth() * pLayer->GetImage()->GetHeight() * ucFaktor ) / 8 );
       }
       pLayer = DocInfo.GetLayer( 0, DocInfo.m_LayeredFrames[0].LayerCount() - 1 );
 
@@ -264,7 +231,8 @@ bool LoadPNT( DocumentInfo& DocInfo, IIOStream& IOIn )
       }
     }
   }
-  else if ( wDummy == 18 )
+  else if ( ( version == 18 )
+  ||        ( version == 19 ) )
   {
     // neu, Frames UND m_vectLayers
     size_t    iFrames = IOIn.ReadU32();
@@ -301,7 +269,7 @@ bool LoadPNT( DocumentInfo& DocInfo, IIOStream& IOIn )
         {
           // der erste Layer
           pImage = new GR::Graphic::Image( (WORD)DocInfo.Width(), (WORD)DocInfo.Height(), DocInfo.m_BitDepth, 0, 0 );
-          IOIn.ReadBlock( (BYTE*)pImage->GetData(), pImage->GetWidth() * pImage->GetHeight() * ucFaktor );
+          IOIn.ReadBlock( (BYTE*)pImage->GetData(), ( pImage->GetWidth() * pImage->GetHeight() * ucFaktor ) / 8 );
           DocInfo.AddLayer( pImage, iFrame );
         }
         else
@@ -309,7 +277,7 @@ bool LoadPNT( DocumentInfo& DocInfo, IIOStream& IOIn )
           // ein weiterer Layer
           GR::Graphic::Image*    pImage = new GR::Graphic::Image( DocInfo.GetImage( iFrame, 0 ) );
           CLayer*   pLayer = DocInfo.AddLayer( pImage, iFrame );
-          IOIn.ReadBlock( (BYTE*)pLayer->GetImage()->GetData(), pLayer->GetImage()->GetWidth() * pLayer->GetImage()->GetHeight() * ucFaktor );
+          IOIn.ReadBlock( (BYTE*)pLayer->GetImage()->GetData(), ( pLayer->GetImage()->GetWidth() * pLayer->GetImage()->GetHeight() * ucFaktor ) / 8 );
         }
         pLayer = DocInfo.GetLayer( iFrame, ucI );
 
@@ -327,26 +295,23 @@ bool LoadPNT( DocumentInfo& DocInfo, IIOStream& IOIn )
 
         if ( dwVersion == 1 )
         {
-          pLayer->m_Name = GR::Convert::ToString( IOIn.ReadStringW() );
+          pLayer->m_Name = GR::Convert::ToString( IOIn.ReadString() );
+        }
+      }
+      if ( version >= 19 )
+      {
+        int   numEntries = IOIn.ReadU32();
+        if ( numEntries > 0 )
+        {
+          DocInfo.GetFrame( iFrame )->Palette.Create( numEntries );
+          IOIn.ReadBlock( DocInfo.GetFrame( iFrame )->Palette.Data(), 3 * numEntries );
         }
       }
     }
   }
   IOIn.Close();
 
-  if ( DocInfo.m_BitDepth <= 8 )
-  {
-    if ( DocInfo.GetPalette( DocInfo.CurrentFrame() ) == NULL )
-    {
-      DocInfo.GetFrame( DocInfo.CurrentFrame() )->Palette = theApp.m_PainterPalette;
-    }
-    else
-    {
-      *DocInfo.GetPalette( DocInfo.CurrentFrame() ) = theApp.m_PainterPalette;
-    }
-  }
-
-  return TRUE;
+  return true;
 }
 
 

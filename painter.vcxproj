@@ -13,18 +13,18 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{9159C96B-728E-465D-A79F-2C927C7B2C5F}</ProjectGuid>
     <Keyword>MFCProj</Keyword>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <UseOfMfc>Static</UseOfMfc>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <UseOfMfc>Static</UseOfMfc>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -215,6 +215,7 @@
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="MaskedContextDescriptor.cpp" />
     <ClCompile Include="NewDocumentDialog.cpp" />
+    <ClCompile Include="P:\Common\Codec\Base64.cpp" />
     <ClCompile Include="P:\Common\DateTime\DateTime.cpp" />
     <ClCompile Include="p:\common\Grafik\Animation.cpp" />
     <ClCompile Include="p:\common\Grafik\ContextDescriptor.cpp" />
@@ -230,7 +231,9 @@
     <ClCompile Include="P:\Common\Grafik\ImageFormate\FormatCur.cpp" />
     <ClCompile Include="p:\common\Grafik\ImageFormate\FormatDDS.cpp" />
     <ClCompile Include="p:\common\Grafik\ImageFormate\FormatGif.cpp" />
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\FormatGRI.cpp" />
     <ClCompile Include="p:\common\Grafik\ImageFormate\FormatIcon.cpp" />
+    <ClCompile Include="P:\Common\Grafik\ImageFormate\FormatIFF.cpp" />
     <ClCompile Include="p:\common\Grafik\ImageFormate\FormatIGF.cpp" />
     <ClCompile Include="p:\common\Grafik\ImageFormate\FormatJPG.cpp" />
     <ClCompile Include="p:\common\Grafik\ImageFormate\FormatPCX.cpp" />
@@ -470,6 +473,7 @@
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="MaskedContextDescriptor.h" />
     <ClInclude Include="NewDocumentDialog.h" />
+    <ClInclude Include="P:\Common\Codec\Base64.h" />
     <ClInclude Include="P:\Common\DateTime\DateTime.h" />
     <ClInclude Include="p:\common\Grafik\Animation.h" />
     <ClInclude Include="p:\common\Grafik\Color.h" />
@@ -486,7 +490,9 @@
     <ClInclude Include="P:\Common\Grafik\ImageFormate\FormatCur.h" />
     <ClInclude Include="p:\common\Grafik\ImageFormate\FormatDDS.h" />
     <ClInclude Include="p:\common\Grafik\ImageFormate\FormatGif.h" />
+    <ClInclude Include="P:\Common\Grafik\ImageFormate\FormatGRI.h" />
     <ClInclude Include="p:\common\Grafik\ImageFormate\FormatIcon.h" />
+    <ClInclude Include="P:\Common\Grafik\ImageFormate\FormatIFF.h" />
     <ClInclude Include="p:\common\Grafik\ImageFormate\FormatIGF.h" />
     <ClInclude Include="p:\common\Grafik\ImageFormate\FormatJPG.h" />
     <ClInclude Include="p:\common\Grafik\ImageFormate\FormatPCX.h" />

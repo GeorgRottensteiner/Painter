@@ -155,9 +155,9 @@ void CPainterView::OnDraw( CDC* pDC )
 
   m_viewInfo.DisplayPage();
 
-  if ( ( m_viewInfo.m_RedrawFlags == CViewInfo::REDRAW_ALL )
-  ||   ( m_viewInfo.m_RedrawFlags == CViewInfo::REDRAW_NONE )
-  ||   ( m_viewInfo.m_RedrawFlags == CViewInfo::REDRAW_RECT ) )
+  if ( ( m_viewInfo.m_RedrawFlags == ViewInfo::REDRAW_ALL )
+  ||   ( m_viewInfo.m_RedrawFlags == ViewInfo::REDRAW_NONE )
+  ||   ( m_viewInfo.m_RedrawFlags == ViewInfo::REDRAW_RECT ) )
   {
     SetStretchBltMode( pDC->GetSafeHdc(), COLORONCOLOR );
     RECT rc2;
@@ -299,8 +299,15 @@ void CPainterView::OnAnimStepBack()
     pDoc->diInfo.m_AnimationRunning = FALSE;
     pDoc->diInfo.CurrentFrame( ( pDoc->diInfo.CurrentFrame() + pDoc->diInfo.m_LayeredFrames.size() - 1 ) % pDoc->diInfo.m_LayeredFrames.size() );
 
+
     theApp.ShowStatusMessage();
 
+    if ( m_viewInfo.m_pPalette != NULL )
+    {
+      delete m_viewInfo.m_pPalette;
+      m_viewInfo.m_pPalette = new GR::Graphic::Palette( pDoc->diInfo.m_LayeredFrames[pDoc->diInfo.CurrentFrame()].Palette );
+    }
+    pSettings->Notify( NF_FRAME_CHANGED );
     m_viewInfo.RedrawView();
   }
 }
@@ -318,7 +325,14 @@ void CPainterView::OnAnimStepForward()
     pDoc->diInfo.m_AnimationRunning = FALSE;
     pDoc->diInfo.CurrentFrame( ( pDoc->diInfo.CurrentFrame() + 1 ) % pDoc->diInfo.m_LayeredFrames.size() );
     theApp.ShowStatusMessage();
-    
+
+    if ( m_viewInfo.m_pPalette != NULL )
+    {
+      delete m_viewInfo.m_pPalette;
+      m_viewInfo.m_pPalette = new GR::Graphic::Palette( pDoc->diInfo.m_LayeredFrames[pDoc->diInfo.CurrentFrame()].Palette );
+    }
+
+    pSettings->Notify( NF_FRAME_CHANGED );
     m_viewInfo.RedrawView();
   }
 }
@@ -1050,7 +1064,7 @@ void CPainterView::OnKeyUp( UINT nChar, UINT nRepCnt, UINT nFlags )
       {
         CLayer* pLayer = pDoc->diInfo.GetLayer( 0, i );
 
-        if ( m_viewInfo.m_Type == CViewInfo::VI_ALPHA )
+        if ( m_viewInfo.m_Type == ViewInfo::VI_ALPHA )
         {
           HMirrorImage( pLayer->GetMask() );
         }
@@ -1083,7 +1097,7 @@ void CPainterView::OnKeyUp( UINT nChar, UINT nRepCnt, UINT nFlags )
       {
         CLayer* pLayer = pDoc->diInfo.GetLayer( 0, i );
 
-        if ( m_viewInfo.m_Type == CViewInfo::VI_ALPHA )
+        if ( m_viewInfo.m_Type == ViewInfo::VI_ALPHA )
         {
           VMirrorImage( pLayer->GetMask() );
         }
@@ -1159,8 +1173,8 @@ void CPainterView::OnFileSave()
 
 
   pDoc = GetDocument();
-  if ( ( CPainterView::GetDocument()->GetTitle() == "Neues Dokument" )
-  ||   ( CPainterView::GetDocument()->GetTitle() == "Neues Dokument *" ) )
+  if ( ( CPainterView::GetDocument()->GetTitle() == "New Document" )
+  ||   ( CPainterView::GetDocument()->GetTitle() == "New Document *" ) )
   {
     OnFileSaveAs();
   }
@@ -1363,7 +1377,7 @@ void CPainterView::OnMenuSpezialSplit()
   // call the view's OnInitialUpdate()
   theApp.pDocTemplate->InitialUpdateFrame( pFrameWnd, m_pDocument );
   CPainterView * pView = (CPainterView*)pFrameWnd->GetActiveView();
-  pView->m_viewInfo.InitializePage( CViewInfo::VI_ALPHA );
+  pView->m_viewInfo.InitializePage( ViewInfo::VI_ALPHA );
 }
 
 
@@ -1382,7 +1396,7 @@ void CPainterView::OnMenuSpezialSplitAlpha()
   // call the view's OnInitialUpdate()
   theApp.pDocTemplate->InitialUpdateFrame( pFrameWnd, m_pDocument );
   CPainterView * pView = (CPainterView*)pFrameWnd->GetActiveView();
-  pView->m_viewInfo.InitializePage( CViewInfo::VI_ALPHA );
+  pView->m_viewInfo.InitializePage( ViewInfo::VI_ALPHA );
 }
 
 
@@ -1405,9 +1419,9 @@ void CPainterView::OnInitialUpdate()
 
   m_viewInfo.AdjustWindowSize();
 
-  m_viewInfo.InitializePage( CViewInfo::VI_RGB );
+  m_viewInfo.InitializePage( ViewInfo::VI_RGB );
 
-  m_viewInfo.m_RedrawFlags = CViewInfo::REDRAW_ALL;
+  m_viewInfo.m_RedrawFlags = ViewInfo::REDRAW_ALL;
   m_viewInfo.m_rectRedraw.set( 0, 0, m_viewInfo.m_pDocInfo->Width(), m_viewInfo.m_pDocInfo->Height() );
   Invalidate();
 
@@ -1461,11 +1475,11 @@ void CPainterView::OnKeyDown( UINT nChar, UINT nRepCnt, UINT nFlags )
 
 void CPainterView::OnUpdate( CView* pSender, LPARAM lHint, CObject* pHint ) 
 {
-  if ( m_viewInfo.m_RedrawFlags != CViewInfo::REDRAW_ALL )
+  if ( m_viewInfo.m_RedrawFlags != ViewInfo::REDRAW_ALL )
   {
     m_viewInfo.m_RedrawFlags = (DWORD)lHint;
   }
-  if ( m_viewInfo.m_RedrawFlags == CViewInfo::REDRAW_RECT )
+  if ( m_viewInfo.m_RedrawFlags == ViewInfo::REDRAW_RECT )
   {
     m_viewInfo.m_rectRedraw.combine( *( GR::tRect* )pHint );
 

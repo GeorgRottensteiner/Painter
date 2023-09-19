@@ -82,7 +82,7 @@ void CEffektShadow::OnChangeREditShadowOffsetY()
 void CEffektShadow::DoEffekt()
 {
 
-  m_pCDTarget->Box( 0, 0, m_pCDTarget->Width(), m_pCDTarget->Height(), pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2 ) );
+  m_pCDTarget->Box( 0, 0, m_pCDTarget->Width(), m_pCDTarget->Height(), pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2 ) );
   for ( int j = 0; j < m_pCDSource->Height(); j++ )
   {
     for ( int i = 0; i < m_pCDSource->Width(); i++ )
@@ -98,14 +98,14 @@ void CEffektShadow::DoEffekt()
             {
               m_pCDTarget->PutPixelAlpha( m_iShadowOffsetX + i + k, 
                                           m_iShadowOffsetY + j + l, 
-                                          pSettings->GetRGBColor( CSettings::CO_WORKCOLOR ),
+                                          pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR ),
                                           255 - 255 * abs( k ) * abs( l ) / ( ( m_iShadowRange + 1 ) * ( m_iShadowRange + 1 ) ) );
             }
           }
         }
         else
         {
-          m_pCDTarget->PutPixel( m_iShadowOffsetX + i, m_iShadowOffsetY + j, pSettings->GetRGBColor( CSettings::CO_WORKCOLOR ) );
+          m_pCDTarget->PutPixel( m_iShadowOffsetX + i, m_iShadowOffsetY + j, pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR ) );
         }
       }
     }
@@ -139,9 +139,9 @@ void CEffektShadow::DoEffekt()
     iFaktor = 100;
   }
 
-  iR = ( ( pSettings->GetRGBColor( CSettings::CO_WORKCOLOR ) & 0xff0000 ) >> 16 );
-  iG = ( ( pSettings->GetRGBColor( CSettings::CO_WORKCOLOR ) & 0xff00 ) >> 8 );
-  iB = ( pSettings->GetRGBColor( CSettings::CO_WORKCOLOR ) & 0xff );
+  iR = ( ( pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR ) & 0xff0000 ) >> 16 );
+  iG = ( ( pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR ) & 0xff00 ) >> 8 );
+  iB = ( pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR ) & 0xff );
 
   for ( j = 0; j < m_pCDSource->GetHeight(); j++ )
   {

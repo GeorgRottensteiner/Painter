@@ -67,21 +67,21 @@ void PainterBrush::SetPattern( CPattern *pP )
 
 
 
-void PainterBrush::PutBrush( CViewInfo* pViewInfo, CMaskedContextDescriptor* pCD, int iX, int iY, int iAlphaValue, GR::tRect* pRCBounds  )
+void PainterBrush::PutBrush( ViewInfo* pViewInfo, CMaskedContextDescriptor* pCD, int iX, int iY, int iAlphaValue, GR::tRect* pRCBounds  )
 {
   if ( iAlphaValue == 0 )
   {
     return;
   }
 
-  DWORD   dwWorkColor = pSettings->GetRGBColor( CSettings::CO_WORKCOLOR ),
-          dwWorkColor2 = pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2 );
+  DWORD   dwWorkColor = pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR ),
+          dwWorkColor2 = pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2 );
 
   if ( ( pViewInfo )
-  &&   ( pViewInfo->m_Type == CViewInfo::VI_ALPHA ) )
+  &&   ( pViewInfo->m_Type == ViewInfo::VI_ALPHA ) )
   {
-    dwWorkColor = pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_8BIT );
-    dwWorkColor2 = pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2_8BIT );
+    dwWorkColor = pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_8BIT );
+    dwWorkColor2 = pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2_8BIT );
 
     dwWorkColor = ( pViewInfo->m_pPalette->Red( dwWorkColor ) << 16 ) 
                 + ( pViewInfo->m_pPalette->Green( dwWorkColor ) << 8 ) 
@@ -339,7 +339,7 @@ void PainterBrush::DrawOnPage( GR::Graphic::GFXPage *pPage, GR::u32 dwColor )
 
 
 
-void PainterBrush::ApplyBrushTipOnMask( CViewInfo* pViewInfo, CMaskedContextDescriptor* pCD, GR::Graphic::Image *pImageMask, GR::tRect* pRectBounds )
+void PainterBrush::ApplyBrushTipOnMask( ViewInfo* pViewInfo, CMaskedContextDescriptor* pCD, GR::Graphic::Image *pImageMask, GR::tRect* pRectBounds )
 {
   GR::tRect   rcWork;
 

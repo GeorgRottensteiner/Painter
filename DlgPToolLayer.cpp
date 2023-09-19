@@ -84,7 +84,7 @@ BOOL CDragMaskTarget::OnDrop( CWnd* pWnd, COleDataObject* pDataObject, DROPEFFEC
 	        return FALSE;
         }
 
-        CViewInfo   *pViewInfo = pSettings->m_pActiveViewInfo;
+        ViewInfo   *pViewInfo = pSettings->m_pActiveViewInfo;
 
         if ( !pViewInfo )
         {
@@ -240,7 +240,7 @@ void StartDrag( GR::Graphic::Image *pImage )
 
 
 
-  CViewInfo *pViewInfo = pSettings->m_pActiveViewInfo;
+  ViewInfo *pViewInfo = pSettings->m_pActiveViewInfo;
 
   if ( pViewInfo == NULL )
   {
@@ -426,11 +426,11 @@ void CDlgPToolLayer::DoPopup( CLayer* pLayer, int iLayerIndex )
   {
     if ( m_pDocInfo->m_BitDepth <= 8 )
     {
-      pLayer->m_Transparenz = pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_8BIT );
+      pLayer->m_Transparenz = pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_8BIT );
     }
     else
     {
-      pLayer->m_Transparenz = pSettings->GetRGBColor( CSettings::CO_WORKCOLOR );
+      pLayer->m_Transparenz = pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR );
     }
     m_pDocInfo->RedrawAllViews();
   }
@@ -897,7 +897,7 @@ void CDlgPToolLayer::OnButtonToolLayerCreateMask()
                                                   pActiveLayer->GetImage(),
                                                   m_pDocInfo->GetPalette( m_pDocInfo->CurrentFrame() ) );
 
-          DWORD   dwWorkColor = m_pDocInfo->ToLocalColor( CSettings::CO_WORKCOLOR );
+          DWORD   dwWorkColor = m_pDocInfo->ToLocalColor( CSettings::ColorCategory::WORKCOLOR );
           if ( m_pDocInfo->m_BitDepth <= 8 )
           {
             // bei 8 bit kann es gleiche Farben geben!

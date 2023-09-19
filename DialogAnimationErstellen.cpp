@@ -67,7 +67,7 @@ void CDialogAnimationErstellen::OnButtonCAAddFile()
 
   CFileDialog fileDlg( TRUE, NULL, NULL,
                        OFN_EXPLORER | OFN_HIDEREADONLY | OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_ALLOWMULTISELECT,
-                       _T( "Unterstützte Formate|*.IGF;*.BTN;*.ANX;*.ANH;*.GIF;*.PCX;*.TGA;*.BMP;*.BTH|IGF Files (*.IGF)|*.IGF|BTH Files (*.BTH)|*.BTH|BTN Files (*.BTN)|*.BTN|BTX Files (*.BTX)|*.BTX|ANX Files (*.ANX)|*.ANX|PCX Files (*.PCX)|*.PCX|GIF Files (*.GIF)|*.GIF|BMP Files (*.BMP)|*.BMP|TGA Files (*.TGA)|*.TGA|All Files (*.*)|*.*||\0\0" ),
+                       _T( "Supported Formats|*.IGF;*.BTN;*.ANX;*.ANH;*.GIF;*.PCX;*.TGA;*.BMP;*.BTH;*.IFF|IGF Files (*.IGF)|*.IGF|BTH Files (*.BTH)|*.BTH|BTN Files (*.BTN)|*.BTN|BTX Files (*.BTX)|*.BTX|ANX Files (*.ANX)|*.ANX|PCX Files (*.PCX)|*.PCX|GIF Files (*.GIF)|*.GIF|BMP Files (*.BMP)|*.BMP|TGA Files (*.TGA)|*.TGA|IFF Files (*.IFF)|All Files (*.*)|*.*||\0\0" ),
                        this );
 
   pBuffer = (GR::tChar*)GlobalAlloc( GPTR, 2000 );
@@ -97,7 +97,7 @@ void CDialogAnimationErstellen::OnButtonCABrowse()
 
   CFileDialog     fileDlg( TRUE, NULL, NULL, 
                            OFN_EXPLORER | OFN_HIDEREADONLY | OFN_PATHMUSTEXIST,
-                           _T( "Unterstützte Formate|*.IGF|All Files (*.*)|*.*||\0\0" ),
+                           _T( "Supported Formats|*.IGF|All Files (*.*)|*.*||\0\0" ),
                            this );
 
   pBuffer = (GR::tChar*)GlobalAlloc( GPTR, 4000 );

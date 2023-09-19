@@ -146,12 +146,12 @@ void CEffektBevel::DoEffekt()
         iG[3],
         iB[3];
 
-  iR[0] = ( ( pSettings->GetRGBColor( CSettings::CO_WORKCOLOR ) & 0xff0000 ) >> 16 );
-  iG[0] = ( ( pSettings->GetRGBColor( CSettings::CO_WORKCOLOR ) & 0x00ff00 ) >> 8 );
-  iB[0] = ( ( pSettings->GetRGBColor( CSettings::CO_WORKCOLOR ) & 0x0000ff ) );
-  iR[1] = ( ( pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2 ) & 0xff0000 ) >> 16 );
-  iG[1] = ( ( pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2 ) & 0x00ff00 ) >> 8 );
-  iB[1] = ( ( pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2 ) & 0x0000ff ) );
+  iR[0] = ( ( pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR ) & 0xff0000 ) >> 16 );
+  iG[0] = ( ( pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR ) & 0x00ff00 ) >> 8 );
+  iB[0] = ( ( pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR ) & 0x0000ff ) );
+  iR[1] = ( ( pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2 ) & 0xff0000 ) >> 16 );
+  iG[1] = ( ( pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2 ) & 0x00ff00 ) >> 8 );
+  iB[1] = ( ( pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2 ) & 0x0000ff ) );
 
 
   for ( int i = 0; i < cdFill.Width(); i++ )

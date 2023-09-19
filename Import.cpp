@@ -103,9 +103,8 @@ HBITMAP CreateBitmapFromImage( GR::Graphic::Image* pImage, GR::Graphic::Palette*
 
 
 
-CPainterFileOpen *OpenFileDialog( DWORD dwFileTypes )
+CPainterFileOpen* OpenFileDialog( DWORD dwFileTypes )
 {
-
   CPainterFileOpen*                   pcfDlg;
 
   GR::tString                          strFormate,
@@ -126,6 +125,7 @@ CPainterFileOpen *OpenFileDialog( DWORD dwFileTypes )
     mapFormate[_T( "*.JPG;*.JPEG" )] = _T( "JPEG Files" );
 
     mapFormate[_T( "*.IGF" )] = _T( "IGF Files" );
+    mapFormate[_T( "*.GRI" )] = _T( "GRI Files" );
 
     mapFormate[_T( "*.PNT" )] = _T( "Painter Files" );
 
@@ -142,6 +142,7 @@ CPainterFileOpen *OpenFileDialog( DWORD dwFileTypes )
     mapFormate[_T( "*.DDS" )] = _T( "DDS Files" );
 
     mapFormate[_T( "*.BMP" )] = _T( "Bitmap Files" );
+    mapFormate[_T( "*.IFF" )] = _T( "IFF Files" );
 
     mapFormate[_T( "*.ICO" )] = _T( "Icon Files" );
     mapFormate[_T( "*.CUR" )] = _T( "Cursor Files" );
@@ -198,7 +199,6 @@ CPainterFileOpen *OpenFileDialog( DWORD dwFileTypes )
                             AfxGetMainWnd() );
 
   return pcfDlg;
-
 }
 
 

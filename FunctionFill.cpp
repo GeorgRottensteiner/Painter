@@ -181,7 +181,7 @@ GR::Graphic::Image* CFunctionFill::GetFillMask( CMaskedContextDescriptor* pCD, i
 
 
 
-void CFunctionFill::ApplyAt( CViewInfo* pViewInfo, int iX, int iY )
+void CFunctionFill::ApplyAt( ViewInfo* pViewInfo, int iX, int iY )
 {
   CMaskedContextDescriptor*   pCD       = pViewInfo->GetCD();
 
@@ -189,7 +189,7 @@ void CFunctionFill::ApplyAt( CViewInfo* pViewInfo, int iX, int iY )
 
   bool    bMask = false;
 
-  if ( pViewInfo->m_Type == CViewInfo::VI_ALPHA )
+  if ( pViewInfo->m_Type == ViewInfo::VI_ALPHA )
   {
     bMask = true;
   }

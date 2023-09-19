@@ -31,7 +31,7 @@
  +----------------------------------------------------------------------------*/
 
 class PainterBrush;
-class CViewInfo;
+class ViewInfo;
 
 GR::Graphic::Image* ConvertImage1to16( GR::Graphic::Image *pImageSource, GR::Graphic::Palette *pPalette );
 GR::Graphic::Image* ConvertImage4to16( GR::Graphic::Image *pImageSource, GR::Graphic::Palette *pPalette );
@@ -73,10 +73,11 @@ FIBITMAP *ConvertImageToFreeImageDIB( GR::Graphic::Image *pImage, GR::Graphic::P
 GR::Graphic::Image *GetImageFromBitmap( HBITMAP hbm );
 
 HANDLE BitmapToHDIB( HBITMAP hBitmap, HPALETTE hPal );
-CPainterImagePackage *CreateImagePackFromHDIB( HGLOBAL hmem );
+CPainterImagePackage* CreateImagePackFromHDIB( HGLOBAL hmem );
+CPainterImagePackage* CreateImagePackFromHTMLTag( const GR::String& Tag );
 HANDLE CreateHDIBFromImage( GR::Graphic::Image *pImage, GR::Graphic::Palette *pPal );
 
-void OpenPhotoShopFilter( CViewInfo& viewInfo, std::string strFilterFileName );
+void OpenPhotoShopFilter( ViewInfo& viewInfo, std::string strFilterFileName );
 
 
 #endif

@@ -23,7 +23,7 @@ protected: // Nur aus Serialisierung erzeugen
 // Attribute
 public:
 
-  CViewInfo         m_viewInfo;
+  ViewInfo         m_viewInfo;
 
 	CPainterDoc*      GetDocument();
   int               iXorX,

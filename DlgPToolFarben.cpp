@@ -326,11 +326,11 @@ void CDlgPToolFarben::OnDrawItem( int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct 
       size_t iIndex = 0;
       if ( m_pViewInfo->m_pDocInfo == NULL )
       {
-        iIndex = m_pViewInfo->m_pPalette->FindNearestIndex( pSettings->GetRGBColor( CSettings::CO_WORKCOLOR ) );
+        iIndex = m_pViewInfo->m_pPalette->FindNearestIndex( pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR ) );
       }
       else
       {
-        iIndex = m_pViewInfo->ToLocalColor( CSettings::CO_WORKCOLOR );
+        iIndex = m_pViewInfo->ToLocalColor( CSettings::ColorCategory::WORKCOLOR );
       }
       // erste Farbe
       pPage->Rectangle( ( iIndex % iLengthX ) * iRectLengthX,
@@ -348,11 +348,11 @@ void CDlgPToolFarben::OnDrawItem( int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct 
       int iIndex2 = 0;
       if ( m_pViewInfo->m_pDocInfo == NULL )
       {
-        iIndex2 = m_pViewInfo->m_pPalette->FindNearestIndex( pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2 ) );
+        iIndex2 = m_pViewInfo->m_pPalette->FindNearestIndex( pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2 ) );
       }
       else
       {
-        iIndex2 = m_pViewInfo->ToLocalColor( CSettings::CO_WORKCOLOR_2 );
+        iIndex2 = m_pViewInfo->ToLocalColor( CSettings::ColorCategory::WORKCOLOR_2 );
       }
       pPage->Rectangle( ( iIndex2 % iLengthX ) * iRectLengthX + 2,
                  ( iIndex2 / iLengthX ) * iRectLengthY + 2,
@@ -403,11 +403,11 @@ void CDlgPToolFarben::OnDrawItem( int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct 
         }
       }
     }
-    pPage->Box( 1, 135, 21, 155, pSettings->GetRGBColor( CSettings::CO_WORKCOLOR ) );
+    pPage->Box( 1, 135, 21, 155, pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR ) );
 
     GR::tChar    szHex[100];
 
-    DWORD dwColor = pSettings->GetRGBColor( CSettings::CO_WORKCOLOR );
+    DWORD dwColor = pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR );
 
     wsprintf( szHex, _T( "#%02X%02X%02X" ), ( dwColor & 0xff0000 ) >> 16, ( dwColor & 0xff00 ) >> 8, dwColor & 0xff );
 
@@ -419,9 +419,9 @@ void CDlgPToolFarben::OnDrawItem( int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct 
     TextOut( pPage->GetDC(), 51, 140, szHex + 3, 2 );
     TextOut( pPage->GetDC(), 67, 140, szHex + 5, 2 );
 
-    pPage->Box( 105, 135, 125, 155, pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2 ) );
+    pPage->Box( 105, 135, 125, 155, pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2 ) );
 
-    dwColor = pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2 );
+    dwColor = pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2 );
     wsprintf( szHex, _T( "#%02X%02X%02X" ), ( dwColor & 0xff0000 ) >> 16, ( dwColor & 0xff00 ) >> 8, dwColor & 0xff );
 
     SetTextColor( pPage->GetDC(), 0xffffff );
@@ -496,7 +496,7 @@ DWORD CDlgPToolFarben::GetDisplayBitDepth()
 
   if ( m_pViewInfo != NULL )
   {
-    if ( m_pViewInfo->m_Type == CViewInfo::VI_ALPHA )
+    if ( m_pViewInfo->m_Type == ViewInfo::VI_ALPHA )
     {
       dwDepth = 8;
     }
@@ -520,9 +520,9 @@ void CDlgPToolFarben::OnLButtonDown( UINT nFlags, CPoint point )
     if ( m_ColorSwitchRect.PtInRect( point ) )
     {
       // Arbeitsfarben tauschen
-      DWORD   dwTemp = pSettings->GetRGBColor( CSettings::CO_WORKCOLOR );
-      pSettings->SetColor( CSettings::CO_WORKCOLOR, pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2 ) );
-      pSettings->SetColor( CSettings::CO_WORKCOLOR_2, dwTemp );
+      DWORD   dwTemp = pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR );
+      pSettings->SetColor( CSettings::ColorCategory::WORKCOLOR, pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2 ) );
+      pSettings->SetColor( CSettings::ColorCategory::WORKCOLOR_2, dwTemp );
 
       Notify( NF_ACTIVE_COLOR_CHANGED );
       UpdateControls();
@@ -572,9 +572,9 @@ void CDlgPToolFarben::DoLButtonDown( UINT nFlags, CPoint point )
         &&   ( point.x < iRectLengthX + i * iRectLengthX )
         &&   ( point.y < iRectLengthY + j * iRectLengthY ) )
         {
-          pSettings->SetColor( CSettings::CO_WORKCOLOR, 
+          pSettings->SetColor( CSettings::ColorCategory::WORKCOLOR, 
               m_pViewInfo->GetRGBColor( i + j * iLengthX ) );
-          pSettings->SetColor( CSettings::CO_WORKCOLOR_8BIT, i + j * iLengthX );
+          pSettings->SetColor( CSettings::ColorCategory::WORKCOLOR_8BIT, i + j * iLengthX );
           pSettings->SetSetting( "GetColorDepth", dwBitDepth );
 
           //pSettings->Propagate( "Farben" );
@@ -603,7 +603,7 @@ void CDlgPToolFarben::DoLButtonDown( UINT nFlags, CPoint point )
         {
           point.y = 63;
         }
-        pSettings->SetColor( CSettings::CO_WORKCOLOR, GetQuadrantColor( 0, k, point.x - k * 64, point.y / 2 ) );
+        pSettings->SetColor( CSettings::ColorCategory::WORKCOLOR, GetQuadrantColor( 0, k, point.x - k * 64, point.y / 2 ) );
         //pSettings->Propagate( "Farben" );
         Notify( NF_ACTIVE_COLOR_CHANGED );
       }
@@ -617,7 +617,7 @@ void CDlgPToolFarben::DoLButtonDown( UINT nFlags, CPoint point )
         {
           point.y = 63;
         }
-        pSettings->SetColor( CSettings::CO_WORKCOLOR, GetQuadrantColor( 1, k, point.x - 32 - k * 64, point.y / 2 ) );
+        pSettings->SetColor( CSettings::ColorCategory::WORKCOLOR, GetQuadrantColor( 1, k, point.x - 32 - k * 64, point.y / 2 ) );
         //pSettings->Propagate( "Farben" );
         Notify( NF_ACTIVE_COLOR_CHANGED );
       }
@@ -627,7 +627,7 @@ void CDlgPToolFarben::DoLButtonDown( UINT nFlags, CPoint point )
       &&        ( point.y < 128 + 5 ) )
       {
         // 3.Quadrant
-        pSettings->SetColor( CSettings::CO_WORKCOLOR, GetQuadrantColor( 2, k, point.x - k * 64, ( point.y - 64 - 5 ) / 2 ) );
+        pSettings->SetColor( CSettings::ColorCategory::WORKCOLOR, GetQuadrantColor( 2, k, point.x - k * 64, ( point.y - 64 - 5 ) / 2 ) );
         //pSettings->Propagate( "Farben" );
         Notify( NF_ACTIVE_COLOR_CHANGED );
       }
@@ -637,7 +637,7 @@ void CDlgPToolFarben::DoLButtonDown( UINT nFlags, CPoint point )
       &&        ( point.y < 128 + 5 ) )
       {
         // 4.Quadrant
-        pSettings->SetColor( CSettings::CO_WORKCOLOR, GetQuadrantColor( 3, k, point.x - 32 - k * 64, ( point.y - 64 - 5 ) / 2 ) );
+        pSettings->SetColor( CSettings::ColorCategory::WORKCOLOR, GetQuadrantColor( 3, k, point.x - 32 - k * 64, ( point.y - 64 - 5 ) / 2 ) );
         //pSettings->Propagate( "Farben" );
         Notify( NF_ACTIVE_COLOR_CHANGED );
       }
@@ -649,10 +649,10 @@ void CDlgPToolFarben::DoLButtonDown( UINT nFlags, CPoint point )
     {
       CColorPicker    *dlgCP = new CColorPicker();
 
-      dlgCP->m_WorkColor = pSettings->GetRGBColor( CSettings::CO_WORKCOLOR );
+      dlgCP->m_WorkColor = pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR );
       if ( dlgCP->DoModal() == IDOK )
       {
-        pSettings->SetColor( CSettings::CO_WORKCOLOR, dlgCP->m_WorkColor );
+        pSettings->SetColor( CSettings::ColorCategory::WORKCOLOR, dlgCP->m_WorkColor );
         //pSettings->Propagate( "Farben" );
         Notify( NF_ACTIVE_COLOR_CHANGED );
         wndPalette.Invalidate();
@@ -666,10 +666,10 @@ void CDlgPToolFarben::DoLButtonDown( UINT nFlags, CPoint point )
     {
       CColorPicker    *dlgCP = new CColorPicker();
 
-      dlgCP->m_WorkColor = pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2 );
+      dlgCP->m_WorkColor = pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2 );
       if ( dlgCP->DoModal() == IDOK )
       {
-        pSettings->SetColor( CSettings::CO_WORKCOLOR_2, dlgCP->m_WorkColor );
+        pSettings->SetColor( CSettings::ColorCategory::WORKCOLOR_2, dlgCP->m_WorkColor );
         //pSettings->Propagate( "Farben" );
         Notify( NF_ACTIVE_COLOR_CHANGED );
         wndPalette.Invalidate();
@@ -748,9 +748,9 @@ void CDlgPToolFarben::DoRButtonDown(UINT nFlags, CPoint point)
         &&   ( point.x < iRectLengthX + i * iRectLengthX )
         &&   ( point.y < iRectLengthY + j * iRectLengthY ) )
         {
-          pSettings->SetColor( CSettings::CO_WORKCOLOR_2, 
+          pSettings->SetColor( CSettings::ColorCategory::WORKCOLOR_2, 
               m_pViewInfo->GetRGBColor( i + j * iLengthX ) );
-          pSettings->SetColor( CSettings::CO_WORKCOLOR_2_8BIT,  i + j * iLengthX );
+          pSettings->SetColor( CSettings::ColorCategory::WORKCOLOR_2_8BIT,  i + j * iLengthX );
           pSettings->SetSetting( "GetColorDepth2", dwBitDepth );
 
           //pSettings->Propagate( "Farben" );
@@ -780,7 +780,7 @@ void CDlgPToolFarben::DoRButtonDown(UINT nFlags, CPoint point)
           point.y = 63;
         }
         dwDummy = GetQuadrantColor( 0, k, point.x - k * 64, point.y / 2 );
-        pSettings->SetColor( CSettings::CO_WORKCOLOR_2, MakeColor( (WORD)( ( dwDummy & 0xff0000 ) >> 16 ),
+        pSettings->SetColor( CSettings::ColorCategory::WORKCOLOR_2, MakeColor( (WORD)( ( dwDummy & 0xff0000 ) >> 16 ),
                                           (WORD)( ( dwDummy & 0xff00 ) >> 8 ),
                                           (WORD)( dwDummy & 0xff ),
                                           255 ) );
@@ -798,7 +798,7 @@ void CDlgPToolFarben::DoRButtonDown(UINT nFlags, CPoint point)
           point.y = 63;
         }
         dwDummy = GetQuadrantColor( 1, k, point.x - 32 - k * 64, point.y / 2 );
-        pSettings->SetColor( CSettings::CO_WORKCOLOR_2, MakeColor( (WORD)( ( dwDummy & 0xff0000 ) >> 16 ),
+        pSettings->SetColor( CSettings::ColorCategory::WORKCOLOR_2, MakeColor( (WORD)( ( dwDummy & 0xff0000 ) >> 16 ),
                                           (WORD)( ( dwDummy & 0xff00 ) >> 8 ),
                                           (WORD)( dwDummy & 0xff ),
                                           255 ) );
@@ -812,7 +812,7 @@ void CDlgPToolFarben::DoRButtonDown(UINT nFlags, CPoint point)
       {
         // 3.Quadrant
         dwDummy = GetQuadrantColor( 2, k, point.x - k * 64, ( point.y - 64 - 5 ) / 2 );
-        pSettings->SetColor( CSettings::CO_WORKCOLOR_2, MakeColor( (WORD)( ( dwDummy & 0xff0000 ) >> 16 ),
+        pSettings->SetColor( CSettings::ColorCategory::WORKCOLOR_2, MakeColor( (WORD)( ( dwDummy & 0xff0000 ) >> 16 ),
                                           (WORD)( ( dwDummy & 0xff00 ) >> 8 ),
                                           (WORD)( dwDummy & 0xff ),
                                           255 ) );
@@ -826,7 +826,7 @@ void CDlgPToolFarben::DoRButtonDown(UINT nFlags, CPoint point)
       {
         // 4.Quadrant
         dwDummy = GetQuadrantColor( 3, k, point.x - 32 - k * 64, ( point.y - 64 - 5 ) / 2 );
-        pSettings->SetColor( CSettings::CO_WORKCOLOR_2, MakeColor( (WORD)( ( dwDummy & 0xff0000 ) >> 16 ),
+        pSettings->SetColor( CSettings::ColorCategory::WORKCOLOR_2, MakeColor( (WORD)( ( dwDummy & 0xff0000 ) >> 16 ),
                                           (WORD)( ( dwDummy & 0xff00 ) >> 8 ),
                                           (WORD)( dwDummy & 0xff ),
                                           255 ) );
@@ -937,6 +937,7 @@ void CDlgPToolFarben::OnNotify( const GR::u32& NotifyMessage, INotifyMember<GR::
   {
     case NF_ACTIVE_COLOR_CHANGED:
     case NF_LAYER_CHANGED:
+    case NF_FRAME_CHANGED:
       wndPalette.Invalidate( FALSE );
       break;
     case NF_ACTIVE_VIEW_CHANGED:

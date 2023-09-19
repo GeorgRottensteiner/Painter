@@ -3,7 +3,9 @@
 #include <lua\luainstance.h>
 
 class DocumentInfo;
-class CViewInfo;
+class ViewInfo;
+
+
 
 class CPainterLua : public LuaInstance
 {
@@ -12,8 +14,8 @@ class CPainterLua : public LuaInstance
 
     bool                m_StartedPainting;
 
-    CViewInfo*          m_pScriptViewInfo;
-    DocumentInfo*      m_pScriptDocInfo;
+    ViewInfo*          m_pScriptViewInfo;
+    DocumentInfo*       m_pScriptDocInfo;
 
 
     CPainterLua();

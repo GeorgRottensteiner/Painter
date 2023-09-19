@@ -194,9 +194,9 @@ void CPainterFontView::OnDrawItem( int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct
 
     m_viewInfo.DisplayPage();
 
-    if ( ( m_viewInfo.m_RedrawFlags == CViewInfo::REDRAW_ALL )
+    if ( ( m_viewInfo.m_RedrawFlags == ViewInfo::REDRAW_ALL )
     ||   ( m_viewInfo.m_RedrawFlags == 0 )
-    ||   ( m_viewInfo.m_RedrawFlags == CViewInfo::REDRAW_RECT ) )
+    ||   ( m_viewInfo.m_RedrawFlags == ViewInfo::REDRAW_RECT ) )
     {
       MFCGFXStretchUpdate( hwnd, 
                            hdc, 
@@ -295,7 +295,7 @@ void CPainterFontView::OnInitialUpdate()
 
   m_viewInfo.m_pDocInfo = &pFontDoc->diInfo;
   m_viewInfo.m_ZoomFaktor = 1600;
-  m_viewInfo.InitializePage( CViewInfo::VI_RGB );
+  m_viewInfo.InitializePage( ViewInfo::VI_RGB );
 
   if ( pFontDoc != NULL )
   {
@@ -589,8 +589,8 @@ void CPainterFontView::OnFileSave()
   CPainterFontDoc*            pDoc;
 
   pDoc = GetDocument();
-  if ( ( CPainterFontView::GetDocument()->GetTitle() == "Neues Dokument" )
-  ||   ( CPainterFontView::GetDocument()->GetTitle() == "Neues Dokument *" ) )
+  if ( ( CPainterFontView::GetDocument()->GetTitle() == "New Document" )
+  ||   ( CPainterFontView::GetDocument()->GetTitle() == "New Document *" ) )
   {
     OnFileSaveAs();
   }
@@ -892,19 +892,19 @@ void CPainterFontView::OnSize( UINT nType, int cx, int cy )
 
 void CPainterFontView::DoUpdate( LPARAM lHint, GR::tRect* pRect )
 {
-  if ( m_viewInfo.m_RedrawFlags != CViewInfo::REDRAW_ALL )
+  if ( m_viewInfo.m_RedrawFlags != ViewInfo::REDRAW_ALL )
   {
     m_viewInfo.m_RedrawFlags = (DWORD)lHint;
   }
 
-  if ( m_viewInfo.m_RedrawFlags == CViewInfo::REDRAW_RECT )
+  if ( m_viewInfo.m_RedrawFlags == ViewInfo::REDRAW_RECT )
   {
     if ( pRect != NULL )
     {
       m_viewInfo.m_rectRedraw.combine( *pRect );
     }
   }
-  if ( m_viewInfo.m_RedrawFlags == CViewInfo::REDRAW_ALL )
+  if ( m_viewInfo.m_RedrawFlags == ViewInfo::REDRAW_ALL )
   {
     RECT     rc;
 
@@ -924,7 +924,7 @@ void CPainterFontView::DoUpdate( LPARAM lHint, GR::tRect* pRect )
 
 void CPainterFontView::OnUpdate( CView* pSender, LPARAM lHint, CObject* pHint ) 
 {
-  if ( lHint == CViewInfo::REDRAW_UPDATE_VIEW_INFO )
+  if ( lHint == ViewInfo::REDRAW_UPDATE_VIEW_INFO )
   {
     if ( pSender != this )
     {
@@ -935,7 +935,7 @@ void CPainterFontView::OnUpdate( CView* pSender, LPARAM lHint, CObject* pHint )
       m_EditWidth.SetWindowText( GR::Convert::ToUTF16( ( Misc::Format() << m_viewInfo.m_pDocInfo->GetImage( m_viewInfo.m_pDocInfo->CurrentFrame(), 0 )->GetWidth() ).Result() ).c_str() );
       m_EditHeight.SetWindowText( GR::Convert::ToUTF16( ( Misc::Format() << m_viewInfo.m_pDocInfo->GetImage( m_viewInfo.m_pDocInfo->CurrentFrame(), 0 )->GetHeight() ).Result() ).c_str() );
     }
-    lHint = CViewInfo::REDRAW_ALL;
+    lHint = ViewInfo::REDRAW_ALL;
   }
   DoUpdate( lHint, (GR::tRect*)pHint );
 }
@@ -1013,7 +1013,7 @@ void CPainterFontView::OnSplitRGB()
   // call the view's OnInitialUpdate()
   theApp.pDocTemplate->InitialUpdateFrame( pFrameWnd, m_pDocument );
   CPainterFontView * pView = (CPainterFontView*)pFrameWnd->GetActiveView();
-  pView->m_viewInfo.InitializePage( CViewInfo::VI_ALPHA );
+  pView->m_viewInfo.InitializePage( ViewInfo::VI_ALPHA );
 
 }
 
@@ -1034,7 +1034,7 @@ void CPainterFontView::OnSplitAlpha()
   // call the view's OnInitialUpdate()
   theApp.pDocTemplate->InitialUpdateFrame( pFrameWnd, m_pDocument );
   CPainterFontView * pView = (CPainterFontView*)pFrameWnd->GetActiveView();
-  pView->m_viewInfo.InitializePage( CViewInfo::VI_ALPHA );
+  pView->m_viewInfo.InitializePage( ViewInfo::VI_ALPHA );
 	
 }
 
@@ -1045,9 +1045,9 @@ void CPainterFontView::LetterSizeModified( int iWidth, int iHeight )
 
   CPainterFontDoc*  pDoc = GetDocument();
 
-  pDoc->UpdateAllViews( this, CViewInfo::REDRAW_UPDATE_VIEW_INFO );
+  pDoc->UpdateAllViews( this, ViewInfo::REDRAW_UPDATE_VIEW_INFO );
 
-  DoUpdate( CViewInfo::REDRAW_ALL );
+  DoUpdate( ViewInfo::REDRAW_ALL );
 
 }
 
@@ -1057,8 +1057,8 @@ void CPainterFontView::LetterNumberChanged( int iChar )
 {
   CPainterFontDoc*  pDoc = GetDocument();
 
-  pDoc->UpdateAllViews( this, CViewInfo::REDRAW_UPDATE_VIEW_INFO );
-  DoUpdate( CViewInfo::REDRAW_ALL );
+  pDoc->UpdateAllViews( this, ViewInfo::REDRAW_UPDATE_VIEW_INFO );
+  DoUpdate( ViewInfo::REDRAW_ALL );
   //m_StaticLetter.Invalidate();
 }
 

@@ -78,13 +78,13 @@ void CEffektAura::DoEffekt()
     iFaktor = 100;
   }
 
-  iR = ( ( pSettings->GetRGBColor( CSettings::CO_WORKCOLOR ) & 0xff0000 ) >> 16 );
-  iG = ( ( pSettings->GetRGBColor( CSettings::CO_WORKCOLOR ) & 0xff00 ) >> 8 );
-  iB = ( pSettings->GetRGBColor( CSettings::CO_WORKCOLOR ) & 0xff );
+  iR = ( ( pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR ) & 0xff0000 ) >> 16 );
+  iG = ( ( pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR ) & 0xff00 ) >> 8 );
+  iB = ( pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR ) & 0xff );
 
-  iR2 = ( ( pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2 ) & 0xff0000 ) >> 16 );
-  iG2 = ( ( pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2 ) & 0xff00 ) >> 8 );
-  iB2 = ( pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2 ) & 0xff );
+  iR2 = ( ( pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2 ) & 0xff0000 ) >> 16 );
+  iG2 = ( ( pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2 ) & 0xff00 ) >> 8 );
+  iB2 = ( pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2 ) & 0xff );
 
   GR::u32         dwTransparent = m_pCDSource->TransparentColor();
 

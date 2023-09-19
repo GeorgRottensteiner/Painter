@@ -2031,37 +2031,37 @@ END
 
 STRINGTABLE
 BEGIN
-    ID_FILE_NEW             "Erstellt ein neues Dokument.\nNeu"
-    ID_FILE_OPEN            "÷ffnet ein bestehendes Dokument.\n÷ffnen"
-    ID_FILE_CLOSE           "Schlieﬂt das aktive Dokument.\nSchlieﬂen"
-    ID_FILE_SAVE            "Speichert das aktive Dokument.\nSpeichern"
-    ID_FILE_SAVE_AS         "Speichert das aktive Dokument unter neuem Namen.\nSpeichern unter"
+    ID_FILE_NEW             "Creates a new document.\nNew"
+    ID_FILE_OPEN            "Open existing document.\nOpen"
+    ID_FILE_CLOSE           "Close active document.\nClose"
+    ID_FILE_SAVE            "Save active document.\nSave"
+    ID_FILE_SAVE_AS         "Save active document under a different name.\nSave as"
 END
 
 STRINGTABLE
 BEGIN
-    ID_APP_ABOUT            "Zeigt Programm-Informationen, Versionsnummer und Copyright an.\nInfo"
-    ID_APP_EXIT             "Verl‰ﬂt die Anwendung; fragt, ob Dokumente gespeichert werden sollen.\nBeenden"
+    ID_APP_ABOUT            "Show program information, version and copyright.\nInfo"
+    ID_APP_EXIT             "Exits program; ask, whether changes should be saved.\nExit"
 END
 
 STRINGTABLE
 BEGIN
-    ID_FILE_MRU_FILE1       "÷ffnet dieses Dokument."
-    ID_FILE_MRU_FILE2       "÷ffnet dieses Dokument."
-    ID_FILE_MRU_FILE3       "÷ffnet dieses Dokument."
-    ID_FILE_MRU_FILE4       "÷ffnet dieses Dokument."
-    ID_FILE_MRU_FILE5       "÷ffnet dieses Dokument."
-    ID_FILE_MRU_FILE6       "÷ffnet dieses Dokument."
-    ID_FILE_MRU_FILE7       "÷ffnet dieses Dokument."
-    ID_FILE_MRU_FILE8       "÷ffnet dieses Dokument."
-    ID_FILE_MRU_FILE9       "÷ffnet dieses Dokument."
-    ID_FILE_MRU_FILE10      "÷ffnet dieses Dokument."
-    ID_FILE_MRU_FILE11      "÷ffnet dieses Dokument."
-    ID_FILE_MRU_FILE12      "÷ffnet dieses Dokument."
-    ID_FILE_MRU_FILE13      "÷ffnet dieses Dokument."
-    ID_FILE_MRU_FILE14      "÷ffnet dieses Dokument."
-    ID_FILE_MRU_FILE15      "÷ffnet dieses Dokument."
-    ID_FILE_MRU_FILE16      "÷ffnet dieses Dokument."
+    ID_FILE_MRU_FILE1       "Open this document."
+    ID_FILE_MRU_FILE2       "Open this document."
+    ID_FILE_MRU_FILE3       "Open this document."
+    ID_FILE_MRU_FILE4       "Open this document."
+    ID_FILE_MRU_FILE5       "Open this document."
+    ID_FILE_MRU_FILE6       "Open this document."
+    ID_FILE_MRU_FILE7       "Open this document."
+    ID_FILE_MRU_FILE8       "Open this document."
+    ID_FILE_MRU_FILE9       "Open this document."
+    ID_FILE_MRU_FILE10      "Open this document."
+    ID_FILE_MRU_FILE11      "Open this document."
+    ID_FILE_MRU_FILE12      "Open this document."
+    ID_FILE_MRU_FILE13      "Open this document."
+    ID_FILE_MRU_FILE14      "Open this document."
+    ID_FILE_MRU_FILE15      "Open this document."
+    ID_FILE_MRU_FILE16      "Open this document."
 END
 
 STRINGTABLE

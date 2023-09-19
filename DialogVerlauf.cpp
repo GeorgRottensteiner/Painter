@@ -99,7 +99,7 @@ BOOL CDialogVerlauf::OnInitDialog()
 
   m_pImageTarget = new GR::Graphic::Image( m_pPagePreview->GetWidth(), m_pPagePreview->GetHeight(), 32 );
 
-  m_PegColor = pSettings->GetRGBColor( CSettings::CO_WORKCOLOR );
+  m_PegColor = pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR );
   m_ButtonPegColor.SetColor( m_PegColor );
 
   m_REditPegPos.SetRange( 0.0f, 100.0f );
@@ -252,11 +252,11 @@ void CDialogVerlauf::OnBnClickedButtonColor()
 {
   CColorPicker    dlgCP;
 
-  dlgCP.m_WorkColor = pSettings->GetRGBColor( CSettings::CO_WORKCOLOR );
+  dlgCP.m_WorkColor = pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR );
 
   if ( dlgCP.DoModal() == IDOK )
   {
-    pSettings->SetColor( CSettings::CO_WORKCOLOR, dlgCP.m_WorkColor );
+    pSettings->SetColor( CSettings::ColorCategory::WORKCOLOR, dlgCP.m_WorkColor );
     m_PegColor = dlgCP.m_WorkColor;
     m_ButtonPegColor.SetColor( m_PegColor );
   }

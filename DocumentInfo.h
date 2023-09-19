@@ -115,7 +115,7 @@ class DocumentInfo : public INotifyMember<GR::u32>
 
 
 
-    bool PasteFromClipBoard( int iMode, CViewInfo* pViewInfo = NULL );
+    bool PasteFromClipBoard( int iMode, ViewInfo* pViewInfo = NULL );
 
     void ZoomIn( void );
     void ZoomOut( void );
@@ -201,9 +201,9 @@ class DocumentInfo : public INotifyMember<GR::u32>
     void                    RedrawAllViews( const GR::tRect& rc, bool bRedrawNow = true );
     void                    ShowAllViews();
 
-    DWORD                   CountUsedColors();
+    GR::u32                 CountUsedColors();
 
-    DWORD                   ToLocalColor( DWORD dwColor );
+    GR::u32                 ToLocalColor( CSettings::ColorCategory Color );
 
     virtual void            OnNotify( const GR::u32& NotifyMessage, INotifyMember<GR::u32>* pFromMember );
 

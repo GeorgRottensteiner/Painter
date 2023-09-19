@@ -26,7 +26,7 @@ namespace GR
 
 
 
-class CViewInfo;
+class ViewInfo;
 
 
 
@@ -37,7 +37,7 @@ public:
 	CDlgPToolFarben(CWnd* pParent = NULL);   // Standardkonstruktor
 
   GR::Graphic::GDIPage                *pPage;
-  CViewInfo                   *m_pViewInfo;
+  ViewInfo                   *m_pViewInfo;
   CWnd                        wndPalette;
 
 

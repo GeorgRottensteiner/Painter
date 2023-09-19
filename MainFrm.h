@@ -140,6 +140,7 @@ public:
   afx_msg void OnFileCloseAll();
   afx_msg void OnSpecialSafetySave();
   afx_msg void OnRestoreSafetySave();
+  afx_msg void OnClose();
 };
 
 /////////////////////////////////////////////////////////////////////////////

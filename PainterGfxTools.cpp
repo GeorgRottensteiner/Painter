@@ -11,9 +11,12 @@
 #include <Grafik/GFXHelper.h>
 #include <Grafik/Image.h>
 
+#include <Codec/Base64.h>
+
 #include <Misc/Misc.h>
 
 #include "Resampler.h"
+#include "Painter.h"
 
 
 #include <math.h>
@@ -55,10 +58,6 @@ void BrightenPixel( GR::Graphic::Image *pImage, GR::Graphic::Palette *pPalette, 
 }
 
 
-
-/*-DarkenPixel----------------------------------------------------------------+
- |                                                                            |
- +----------------------------------------------------------------------------*/
 
 void DarkenPixel( GR::Graphic::Image *pImage, GR::Graphic::Palette *pPalette, int iX, int iY )
 {
@@ -1428,6 +1427,203 @@ CPainterImagePackage *CreateImagePackFromHDIB( HGLOBAL hmem )
   }
   return pPack;
 
+}
+
+
+
+
+fi_handle g_load_address;
+
+inline unsigned _stdcall
+_ReadProc( void* buffer, unsigned size, unsigned count, fi_handle handle )
+{
+  BYTE* tmp = (BYTE*)buffer;
+
+  for ( unsigned c = 0; c < count; c++ )
+  {
+    memcpy( tmp, g_load_address, size );
+
+    g_load_address = (BYTE*)g_load_address + size;
+
+    tmp += size;
+  }
+
+  return count;
+}
+
+inline unsigned _stdcall
+_WriteProc( void* buffer, unsigned size, unsigned count, fi_handle handle )
+{
+// there's not much use for saving the bitmap into memory now, is there?
+
+  return size;
+}
+
+inline int _stdcall
+_SeekProc( fi_handle handle, long offset, int origin )
+{
+  if ( origin == SEEK_SET )
+  {
+    g_load_address = (BYTE*)handle + offset;
+  }
+  else
+  {
+    g_load_address = (BYTE*)g_load_address + offset;
+  }
+
+  return 0;
+}
+
+inline long _stdcall
+_TellProc( fi_handle handle )
+{
+  return ( (int)g_load_address - (int)handle );
+}
+
+
+
+CPainterImagePackage* CreateImagePackFromHTMLTag( const GR::String& Tag )
+{
+  if ( !Tag.StartsWith( "<img " ) )
+  {
+    return NULL;
+  }
+  size_t  pos = Tag.find( "src=\"" );
+  if ( pos == GR::String::npos )
+  {
+    return NULL;
+  }
+  size_t  pos2 = Tag.find( "\"", pos + 5 );
+  if ( pos2 == GR::String::npos )
+  {
+    return NULL;
+  }
+
+  GR::String    imageContent = Tag.substr( pos + 5, pos2 - pos - 5 );
+  if ( !imageContent.StartsWith( "data:image/png;base64," ) )
+  {
+    return NULL;
+  }
+  GR::String    base64Content = imageContent.substr( 22 );
+
+  ByteBuffer    data = Base64::Decode( ByteBuffer( base64Content.c_str(), base64Content.length() ) );
+
+  FreeImageIO io;
+
+  io.read_proc  = _ReadProc;
+  io.write_proc = _WriteProc;
+  io.tell_proc  = _TellProc;
+  io.seek_proc  = _SeekProc;
+
+  g_load_address = data.DataAt( 0 );
+  FIBITMAP* dib = FreeImage_LoadFromHandle( FIF_PNG, &io, (fi_handle)data.DataAt( 0 ) );
+
+  if ( dib == NULL )
+  {
+    return NULL;
+  }
+
+  CPainterImagePackage* pImagePackage = new CPainterImagePackage();
+  switch ( FreeImage_GetBPP( dib ) )
+  {
+    case 4:
+      {
+        FIBITMAP* newdib = FreeImage_ConvertTo8Bits( dib );
+        FreeImage_Unload( dib );
+        dib = newdib;
+
+        pImagePackage->m_Palette = theApp.m_PainterPalette;
+        pImagePackage->m_pImage = new GR::Graphic::Image( FreeImage_GetWidth( dib ), FreeImage_GetHeight( dib ), 8 );
+        for ( DWORD i = 0; i < FreeImage_GetHeight( dib ); i++ )
+        {
+          memcpy( ( (BYTE*)pImagePackage->m_pImage->GetData() ) + i * pImagePackage->m_pImage->GetWidth(),
+            FreeImage_GetScanLine( dib, i ),
+            pImagePackage->m_pImage->GetWidth() );
+        }
+        BITMAPINFOHEADER* pbmHeader = FreeImage_GetInfoHeader( dib );
+        RGBQUAD* pRGB = FreeImage_GetPalette( dib );
+        for ( int i = 0; i < (int)pbmHeader->biClrUsed; i++ )
+        {
+          pImagePackage->m_Palette.SetColor( i, pRGB->rgbRed, pRGB->rgbGreen, pRGB->rgbBlue );
+          pRGB++;
+        }
+      }
+      break;
+    case 8:
+      {
+        pImagePackage->m_Palette.Create();
+        pImagePackage->m_pImage = new GR::Graphic::Image( FreeImage_GetWidth( dib ), FreeImage_GetHeight( dib ), 8 );
+        for ( DWORD i = 0; i < FreeImage_GetHeight( dib ); i++ )
+        {
+          memcpy( ( (BYTE*)pImagePackage->m_pImage->GetData() ) + i * pImagePackage->m_pImage->GetWidth(),
+            FreeImage_GetScanLine( dib, i ),
+            pImagePackage->m_pImage->GetWidth() );
+        }
+        BITMAPINFOHEADER* pbmHeader = FreeImage_GetInfoHeader( dib );
+        RGBQUAD* pRGB = FreeImage_GetPalette( dib );
+        for ( int i = 0; i < (int)pbmHeader->biClrUsed; i++ )
+        {
+          pImagePackage->m_Palette.SetColor( i, pRGB->rgbRed, pRGB->rgbGreen, pRGB->rgbBlue );
+          pRGB++;
+        }
+      }
+      break;
+    case 24:
+      {
+        pImagePackage->m_pImage = new GR::Graphic::Image( FreeImage_GetWidth( dib ), FreeImage_GetHeight( dib ), 24 );
+        for ( DWORD i = 0; i < FreeImage_GetHeight( dib ); i++ )
+        {
+          memcpy( ( (BYTE*)pImagePackage->m_pImage->GetData() ) + i * pImagePackage->m_pImage->GetWidth() * 3,
+            FreeImage_GetScanLine( dib, i ),
+            pImagePackage->m_pImage->GetWidth() * 3 );
+        }
+      }
+      break;
+    case 32:
+      {
+        pImagePackage->m_pImage = new GR::Graphic::Image( FreeImage_GetWidth( dib ), FreeImage_GetHeight( dib ), 32 );
+        for ( DWORD i = 0; i < FreeImage_GetHeight( dib ); i++ )
+        {
+          memcpy( ( (BYTE*)pImagePackage->m_pImage->GetData() ) + i * pImagePackage->m_pImage->GetWidth() * 4,
+            FreeImage_GetScanLine( dib, i ),
+            pImagePackage->m_pImage->GetWidth() * 4 );
+        }
+
+        if ( FreeImage_GetColorType( dib ) == FIC_RGBALPHA )
+        {
+          // in den oberen 8 Bits wird vermutlich Alpha sein
+          // Alpha in Maske umwandeln
+          pImagePackage->m_pImageMask = new GR::Graphic::Image( FreeImage_GetWidth( dib ), FreeImage_GetHeight( dib ), 8 );
+
+          for ( unsigned j = 0; j < FreeImage_GetHeight( dib ); j++ )
+          {
+            DWORD* pSource = (DWORD*)FreeImage_GetScanLine( dib, j );
+            for ( unsigned i = 0; i < FreeImage_GetWidth( dib ); i++ )
+            {
+              *( ( (BYTE*)pImagePackage->m_pImageMask->GetData() ) + i + j * FreeImage_GetWidth( dib ) ) = (BYTE)( ( *pSource++ & 0xff000000 ) >> 24 );
+            }
+          }
+        }
+      }
+      break;
+    default:
+      dh::Log( "unsupported depth %d", FreeImage_GetBPP( dib ) );
+      break;
+  }
+
+  if ( pImagePackage->m_pImage != NULL )
+  {
+    VMirrorImage( pImagePackage->m_pImage );
+  }
+  if ( pImagePackage->m_pImageMask != NULL )
+  {
+    VMirrorImage( pImagePackage->m_pImageMask );
+  }
+
+    // don't forget to free the dib !
+  FreeImage_Unload( dib );
+
+  return pImagePackage;
 }
 
 

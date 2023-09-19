@@ -4,7 +4,7 @@
 
 // CDlgPToolAnimation-Dialogfeld
 
-class CViewInfo;
+class ViewInfo;
 
 class CDlgPToolAnimation : public CDialog, public INotifyMember<GR::u32>
 {
@@ -12,7 +12,7 @@ class CDlgPToolAnimation : public CDialog, public INotifyMember<GR::u32>
 
 public:
 
-  CViewInfo*        m_pViewInfo;
+  ViewInfo*        m_pViewInfo;
 
 	CDlgPToolAnimation(CWnd* pParent = NULL);   // Standardkonstruktor
 	virtual ~CDlgPToolAnimation();

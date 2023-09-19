@@ -21,7 +21,7 @@
 
 
 
-class CViewInfo;
+class ViewInfo;
 class CMaskedContextDescriptor;
 
 namespace GR
@@ -89,7 +89,7 @@ public:
 
   HFONT             m_hFont;
 
-  CViewInfo         *pViewInfo;
+  ViewInfo         *pViewInfo;
 
   tListEffekte      m_Effects;
 

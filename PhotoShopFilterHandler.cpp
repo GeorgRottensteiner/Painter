@@ -1786,7 +1786,7 @@ void CPhotoShopFilterHandler::PSReportError( FilterRecord& filter, int16 result 
 
 
 
-void CPhotoShopFilterHandler::OpenPhotoShopFilter( CViewInfo& viewInfo, const GR::String& strFilterFileName )
+void CPhotoShopFilterHandler::OpenPhotoShopFilter( ViewInfo& viewInfo, const GR::String& strFilterFileName )
 {
   BOOL    bFilterCancelled = FALSE;
 
@@ -1920,8 +1920,8 @@ void CPhotoShopFilterHandler::OpenPhotoShopFilter( CViewInfo& viewInfo, const GR
       filter.progressProc = progress_proc;
       filter.parameters = NULL;
 
-      DWORD   dwBack = pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2 ),
-              dwFore = pSettings->GetRGBColor( CSettings::CO_WORKCOLOR );
+      DWORD   dwBack = pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2 ),
+              dwFore = pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR );
 
       int   red =   ( dwBack & 0xff0000 ) >> 16,
             green = ( dwBack & 0xff00 ) >> 8,

@@ -467,8 +467,8 @@ void CDlgPToolBrush::OnListBrushTipSelChange()
 void CDlgPToolBrush::RedrawPreviews()
 {
 
-  pSettings->brushForeground.DrawOnPage( m_pPageForeground, pSettings->GetRGBColor( CSettings::CO_WORKCOLOR ) );
-  pSettings->brushBackground.DrawOnPage( m_pPageBackground, pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2 ) );
+  pSettings->brushForeground.DrawOnPage( m_pPageForeground, pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR ) );
+  pSettings->brushBackground.DrawOnPage( m_pPageBackground, pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2 ) );
   m_ButtonBrushForeground.Invalidate( FALSE );
   m_ButtonBrushBackground.Invalidate( FALSE );
 

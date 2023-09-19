@@ -641,7 +641,7 @@ DocumentInfo* CPainterApp::GetDocumentInfoFromDocument( CDocument* pDoc )
 
 
 
-CViewInfo *CPainterApp::GetActiveViewInfo()
+ViewInfo *CPainterApp::GetActiveViewInfo()
 {
 
   CScrollView         *pView;
@@ -954,7 +954,7 @@ void CPainterApp::OnFileNew()
 
     theApp.pDocTemplate->InitialUpdateFrame( pFrameWnd, pDoc, TRUE );
 
-    pDoc->SetTitle( _T( "Neues Dokument" ) );
+    pDoc->SetTitle( _T( "New Document" ) );
   }
   else if ( pNewDocument->m_Type == DT_FONT )
   {
@@ -978,7 +978,7 @@ void CPainterApp::OnFileNew()
       pFontDoc->diInfo.AddLayer( pDummyImage, pFontDoc->diInfo.AddFrame() );
     }
 
-    pFontDoc->SetTitle( _T( "Neues Dokument" ) );
+    pFontDoc->SetTitle( _T( "New Document" ) );
   }
 
   delete pNewDocument;
@@ -996,7 +996,7 @@ void CPainterApp::ShowStatusMessage()
 {
   DocumentInfo*   pDocInfo;
 
-  CViewInfo*      pViewInfo;
+  ViewInfo*      pViewInfo;
   
   
   pDocInfo = GetActiveDocumentInfo();
@@ -1105,10 +1105,10 @@ void CPainterApp::OnMenuColorPicker()
   CColorPicker      dlgCP;
 
 
-  dlgCP.m_WorkColor = pSettings->GetRGBColor( CSettings::CO_WORKCOLOR );
+  dlgCP.m_WorkColor = pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR );
   if ( dlgCP.DoModal() == IDOK )
   {
-    pSettings->SetColor( CSettings::CO_WORKCOLOR, dlgCP.m_WorkColor );
+    pSettings->SetColor( CSettings::ColorCategory::WORKCOLOR, dlgCP.m_WorkColor );
   }
 }
 
@@ -1118,7 +1118,7 @@ void CPainterApp::OnSpezialEffekte()
 {
   CDlgEffekte     *pDlgEffekte;
 
-  CViewInfo       *pViewInfo;
+  ViewInfo       *pViewInfo;
 
 
   pViewInfo = GetActiveViewInfo();
@@ -1225,7 +1225,7 @@ void CPainterApp::OnSpezialEffekte()
 
         CLayer* pNewLayer = pViewInfo->m_pDocInfo->AddLayer();
 
-        if ( pViewInfo->m_Type == CViewInfo::VI_ALPHA )
+        if ( pViewInfo->m_Type == ViewInfo::VI_ALPHA )
         {
           pNewLayer->SetLayerImage( new GR::Graphic::Image( (WORD)pViewInfo->m_pDocInfo->Width(), 
                                                     (WORD)pViewInfo->m_pDocInfo->Height(), 
@@ -1304,21 +1304,21 @@ BOOL CPainterApp::OnIdle( LONG lCount )
 
   if ( GetTickCount() - iLastTime >= 1000 )
   {
-    CViewInfo*    pViewInfo = GetActiveViewInfo();
+    ViewInfo*    pViewInfo = GetActiveViewInfo();
 
     if ( pViewInfo )
     {
-      DWORD   dwRedrawFlags = CViewInfo::REDRAW_NONE;
+      DWORD   dwRedrawFlags = ViewInfo::REDRAW_NONE;
 
       if ( !pViewInfo->m_rectRedraw.empty() )
       {
-        dwRedrawFlags |= CViewInfo::REDRAW_RECT;
+        dwRedrawFlags |= ViewInfo::REDRAW_RECT;
       }
       if ( pViewInfo->m_pDocInfo->HasSelection() )
       {
-        dwRedrawFlags |= CViewInfo::REDRAW_SELECTION;
+        dwRedrawFlags |= ViewInfo::REDRAW_SELECTION;
       }
-      if ( dwRedrawFlags != CViewInfo::REDRAW_NONE )
+      if ( dwRedrawFlags != ViewInfo::REDRAW_NONE )
       {
         pViewInfo->m_pDocInfo->m_pDoc->UpdateAllViews( NULL, dwRedrawFlags );
       }
@@ -1457,6 +1457,9 @@ void CPainterApp::OnFileSaveAs( DocumentInfo& diInfo )
     case SAVETYPE_CURSOR:
       dlgFile.m_ofn.nFilterIndex = 14;
       break;
+    case SAVETYPE_IFF:
+      dlgFile.m_ofn.nFilterIndex = 15;
+      break;
     default:
     case SAVETYPE_UNKNOWN:
       dlgFile.m_ofn.nFilterIndex = pSettings->GetSetting( "SaveFilterIndex" );
@@ -1468,7 +1471,8 @@ void CPainterApp::OnFileSaveAs( DocumentInfo& diInfo )
 
   if ( diInfo.m_DocType == DT_IMAGE )
   {
-    dlgFile.m_ofn.lpstrFilter = _T( "IGF Files (*.IGF)\0*.igf\0" )
+    dlgFile.m_ofn.lpstrFilter = _T( "GRI Files (*.GRI)\0*.gri\0" )
+                                _T( "IGF Files (*.IGF)\0*.igf\0" )
                                 _T( "PNT Files (*.PNT)\0*.pnt\0" )
                                 _T( "BTN Files (*.BTN)\0*.btn\0" )
                                 _T( "ANX Files (*.ANX)\0*.anx\0" )
@@ -1482,6 +1486,7 @@ void CPainterApp::OnFileSaveAs( DocumentInfo& diInfo )
                                 _T( "TGA Files (*.TGA)\0*.tga\0" )
                                 _T( "Icon Files (*.ICO)\0*.ico\0" )
                                 _T( "Cursor Files (*.CUR)\0*.cur\0" )
+                                _T( "IFF (*.IFF)\0*.iff\0" )
                                 _T( "\0\0\0" );
     if ( !dlgFile.DoModal() )
     {
@@ -1494,73 +1499,83 @@ void CPainterApp::OnFileSaveAs( DocumentInfo& diInfo )
 
     if ( dlgFile.m_ofn.nFilterIndex == 1 )
     {
+      diInfo.m_SaveType = SAVETYPE_GRI;
+      targetName = Path::RenameExtension( targetName, "gri" );
+    }
+    else if ( dlgFile.m_ofn.nFilterIndex == 2 )
+    {
       diInfo.m_SaveType = SAVETYPE_IGF;
       targetName = Path::RenameExtension( targetName, "igf" );
     }
-    else if ( dlgFile.m_ofn.nFilterIndex == 2 )
+    else if ( dlgFile.m_ofn.nFilterIndex == 3 )
     {
       diInfo.m_SaveType = SAVETYPE_PNT;
       targetName = Path::RenameExtension( targetName, "pnt" );
     }
-    else if ( dlgFile.m_ofn.nFilterIndex == 3 )
+    else if ( dlgFile.m_ofn.nFilterIndex == 4 )
     {
       diInfo.m_SaveType = SAVETYPE_BTN;
       targetName = Path::RenameExtension( targetName, "btn" );
     }
-    else if ( dlgFile.m_ofn.nFilterIndex == 4 )
+    else if ( dlgFile.m_ofn.nFilterIndex == 5 )
     {
       diInfo.m_SaveType = SAVETYPE_BTH;
       targetName = Path::RenameExtension( targetName, "bth" );
     }
-    else if ( dlgFile.m_ofn.nFilterIndex == 5 )
+    else if ( dlgFile.m_ofn.nFilterIndex == 6 )
     {
       diInfo.m_SaveType = SAVETYPE_ANX;
       targetName = Path::RenameExtension( targetName, "anx" );
     }
-    else if ( dlgFile.m_ofn.nFilterIndex == 6 )
+    else if ( dlgFile.m_ofn.nFilterIndex == 7 )
     {
       diInfo.m_SaveType = SAVETYPE_ANH;
       targetName = Path::RenameExtension( targetName, "anh" );
     }
-    else if ( dlgFile.m_ofn.nFilterIndex == 7 )
+    else if ( dlgFile.m_ofn.nFilterIndex == 8 )
     {
       diInfo.m_SaveType = SAVETYPE_BMP;
       targetName = Path::RenameExtension( targetName, "bmp" );
     }
-    else if ( dlgFile.m_ofn.nFilterIndex == 8 )
+    else if ( dlgFile.m_ofn.nFilterIndex == 9 )
     {
       diInfo.m_SaveType = SAVETYPE_PCX;
       targetName = Path::RenameExtension( targetName, "pcx" );
     }
-    else if ( dlgFile.m_ofn.nFilterIndex == 9 )
+    else if ( dlgFile.m_ofn.nFilterIndex == 10 )
     {
       diInfo.m_SaveType = SAVETYPE_GIF;
       targetName = Path::RenameExtension( targetName, "gif" );
     }
-    else if ( dlgFile.m_ofn.nFilterIndex == 10 )
+    else if ( dlgFile.m_ofn.nFilterIndex == 11 )
     {
       diInfo.m_SaveType = SAVETYPE_JPEG;
       targetName = Path::RenameExtension( targetName, "jpg" );
     }
-    else if ( dlgFile.m_ofn.nFilterIndex == 11 )
+    else if ( dlgFile.m_ofn.nFilterIndex == 12 )
     {
       diInfo.m_SaveType = SAVETYPE_PNG;
       targetName = Path::RenameExtension( targetName, "png" );
     }
-    else if ( dlgFile.m_ofn.nFilterIndex == 12 )
+    else if ( dlgFile.m_ofn.nFilterIndex == 13 )
     {
       diInfo.m_SaveType = SAVETYPE_TGA;
       targetName = Path::RenameExtension( targetName, "tga" );
     }
-    else if ( dlgFile.m_ofn.nFilterIndex == 13 )
+    else if ( dlgFile.m_ofn.nFilterIndex == 14 )
     {
       diInfo.m_SaveType = SAVETYPE_ICON;
       targetName = Path::RenameExtension( targetName, "ico" );
     }
-    else if ( dlgFile.m_ofn.nFilterIndex == 14 )
+    else if ( dlgFile.m_ofn.nFilterIndex == 15 )
     {
       diInfo.m_SaveType = SAVETYPE_CURSOR;
       targetName = Path::RenameExtension( targetName, "cur" );
+    }
+    else if ( dlgFile.m_ofn.nFilterIndex == 16 )
+    {
+      diInfo.m_SaveType = SAVETYPE_IFF;
+      targetName = Path::RenameExtension( targetName, "iff" );
     }
 
     pSettings->SetSetting( "SaveFilterIndex", dlgFile.m_ofn.nFilterIndex );

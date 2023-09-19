@@ -253,8 +253,8 @@ void CTextDialog::OnOK()
 void CTextDialog::ApplyEffects( CMaskedContextDescriptor *pCDSource, CMaskedContextDescriptor *pCDTarget,
                                 int iX1, int iY1, int iX2, int iY2 )
 {
-  GR::u32   backColor = pPagePreview->GetRGB256( pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2 ) ),
-            fontColor = pPagePreview->GetRGB256( pSettings->GetRGBColor( CSettings::CO_WORKCOLOR ) );
+  GR::u32   backColor = pPagePreview->GetRGB256( pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2 ) ),
+            fontColor = pPagePreview->GetRGB256( pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR ) );
 
   for ( int k = iY1; k <= iY2; k++ )
   {
@@ -263,7 +263,7 @@ void CTextDialog::ApplyEffects( CMaskedContextDescriptor *pCDSource, CMaskedCont
       if ( pCDSource->GetDirectPixel( l, k ) == fontColor )
       {
         // ein Font-Pixel!
-        pCDTarget->PutPixel( l, k, pSettings->GetRGBColor( CSettings::CO_WORKCOLOR ) );
+        pCDTarget->PutPixel( l, k, pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR ) );
       }
     }
   }
@@ -363,7 +363,7 @@ void CTextDialog::RebuildPreview()
   HDC   hdcTarget = pPagePreview->GetDC();
 
   pPagePreview->Box( 0, 0, pPagePreview->GetWidth() - 1, pPagePreview->GetHeight() - 1, 
-                     pPagePreview->GetRGB256( pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2 ) ) );
+                     pPagePreview->GetRGB256( pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2 ) ) );
 
 
   RECT    rc;
@@ -377,8 +377,8 @@ void CTextDialog::RebuildPreview()
   HFONT   hOldFont = (HFONT)::SelectObject( hdcTarget, m_hFont );
 
   SetBkMode( hdcTarget, TRANSPARENT );
-  SetTextColor( hdcTarget, pSettings->GetColorRef( CSettings::CO_WORKCOLOR ) );
-  SetBkColor( hdcTarget, pSettings->GetColorRef( CSettings::CO_WORKCOLOR_2 ) );
+  SetTextColor( hdcTarget, pSettings->GetColorRef( CSettings::ColorCategory::WORKCOLOR ) );
+  SetBkColor( hdcTarget, pSettings->GetColorRef( CSettings::ColorCategory::WORKCOLOR_2 ) );
 
   ::SetMapMode( hdcTarget, MM_TEXT );
 
@@ -426,7 +426,7 @@ void CTextDialog::RebuildPreview()
         if ( m_Filled )
         {
           /*
-          HBRUSH  hBrush = CreateSolidBrush( pSettings->GetColorRef( CSettings::CO_WORKCOLOR ) ),
+          HBRUSH  hBrush = CreateSolidBrush( pSettings->GetColorRef( CSettings::ColorCategory::WORKCOLOR ) ),
                   hOldBrush;
           hOldBrush = (HBRUSH)SelectObject( hdcTarget, hBrush );
           SetPolyFillMode( hdcTarget, ALTERNATE );
@@ -463,15 +463,15 @@ void CTextDialog::RebuildPreview()
 
               //pPagePreview->Line( iX1, iY1, iX2, iY2, 32767 );
               //sline( &cdPage, iX1, iY1, iX2, iY2 );
-              //AntiLine( &cdPage, iX1, iY1, iX2, iY2, pSettings->GetRGBColor( CSettings::CO_WORKCOLOR ) );
-              //cdPage.AALine( iX1, iY1, iX2, iY2, pSettings->GetRGBColor( CSettings::CO_WORKCOLOR ) );
+              //AntiLine( &cdPage, iX1, iY1, iX2, iY2, pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR ) );
+              //cdPage.AALine( iX1, iY1, iX2, iY2, pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR ) );
 
               iX1 = iX2;
               iY1 = iY2;
             }
             else if ( ( pPointTypes[j] & PT_CLOSEFIGURE ) == PT_CLOSEFIGURE )
             {
-              //cdPage.AALine( iX1, iY1, iStartX, iStartY, pSettings->GetRGBColor( CSettings::CO_WORKCOLOR ) );
+              //cdPage.AALine( iX1, iY1, iStartX, iStartY, pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR ) );
 
               /*
               listLines.push_back( GR::tFPoint( (float)iX1, (float)iY1 ) );
@@ -492,7 +492,7 @@ void CTextDialog::RebuildPreview()
             CPolygonFillAA    Filler;
 
 
-            Filler.FillPolygon( cdPage, listLines, pSettings->GetRGBColor( CSettings::CO_WORKCOLOR ) );
+            Filler.FillPolygon( cdPage, listLines, pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR ) );
           }
 
         }
@@ -515,15 +515,15 @@ void CTextDialog::RebuildPreview()
 
               //pPagePreview->Line( iX1, iY1, iX2, iY2, 32767 );
               //sline( &cdPage, iX1, iY1, iX2, iY2 );
-              //AntiLine( &cdPage, iX1, iY1, iX2, iY2, pSettings->GetRGBColor( CSettings::CO_WORKCOLOR ) );
-              cdPage.AALine( iX1, iY1, iX2, iY2, pSettings->GetRGBColor( CSettings::CO_WORKCOLOR ) );
+              //AntiLine( &cdPage, iX1, iY1, iX2, iY2, pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR ) );
+              cdPage.AALine( iX1, iY1, iX2, iY2, pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR ) );
 
               iX1 = iX2;
               iY1 = iY2;
             }
             else if ( ( pPointTypes[j] & PT_CLOSEFIGURE ) == PT_CLOSEFIGURE )
             {
-              cdPage.AALine( iX1, iY1, iStartX, iStartY, pSettings->GetRGBColor( CSettings::CO_WORKCOLOR ) );
+              cdPage.AALine( iX1, iY1, iStartX, iStartY, pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR ) );
             }
           }
         }
@@ -533,7 +533,7 @@ void CTextDialog::RebuildPreview()
         delete[] pPoints;
 
         /*
-        HBRUSH  hBrush = CreateSolidBrush( pSettings->GetColorRef( CSettings::CO_WORKCOLOR ) ),
+        HBRUSH  hBrush = CreateSolidBrush( pSettings->GetColorRef( CSettings::ColorCategory::WORKCOLOR ) ),
                 hOldBrush;
         hOldBrush = (HBRUSH)SelectObject( hdcTarget, hBrush );
         //SetPolyFillMode( hdcTarget, ALTERNATE );
@@ -724,7 +724,7 @@ void CTextDialog::RebuildPreview()
       if ( m_bApplyEffectsSingle )
       {
         pTempPage->Box( 0, 0, pPagePreview->GetWidth() - 1, pPagePreview->GetHeight() - 1, 
-                           pPagePreview->GetRGB256( pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2 ) ) );
+                           pPagePreview->GetRGB256( pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2 ) ) );
       }
 
       DrawText( pTempPage->GetDC(), 
@@ -782,8 +782,8 @@ void CTextDialog::RebuildPreview()
         pImageLine->PutImage( pPagePreview, 0, i );
 
         // das Loch am linken Rand zugipsen
-        //pPagePreview->Box( 0, i, m_iTilt * ( 2 * m_iHeight - i - 1 ) / ( 2 * m_iHeight ), i, pPagePreview->GetRGB256( pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2 ) ) );
-        pPagePreview->Box( 0, i, m_iTilt * ( m_iHeight - i - 1 ) / ( m_iHeight ), i, pPagePreview->GetRGB256( pSettings->GetRGBColor( CSettings::CO_WORKCOLOR_2 ) ) );
+        //pPagePreview->Box( 0, i, m_iTilt * ( 2 * m_iHeight - i - 1 ) / ( 2 * m_iHeight ), i, pPagePreview->GetRGB256( pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2 ) ) );
+        pPagePreview->Box( 0, i, m_iTilt * ( m_iHeight - i - 1 ) / ( m_iHeight ), i, pPagePreview->GetRGB256( pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR_2 ) ) );
       }
     }
     delete pImageLine;
@@ -1056,7 +1056,7 @@ void CTextDialog::OnBnClickedButtonFont()
   stCF.hwndOwner      = GetSafeHwnd();
   stCF.lpLogFont      = &m_logFont;
   stCF.Flags          = CF_SCREENFONTS | CF_EFFECTS | CF_INITTOLOGFONTSTRUCT;
-  stCF.rgbColors      = pSettings->GetColorRef( CSettings::CO_WORKCOLOR );
+  stCF.rgbColors      = pSettings->GetColorRef( CSettings::ColorCategory::WORKCOLOR );
 
 
   if ( ChooseFont( &stCF ) )

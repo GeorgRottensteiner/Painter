@@ -1,13 +1,4 @@
-#if !defined(AFX_COLORREDUCER_H__0D5E8697_25D3_4D39_BF85_7B9F66600238__INCLUDED_)
-#define AFX_COLORREDUCER_H__0D5E8697_25D3_4D39_BF85_7B9F66600238__INCLUDED_
-
-#if _MSC_VER > 1000
 #pragma once
-#endif // _MSC_VER > 1000
-
-
-#include <math.h>
-
 
 
 namespace ColorReducer
@@ -180,5 +171,4 @@ class CColorReducer
 };
 
 
-#endif // !defined(AFX_COLORREDUCER_H__0D5E8697_25D3_4D39_BF85_7B9F66600238__INCLUDED_)
 

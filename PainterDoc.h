@@ -38,17 +38,13 @@ class CPainterDoc : public CDocument
 	  public:
 	  virtual BOOL OnSaveDocument(LPCTSTR lpszPathName);
 	  virtual BOOL OnOpenDocument(LPCTSTR lpszPathName);
+    virtual BOOL SaveModified();
 	  virtual void OnCloseDocument();
 	  //}}AFX_VIRTUAL
 
   // Implementierung
   public:
 	  virtual ~CPainterDoc();
-
-  #ifdef _DEBUG
-	  virtual void AssertValid() const;
-	  virtual void Dump(CDumpContext& dc) const;
-  #endif
 
 
   protected:
@@ -60,7 +56,6 @@ class CPainterDoc : public CDocument
   // Generierte Message-Map-Funktionen
   protected:
 	  //{{AFX_MSG(CPainterDoc)
-	  afx_msg void OnPaintZoomin();
 	  afx_msg void OnConvertTo16bpp();
 	  afx_msg void OnConvertTo24bpp();
 	  afx_msg void OnConvertTo32bpp();

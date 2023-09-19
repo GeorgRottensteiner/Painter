@@ -147,7 +147,7 @@ void CEffektJalousie::DoEffekt()
   DWORD       dwPixel;
 
 
-  DWORD       dwNewColor = pSettings->GetRGBColor( CSettings::CO_WORKCOLOR );
+  DWORD       dwNewColor = pSettings->GetRGBColor( CSettings::ColorCategory::WORKCOLOR );
 
   iROrig = ( dwNewColor & 0xff0000 ) >> 16;
   iGOrig = ( dwNewColor & 0x00ff00 ) >> 8;

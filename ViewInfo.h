@@ -10,6 +10,7 @@
 #include <Grafik/Image.h>
 
 #include "MaskedContextDescriptor.h"
+#include "Settings.h"
 
 
 class DocumentInfo;
@@ -18,7 +19,9 @@ class CLayer;
 
 class CScrollView;
 
-class CViewInfo  
+
+
+class ViewInfo  
 {
   public:
 
@@ -66,15 +69,15 @@ class CViewInfo
     GR::tRect             m_LastSelectingFrame,
                           m_rectRedraw;
 
-    WORD                  m_ZoomFaktor;
+    GR::u16               m_ZoomFaktor;
 
     eViewInfoType         m_Type;
 
-    DWORD                 m_RedrawFlags;
+    GR::u32               m_RedrawFlags;
 
 
-    CViewInfo();
-	  virtual ~CViewInfo();
+    ViewInfo();
+	  virtual ~ViewInfo();
 
     void                  InitializePage( eViewInfoType eType = VI_DEFAULT );
 
@@ -87,11 +90,11 @@ class CViewInfo
 
     void                  DoLeftButton( POINT pt, int iFlags, BOOL bFirstDown );
     void                  DoLeftButtonUp( POINT point, int iFlags );
+      
+    void                  DoFunction( CMaskedContextDescriptor *pCD, GR::u32 dwFunction, int iX, int iY, int iX2 = 0, int iY2 = 0 );
 
-    void DoFunction( CMaskedContextDescriptor *pCD, DWORD dwFunction, int iX, int iY, int iX2 = 0, int iY2 = 0 );
-
-    DWORD GetRGBColor( DWORD dwOrigIndex );
-    void GetWorkColorFromPixel( int iX, int iY );
+    GR::u32               GetRGBColor( GR::u32 dwOrigIndex );
+    void                  GetWorkColorFromPixel( int iX, int iY );
 
     GR::Graphic::Palette*         GetActivePalette();
     GR::Graphic::Image *GetActiveImage();
@@ -100,7 +103,7 @@ class CViewInfo
     // gibt eine Kopie des aktiven Images zurück (als CD-Owner)
     GR::Graphic::ContextDescriptor*           GetWorkCD();
 
-    DWORD GetViewBitDepth();
+    GR::u32               GetViewBitDepth();
 
     void                  Invert();
 
@@ -111,7 +114,7 @@ class CViewInfo
     // Clipboard
     void                  CopyToClipboard();
 
-    DWORD                 ToLocalColor( DWORD dwColor );
+    GR::u32               ToLocalColor( CSettings::ColorCategory Color );
 
     void                  AddUndoRect( int iX1, int iY1, int iX2, int iY2, int iFrame, int iLayer, BOOL bStartNewUndoGroup = TRUE );
 
