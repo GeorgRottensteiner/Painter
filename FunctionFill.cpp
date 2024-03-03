@@ -47,10 +47,10 @@ GR::Graphic::Image* CFunctionFill::GetFillMask( CMaskedContextDescriptor* pCD, i
                     paintbuffery[30000];
 
 
-  Bounds.clear();
+  Bounds.Clear();
   if ( !pSettings->GetSetting( "FillClipGradient" ) )
   {
-    Bounds.set( 0, 0, pCD->Width(), pCD->Height() );
+    Bounds.Set( 0, 0, pCD->Width(), pCD->Height() );
   }
 
   if ( pCD == NULL )
@@ -173,7 +173,7 @@ GR::Graphic::Image* CFunctionFill::GetFillMask( CMaskedContextDescriptor* pCD, i
     {
       cdMask.PutDirectPixel( i, y, 255 );
     }
-    Bounds.combine( GR::tRect( x1, y, x - x1, 1 ) );
+    Bounds.Combine( GR::tRect( x1, y, x - x1, 1 ) );
   } 
   while ( bufzeiger > 0 );
   return pImageMask;
@@ -212,14 +212,14 @@ void CFunctionFill::ApplyAt( ViewInfo* pViewInfo, int iX, int iY )
         if ( ( pViewInfo->m_pDocInfo->HasSelection() )
         &&   ( pSettings->GetSetting( "FillClipGradient" ) ) )
         {
-          rcBounds.set( pViewInfo->m_pDocInfo->m_Selection.left,
+          rcBounds.Set( pViewInfo->m_pDocInfo->m_Selection.left,
                         pViewInfo->m_pDocInfo->m_Selection.top,
                         pViewInfo->m_pDocInfo->m_Selection.right - pViewInfo->m_pDocInfo->m_Selection.left,
                         pViewInfo->m_pDocInfo->m_Selection.bottom - pViewInfo->m_pDocInfo->m_Selection.top );
         }
         else
         {
-          rcBounds.set( 0, 0, pWorkMask->GetWidth(), pWorkMask->GetHeight() );
+          rcBounds.Set( 0, 0, pWorkMask->GetWidth(), pWorkMask->GetHeight() );
         }
       }
       break;

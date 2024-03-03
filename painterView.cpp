@@ -1422,7 +1422,7 @@ void CPainterView::OnInitialUpdate()
   m_viewInfo.InitializePage( ViewInfo::VI_RGB );
 
   m_viewInfo.m_RedrawFlags = ViewInfo::REDRAW_ALL;
-  m_viewInfo.m_rectRedraw.set( 0, 0, m_viewInfo.m_pDocInfo->Width(), m_viewInfo.m_pDocInfo->Height() );
+  m_viewInfo.m_rectRedraw.Set( 0, 0, m_viewInfo.m_pDocInfo->Width(), m_viewInfo.m_pDocInfo->Height() );
   Invalidate();
 
   SetScrollSizes( MM_TEXT, CSize( ( pDoc->diInfo.Width() * m_viewInfo.m_ZoomFaktor ) / 100, ( pDoc->diInfo.Height() * m_viewInfo.m_ZoomFaktor ) / 100 ) );
@@ -1481,7 +1481,7 @@ void CPainterView::OnUpdate( CView* pSender, LPARAM lHint, CObject* pHint )
   }
   if ( m_viewInfo.m_RedrawFlags == ViewInfo::REDRAW_RECT )
   {
-    m_viewInfo.m_rectRedraw.combine( *( GR::tRect* )pHint );
+    m_viewInfo.m_rectRedraw.Combine( *( GR::tRect* )pHint );
 
     if ( m_viewInfo.m_rectRedraw.Left < 0 )
     {

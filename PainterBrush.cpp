@@ -175,11 +175,11 @@ void PainterBrush::PutBrush( ViewInfo* pViewInfo, CMaskedContextDescriptor* pCD,
 
           if ( pViewInfo )
           {
-            ptCenter.set( (float)pViewInfo->m_pDocInfo->m_StartX, (float)pViewInfo->m_pDocInfo->m_StartY );
+            ptCenter.Set( (float)pViewInfo->m_pDocInfo->m_StartX, (float)pViewInfo->m_pDocInfo->m_StartY );
           }
           else
           {
-            ptCenter.set( (float)rcBounds.width(), (float)rcBounds.height() );
+            ptCenter.Set( (float)rcBounds.Width(), (float)rcBounds.Height() );
           }
 
           GR::tFPoint     ptPos( (float)iX, (float)iY );
@@ -187,14 +187,14 @@ void PainterBrush::PutBrush( ViewInfo* pViewInfo, CMaskedContextDescriptor* pCD,
           // TODO - nicht richtig
           std::set<float>   setLength;
 
-          setLength.insert( ( ptCenter - GR::tFPoint( (float)rcBounds.Left, (float)rcBounds.Top ) ).length_squared() );
-          setLength.insert( ( ptCenter - GR::tFPoint( (float)rcBounds.Right, (float)rcBounds.Top ) ).length_squared() );
-          setLength.insert( ( ptCenter - GR::tFPoint( (float)rcBounds.Left, (float)rcBounds.Bottom ) ).length_squared() );
-          setLength.insert( ( ptCenter - GR::tFPoint( (float)rcBounds.Right, (float)rcBounds.Bottom ) ).length_squared() );
+          setLength.insert( ( ptCenter - GR::tFPoint( (float)rcBounds.Left, (float)rcBounds.Top ) ).LengthSquared() );
+          setLength.insert( ( ptCenter - GR::tFPoint( (float)rcBounds.Right, (float)rcBounds.Top ) ).LengthSquared() );
+          setLength.insert( ( ptCenter - GR::tFPoint( (float)rcBounds.Left, (float)rcBounds.Bottom ) ).LengthSquared() );
+          setLength.insert( ( ptCenter - GR::tFPoint( (float)rcBounds.Right, (float)rcBounds.Bottom ) ).LengthSquared() );
 
           float     fMax = *setLength.rbegin();
 
-          float     fPos = ( ptPos - ptCenter ).length_squared();
+          float     fPos = ( ptPos - ptCenter ).LengthSquared();
 
           if ( fMax == 0.0f )
           {
@@ -349,7 +349,7 @@ void PainterBrush::ApplyBrushTipOnMask( ViewInfo* pViewInfo, CMaskedContextDescr
   }
   else
   {
-    rcWork.set( 0, 0, pImageMask->GetWidth(), pImageMask->GetHeight() );
+    rcWork.Set( 0, 0, pImageMask->GetWidth(), pImageMask->GetHeight() );
   }
 
   GR::Graphic::Image            imageFillMask( pImageMask->GetWidth(), pImageMask->GetHeight(), 8 );
@@ -412,7 +412,7 @@ void PainterBrush::ApplyBrushTipOnMask( ViewInfo* pViewInfo, CMaskedContextDescr
   }
 
   // das Boundingrect um die Breite des Brushtip erweitern
-  rcWork.inflate( ImageBrushTip.GetWidth() / 2, ImageBrushTip.GetHeight() / 2 );
+  rcWork.Inflate( ImageBrushTip.GetWidth() / 2, ImageBrushTip.GetHeight() / 2 );
   if ( rcWork.Left < 0 )
   {
     rcWork.Left = 0;

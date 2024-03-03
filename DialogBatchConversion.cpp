@@ -225,8 +225,7 @@ void CDialogBatchConversion::OnButtonBatchStart()
 
     m_EditTargetPath.GetWindowText( cstrGnu );
     targetPath = GR::Convert::ToUTF8( (LPCTSTR)cstrGnu );
-    targetPath = Path::AddBackslash( targetPath );
-
+    targetPath = Path::AddSeparator( targetPath );
     targetFile = Path::StripPath( sourceFile );
 
     targetFile = Path::RenameExtension( targetFile, CMisc::printf( ".%s", pFormat->m_Extension.c_str() ) );

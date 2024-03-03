@@ -822,7 +822,7 @@ void ViewInfo::DrawSelectionFrame( HDC hdc )
       rcNew.Right *= m_ZoomFaktor / 100;
       rcNew.Bottom *= m_ZoomFaktor / 100;
 
-      rcNew.offset( -m_ptScrollOffset.x, -m_ptScrollOffset.y );
+      rcNew.Offset( -m_ptScrollOffset.x, -m_ptScrollOffset.y );
 
       RECT  rectNew;
       SetRect( &rectNew, rcNew.Left, rcNew.Top, rcNew.Right, rcNew.Bottom );
@@ -1497,7 +1497,7 @@ void ViewInfo::DoLeftButtonUp( POINT point, int nFlags )
 
         GR::tRect   rcChanges( m_pDocInfo->m_StartX, m_pDocInfo->m_StartY,
                                m_pDocInfo->m_ActX - m_pDocInfo->m_StartX + 1, m_pDocInfo->m_ActY - m_pDocInfo->m_StartY + 1 );
-        rcChanges.normalize();
+        rcChanges.Normalize();
         rcRedrawRect = rcChanges;
 
         m_pDocInfo->SetModify( TRUE );
@@ -1511,7 +1511,7 @@ void ViewInfo::DoLeftButtonUp( POINT point, int nFlags )
 
         GR::tRect   rcChanges( m_pDocInfo->m_StartX, m_pDocInfo->m_StartY,
                                m_pDocInfo->m_ActX - m_pDocInfo->m_StartX + 1, m_pDocInfo->m_ActY - m_pDocInfo->m_StartY + 1 );
-        rcChanges.normalize();
+        rcChanges.Normalize();
         rcRedrawRect = rcChanges;
 
         m_pDocInfo->SetModify( TRUE );
@@ -1591,7 +1591,7 @@ void ViewInfo::DoLeftButtonUp( POINT point, int nFlags )
 
       DoFunction( pCD, CSettings::F_FREEHAND_1, m_pDocInfo->m_ActX, m_pDocInfo->m_ActY );
 
-      rcRedrawRect.set( m_pDocInfo->m_ActX, m_pDocInfo->m_ActY, 1, 1 );
+      rcRedrawRect.Set( m_pDocInfo->m_ActX, m_pDocInfo->m_ActY, 1, 1 );
 
       m_pDocInfo->SetModify( TRUE );
       break;
@@ -2089,7 +2089,7 @@ void ViewInfo::RedrawView()
 
   m_RedrawFlags = REDRAW_ALL;
 
-  m_rectRedraw.set( 0, 0, m_pDocInfo->Width(), m_pDocInfo->Height() );
+  m_rectRedraw.Set( 0, 0, m_pDocInfo->Width(), m_pDocInfo->Height() );
 
   if ( m_pDocInfo->m_DocType == DT_FONT )
   {
@@ -2224,7 +2224,7 @@ void ViewInfo::DisplayPage()
       }
     }
   }
-  m_rectRedraw.clear();
+  m_rectRedraw.Clear();
 }
 
 

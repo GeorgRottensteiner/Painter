@@ -79,6 +79,11 @@ bool SavePNT( DocumentInfo& DocInfo, IIOStream& IOOut )
         // dieser Layer hat eine Maske
         layerFlags |= 1;
       }
+      // uses transparent index
+      if ( pLayer->m_Transparent )
+      {
+        layerFlags |= 2;
+      }
       IOOut.WriteU32( layerFlags );
       IOOut.WriteU32( pLayer->m_Alpha );
       IOOut.WriteU32( pLayer->m_Type );
@@ -224,6 +229,10 @@ bool LoadPNT( DocumentInfo& DocInfo, IIOStream& IOIn )
       pLayer->m_Alpha = dwAlpha;
       pLayer->m_Type = ( CLayer::LayerType )dwLayerMode;
       pLayer->m_Transparenz = dwTransparenz;
+      if ( dwFlags & 2 )
+      {
+        pLayer->m_Transparent = true;
+      }
 
       if ( dwVersion == 1 )
       {
@@ -292,6 +301,10 @@ bool LoadPNT( DocumentInfo& DocInfo, IIOStream& IOIn )
         pLayer->m_Alpha = dwAlpha;
         pLayer->m_Type = ( CLayer::LayerType )dwLayerMode;
         pLayer->m_Transparenz = dwTransparenz;
+        if ( dwFlags & 2 )
+        {
+          pLayer->m_Transparent = true;
+        }
 
         if ( dwVersion == 1 )
         {

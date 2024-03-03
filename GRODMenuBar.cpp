@@ -156,7 +156,6 @@ ODMenu* GRODMenuBar::ReplaceMenu( HMENU hMenu )
 
 UINT GRODMenuBar::TrackMenu( HMENU hMenu, DWORD_PTR dwExtraData, UINT nAlignFlags, int iX, int iY, HWND hwndParent, TPMPARAMS* pParams )
 {
-
   ODMenu*    pMenu = (ODMenu*)dwExtraData;
 
   if ( pMenu )
@@ -164,7 +163,6 @@ UINT GRODMenuBar::TrackMenu( HMENU hMenu, DWORD_PTR dwExtraData, UINT nAlignFlag
     return pMenu->TrackPopupMenu( TPM_RETURNCMD | TPM_NONOTIFY, iX, iY, CWnd::FromHandle( hwndParent ) );
   }
   return 0;
-
 }
 
 

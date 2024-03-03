@@ -106,7 +106,7 @@ void DocumentInfo::RedrawAllViews()
   {
     case DT_FONT:
     case DT_IMAGE:
-      rcRedraw.set( 0, 0, Width(), Height() );
+      rcRedraw.Set( 0, 0, Width(), Height() );
       break;
     default:
       dh::Log( "DocumentInfo::RedrawAllViews unsupported Document type\n" );

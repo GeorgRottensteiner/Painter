@@ -567,7 +567,7 @@ void CPainterApp::OnFileOpen()
       // prüfen, ob ein Font dabei ist
       CheckAndOpen( fileName.c_str() );
 
-      GR::String    lastPath = Path::AddBackslash( Path::RemoveFileSpec( fileName ) );
+      GR::String    lastPath = Path::AddSeparator( Path::RemoveFileSpec( fileName ) );
 
       pSettings->SetSetting( "LoadFromDirectory", lastPath );
     }
@@ -1310,7 +1310,7 @@ BOOL CPainterApp::OnIdle( LONG lCount )
     {
       DWORD   dwRedrawFlags = ViewInfo::REDRAW_NONE;
 
-      if ( !pViewInfo->m_rectRedraw.empty() )
+      if ( !pViewInfo->m_rectRedraw.Empty() )
       {
         dwRedrawFlags |= ViewInfo::REDRAW_RECT;
       }
@@ -1586,7 +1586,7 @@ void CPainterApp::OnFileSaveAs( DocumentInfo& diInfo )
       diInfo.m_FileName = targetName;
 
       // SaveTo-Verzeichnis merken
-      GR::String    initDir = Path::AddBackslash( Path::RemoveFileSpec( targetName ) );
+      GR::String    initDir = Path::AddSeparator( Path::RemoveFileSpec( targetName ) );
 
       pSettings->SetSetting( "SaveToDirectory", initDir );
     }

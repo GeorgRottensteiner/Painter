@@ -901,7 +901,7 @@ void CPainterFontView::DoUpdate( LPARAM lHint, GR::tRect* pRect )
   {
     if ( pRect != NULL )
     {
-      m_viewInfo.m_rectRedraw.combine( *pRect );
+      m_viewInfo.m_rectRedraw.Combine( *pRect );
     }
   }
   if ( m_viewInfo.m_RedrawFlags == ViewInfo::REDRAW_ALL )
@@ -910,7 +910,7 @@ void CPainterFontView::DoUpdate( LPARAM lHint, GR::tRect* pRect )
 
     m_StaticLetter.GetClientRect( &rc );
     
-    m_viewInfo.m_rectRedraw.set( rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top );
+    m_viewInfo.m_rectRedraw.Set( rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top );
   }
   m_viewInfo.DisplayPage();
   if ( hwndFontWorkArea )

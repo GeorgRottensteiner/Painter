@@ -84,7 +84,7 @@ HTREEITEM CDlgPToolBrowser::InsertSubDir( HTREEITEM hItemParent, const GR::Strin
   // hier Spezial-Folder abfangen
   if ( Directory == "Desktop" )
   {
-    trueDir = Path::AddBackslash( CProgramGroups::GetShellFolder( "Desktop" ) );
+    trueDir = Path::AddSeparator( CProgramGroups::GetShellFolder( "Desktop" ) );
 
     // Extra-Wurst Desktop!
     for ( int i = 0; i < 26; i++ )
@@ -538,7 +538,7 @@ void CDlgPToolBrowser::RefreshThumbs( const GR::String& Directory )
   // hier Spezial-Folder abfangen
   if ( Directory == "Desktop" )
   {
-    trueDir = Path::AddBackslash( CProgramGroups::GetShellFolder( "Desktop" ) );
+    trueDir = Path::AddSeparator( CProgramGroups::GetShellFolder( "Desktop" ) );
   }
 
   GR::IO::FileUtil::EnumFilesInDirectory( Path::Append( trueDir, "*.*" ), m_FilesToLoad );
