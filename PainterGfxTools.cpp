@@ -796,6 +796,38 @@ FIBITMAP* ConvertImageToFreeImageDIB( GR::Graphic::Image *pImage, GR::Graphic::P
 
   switch ( pImage->GetDepth() )
   {
+    case 4:
+      {
+        dib = FreeImage_Allocate( pImage->GetWidth(), pImage->GetHeight(), 4 );
+
+        for ( int i = 0; i < pImage->GetHeight(); i++ )
+        {
+          memcpy( FreeImage_GetScanLine( dib, pImage->GetHeight() - 1 - i ),
+                  ( (BYTE*)pImage->GetData() ) + i * pImage->GetLineSize(),
+                  pImage->GetLineSize() );
+        }
+
+        BITMAPINFOHEADER* pbmHeader = FreeImage_GetInfoHeader( dib );
+        RGBQUAD* pRGB = FreeImage_GetPalette( dib );
+
+        for ( int i = 0; i < 16; i++ )
+        {
+          if ( pPalette )
+          {
+            pRGB->rgbRed = ( pPalette->Red( i ) );
+            pRGB->rgbGreen = ( pPalette->Green( i ) );
+            pRGB->rgbBlue = ( pPalette->Blue( i ) );
+          }
+          else
+          {
+            pRGB->rgbRed = i;
+            pRGB->rgbGreen = i;
+            pRGB->rgbBlue = i;
+          }
+          pRGB++;
+        }
+      }
+      break;
     case 8:
       {
         dib = FreeImage_Allocate( pImage->GetWidth(), pImage->GetHeight(), 8 );

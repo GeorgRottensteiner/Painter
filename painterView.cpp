@@ -1132,6 +1132,7 @@ void CPainterView::OnKeyUp( UINT nChar, UINT nRepCnt, UINT nFlags )
       m_viewInfo.RedrawView();
       return;
     }
+
     pDoc->diInfo.Rotate();
     pDoc->diInfo.RedrawAllViews();
   }

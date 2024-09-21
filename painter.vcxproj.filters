@@ -818,6 +818,9 @@
     <ClCompile Include="P:\Common\Codec\Base64.cpp">
       <Filter>Common</Filter>
     </ClCompile>
+    <ClCompile Include="DlgWebPOptions.cpp">
+      <Filter>Dialoge</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GFXUtil.h">
@@ -1473,6 +1476,9 @@
     </ClInclude>
     <ClInclude Include="P:\Common\Codec\Base64.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgWebPOptions.h">
+      <Filter>Dialoge</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

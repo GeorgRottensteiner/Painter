@@ -1415,50 +1415,56 @@ void CPainterApp::OnFileSaveAs( DocumentInfo& diInfo )
 
   switch( diInfo.m_SaveType )
   {
-    case SAVETYPE_IGF:
+    case SAVETYPE_GRI:
       dlgFile.m_ofn.nFilterIndex = 1;
       break;
-    case SAVETYPE_PNT:
+    case SAVETYPE_IGF:
       dlgFile.m_ofn.nFilterIndex = 2;
       break;
-    case SAVETYPE_BTN:
+    case SAVETYPE_PNT:
       dlgFile.m_ofn.nFilterIndex = 3;
       break;
-    case SAVETYPE_ANX:
+    case SAVETYPE_BTN:
       dlgFile.m_ofn.nFilterIndex = 4;
       break;
-    case SAVETYPE_ANH:
+    case SAVETYPE_ANX:
       dlgFile.m_ofn.nFilterIndex = 5;
       break;
-    case SAVETYPE_BTH:
+    case SAVETYPE_ANH:
       dlgFile.m_ofn.nFilterIndex = 6;
       break;
-    case SAVETYPE_BMP:
+    case SAVETYPE_BTH:
       dlgFile.m_ofn.nFilterIndex = 7;
       break;
-    case SAVETYPE_PCX:
+    case SAVETYPE_BMP:
       dlgFile.m_ofn.nFilterIndex = 8;
       break;
-    case SAVETYPE_GIF:
+    case SAVETYPE_PCX:
       dlgFile.m_ofn.nFilterIndex = 9;
       break;
-    case SAVETYPE_JPEG:
+    case SAVETYPE_GIF:
       dlgFile.m_ofn.nFilterIndex = 10;
       break;
-    case SAVETYPE_PNG:
+    case SAVETYPE_JPEG:
       dlgFile.m_ofn.nFilterIndex = 11;
       break;
-    case SAVETYPE_TGA:
+    case SAVETYPE_PNG:
       dlgFile.m_ofn.nFilterIndex = 12;
       break;
-    case SAVETYPE_ICON:
+    case SAVETYPE_WEBP:
       dlgFile.m_ofn.nFilterIndex = 13;
       break;
-    case SAVETYPE_CURSOR:
+    case SAVETYPE_TGA:
       dlgFile.m_ofn.nFilterIndex = 14;
       break;
-    case SAVETYPE_IFF:
+    case SAVETYPE_ICON:
       dlgFile.m_ofn.nFilterIndex = 15;
+      break;
+    case SAVETYPE_CURSOR:
+      dlgFile.m_ofn.nFilterIndex = 16;
+      break;
+    case SAVETYPE_IFF:
+      dlgFile.m_ofn.nFilterIndex = 17;
       break;
     default:
     case SAVETYPE_UNKNOWN:
@@ -1483,6 +1489,7 @@ void CPainterApp::OnFileSaveAs( DocumentInfo& diInfo )
                                 _T( "GIF Files (*.GIF)\0*.gif\0" )
                                 _T( "JPG Files (*.JPG)\0*.jpg\0" )
                                 _T( "PNG Files (*.PNG)\0*.png\0" )
+                                _T( "WEBP Files (*.WEBP)\0*.webp\0" )
                                 _T( "TGA Files (*.TGA)\0*.tga\0" )
                                 _T( "Icon Files (*.ICO)\0*.ico\0" )
                                 _T( "Cursor Files (*.CUR)\0*.cur\0" )
@@ -1559,20 +1566,25 @@ void CPainterApp::OnFileSaveAs( DocumentInfo& diInfo )
     }
     else if ( dlgFile.m_ofn.nFilterIndex == 13 )
     {
+      diInfo.m_SaveType = SAVETYPE_WEBP;
+      targetName = Path::RenameExtension( targetName, "webp" );
+    }
+    else if ( dlgFile.m_ofn.nFilterIndex == 14 )
+    {
       diInfo.m_SaveType = SAVETYPE_TGA;
       targetName = Path::RenameExtension( targetName, "tga" );
     }
-    else if ( dlgFile.m_ofn.nFilterIndex == 14 )
+    else if ( dlgFile.m_ofn.nFilterIndex == 15 )
     {
       diInfo.m_SaveType = SAVETYPE_ICON;
       targetName = Path::RenameExtension( targetName, "ico" );
     }
-    else if ( dlgFile.m_ofn.nFilterIndex == 15 )
+    else if ( dlgFile.m_ofn.nFilterIndex == 16 )
     {
       diInfo.m_SaveType = SAVETYPE_CURSOR;
       targetName = Path::RenameExtension( targetName, "cur" );
     }
-    else if ( dlgFile.m_ofn.nFilterIndex == 16 )
+    else if ( dlgFile.m_ofn.nFilterIndex == 17 )
     {
       diInfo.m_SaveType = SAVETYPE_IFF;
       targetName = Path::RenameExtension( targetName, "iff" );

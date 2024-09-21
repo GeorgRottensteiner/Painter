@@ -152,6 +152,7 @@
 #define IDD_DIALOG_TO_SELECTION         299
 #define IDD_EFFEKT_CONTRAST             300
 #define IDD_DIALOG_GIF_OPTIONS          301
+#define IDD_DIALOG_WEBP_OPTIONS         302
 #define IDC_SLIDER_R                    1000
 #define IDC_SLIDER_G                    1001
 #define IDC_SLIDER_B                    1002
@@ -413,6 +414,8 @@
 #define IDC_STATIC_FILTER_SETTINGS      1282
 #define IDC_RADIO_GIF_87                1283
 #define IDC_RADIO_GIF_89                1284
+#define IDC_RADIO_WEBP_DEFAULT_75       1284
+#define IDC_RADIO_WEBP_LOSLESS          1285
 #define ID_PAINT_BOX                    32771
 #define ID_PAINT_CIRCLE                 32772
 #define ID_PAINT_LINE                   32774
@@ -517,9 +520,9 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        297
+#define _APS_NEXT_RESOURCE_VALUE        298
 #define _APS_NEXT_COMMAND_VALUE         32920
-#define _APS_NEXT_CONTROL_VALUE         1284
+#define _APS_NEXT_CONTROL_VALUE         1288
 #define _APS_NEXT_SYMED_VALUE           124
 #endif
 #endif

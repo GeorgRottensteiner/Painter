@@ -18,6 +18,7 @@
 #include "FormatPNT.h"
 
 #include "JPEGSaveOptions.h"
+#include "DlgWebPOptions.h"
 
 #include "ImagePackage.h"
 
@@ -257,6 +258,10 @@ BOOL CPainterDoc::OnSaveDocument( LPCTSTR lpszPathName )
     {
       fileName += ".png";
     }
+    else if ( diInfo.m_SaveType == SAVETYPE_WEBP )
+    {
+      fileName += ".webp";
+    }
     else if ( diInfo.m_SaveType == SAVETYPE_ANX )
     {
       fileName += ".anx";
@@ -391,7 +396,79 @@ BOOL CPainterDoc::OnSaveDocument( LPCTSTR lpszPathName )
     if ( !FreeImage_SaveU( FIF_PNG, dib, GR::Convert::ToUTF16( fileName ).c_str() ) )
     {
       FreeImage_Unload( dib );
-      MessageBoxA( NULL, "Konnte PNG nicht speichern! (nicht unterstützte Farbtiefe?)", "Fehler!", 0 );
+      MessageBoxA( NULL, "Failed to save to PNG! (not supported color depth?)", "Error!", 0 );
+      return FALSE;
+    }
+    FreeImage_Unload( dib );
+    diInfo.SetModify( FALSE );
+  }
+  else if ( diInfo.m_SaveType == SAVETYPE_WEBP )
+  {
+    GR::Graphic::Image* pImg = new GR::Graphic::Image( diInfo.GetImage( 0, 0 ) );
+    GR::Graphic::Image* pMask = diInfo.GetMask( 0, 0 );
+
+    if ( ( pImg->GetDepth() == 32 )
+    &&   ( pMask ) )
+    {
+      // Maske einbringen
+      // Alpha in Maske umwandeln
+      GR::Graphic::ContextDescriptor    cdImage( pImg );
+
+      for ( int i = 0; i < pMask->GetWidth(); i++ )
+      {
+        for ( int j = 0; j < pMask->GetHeight(); j++ )
+        {
+          pImg->SetPixel( i, j, ( pImg->GetPixel( i, j ) & 0x00ffffff ) | ( pMask->GetPixel( i, j ) << 24 ) );
+        }
+      }
+    }
+
+    FIBITMAP* dib = ConvertImageToFreeImageDIB( pImg, pView->m_viewInfo.m_pPalette );
+
+    delete pImg;
+
+    if ( ( diInfo.ActiveLayer()->m_Transparent )
+    &&   ( diInfo.GetBitDepth() <= 8 ) )
+    {
+      // hat eine Transparenzfarbe
+      BYTE    Transparent[256];
+
+      for ( int i = 0; i < diInfo.GetBitDepth(); ++i )
+      {
+        if ( i == diInfo.ActiveLayer()->m_Transparenz )
+        {
+          Transparent[i] = 0;
+        }
+        else
+        {
+          Transparent[i] = 255;
+        }
+      }
+
+      FreeImage_SetTransparent( dib, true );
+      FreeImage_SetTransparencyTable( dib, Transparent, diInfo.GetBitDepth() );
+    }
+
+    if ( ( diInfo.GetBitDepth() == 16 )
+    ||   ( diInfo.GetBitDepth() == 15 ) )
+    {
+      FIBITMAP* pDIB24 = FreeImage_ConvertTo24Bits( dib );
+
+      FreeImage_Unload( dib );
+      dib = pDIB24;
+    }
+
+    DlgWebPOptions  dlgOptions;
+
+    if ( dlgOptions.DoModal() != IDOK )
+    {
+      return FALSE;
+    }
+
+    if ( !FreeImage_SaveU( FIF_WEBP, dib, GR::Convert::ToUTF16( fileName ).c_str(), dlgOptions.m_SaveOption ) )
+    {
+      FreeImage_Unload( dib );
+      MessageBoxA( NULL, "Failed to save to WEBP! (not supported color depth?)", "Error!", 0 );
       return FALSE;
     }
     FreeImage_Unload( dib );
@@ -463,7 +540,15 @@ CPainterImagePackage* FreeImageLoad( const GR::Char* FileName )
 		case FIF_PNG :
       dib = FreeImage_LoadU( FIF_PNG, utf16Filename.c_str() );
 			break;
-		case FIF_PBM :
+    case FIF_WEBP:
+      dib = FreeImage_LoadU( FIF_WEBP, utf16Filename.c_str() );
+      if ( dib != NULL )
+      {
+        // always upside down?
+        FreeImage_FlipVertical( dib );
+      }
+      break;
+    case FIF_PBM :
       dib = FreeImage_LoadU( FIF_PBM, utf16Filename.c_str() );
 			break;
 		case FIF_PGM :
@@ -579,7 +664,6 @@ CPainterImagePackage* FreeImageLoad( const GR::Char* FileName )
 	FreeImage_Unload( dib );
 
   return pImagePackage;
-
 }
 
 
@@ -1055,15 +1139,16 @@ BOOL CPainterDoc::OnOpenDocument( LPCTSTR lpszPathName )
     diInfo.m_BitDepth = 16;
     pView->OnInitialUpdate();
   }
-  else if ( extension == "PNG" )
+  else if ( ( extension == "PNG" )
+  ||        ( extension == "WEBP" ) )
   {
-    // Die Datei ist wohl ein PNG...
+    // freeimage
     GR::Graphic::Palette *pPalette = NULL;
 
     diInfo.m_SaveType = SAVETYPE_PNG;
 
     
-    CPainterImagePackage *pPackage = FreeImageLoad( fileName.c_str() );
+    CPainterImagePackage* pPackage = FreeImageLoad( fileName.c_str() );
 
     if ( pPackage->m_pImage == NULL )
     {

@@ -627,7 +627,7 @@ bool DocumentInfo::PasteFromClipBoard( int iMode, ViewInfo* pAlternativeViewInfo
 
     if ( pPack->m_pImage->GetDepth() != dwTargetDepth )
     {
-      AfxMessageBox( GR::Convert::ToUTF16( CMisc::printf( "Nicht unterstützte Umwandlung von %d auf %d!", pPack->m_pImage->GetDepth(), dwTargetDepth ) ).c_str() );
+      AfxMessageBox( GR::Convert::ToUTF16( CMisc::printf( "Conversion from %d to %d not supported!", pPack->m_pImage->GetDepth(), dwTargetDepth ) ).c_str() );
       SafeDelete( pPack->m_pImage );
       SafeDelete( pPack );
       return false;
@@ -667,7 +667,7 @@ bool DocumentInfo::PasteFromClipBoard( int iMode, ViewInfo* pAlternativeViewInfo
 
     if ( pPack->m_pImage->GetDepth() != dwTargetDepth )
     {
-      AfxMessageBox( GR::Convert::ToUTF16( CMisc::printf( "Nicht unterstützte Umwandlung von %d auf %d!", pPack->m_pImage->GetDepth(), dwTargetDepth ) ).c_str() );
+      AfxMessageBox( GR::Convert::ToUTF16( CMisc::printf( "Conversion from %d to %d not supported!", pPack->m_pImage->GetDepth(), dwTargetDepth ) ).c_str() );
       SafeDelete( pPack->m_pImage );
       SafeDelete( pPack );
       return false;
@@ -707,7 +707,7 @@ bool DocumentInfo::PasteFromClipBoard( int iMode, ViewInfo* pAlternativeViewInfo
 
     if ( pPack->m_pImage->GetDepth() != dwTargetDepth )
     {
-      AfxMessageBox( GR::Convert::ToUTF16( CMisc::printf( "Nicht unterstützte Umwandlung von %d auf %d!", pPack->m_pImage->GetDepth(), dwTargetDepth ) ).c_str() );
+      AfxMessageBox( GR::Convert::ToUTF16( CMisc::printf( "Conversion from %d to %d not supported!", pPack->m_pImage->GetDepth(), dwTargetDepth ) ).c_str() );
       SafeDelete( pPack->m_pImage );
       SafeDelete( pPack );
       return false;
@@ -718,7 +718,7 @@ bool DocumentInfo::PasteFromClipBoard( int iMode, ViewInfo* pAlternativeViewInfo
   }
   else
   {
-    AfxMessageBox( GR::Convert::ToUTF16( CMisc::printf( "Nicht unterstützte Farbtiefe %d!", pPack->m_pImage->GetDepth() ) ).c_str() );
+    AfxMessageBox( GR::Convert::ToUTF16( CMisc::printf( "Color depth %d not supported!", pPack->m_pImage->GetDepth() ) ).c_str() );
     SafeDelete( pPack->m_pImage );
     SafeDelete( pPack );
     return false;
@@ -1216,7 +1216,7 @@ void DocumentInfo::MapToPalette( GR::Graphic::Palette *pNewPalette )
   }
   else
   {
-    theApp.m_pMainWnd->MessageBox( _T( "Nicht unterstütztes Format (nur Einzelbilder im Moment)." ), _T( "Hinweis" ), 0 );
+    theApp.m_pMainWnd->MessageBox( _T( "Format not supported for multi frames (only single images)." ), _T( "Notice" ), 0 );
     return;
   }
 
@@ -1233,7 +1233,6 @@ void DocumentInfo::MapToPalette( GR::Graphic::Palette *pNewPalette )
 
 void DocumentInfo::Rotate()
 {
-
   AddUndoSizeChange();
 
   CLayer     *pLayer;
@@ -1248,9 +1247,15 @@ void DocumentInfo::Rotate()
   for ( size_t i = 0; i < m_LayeredFrames[0].LayerCount(); i++ )
   {
     pLayer = GetLayer( 0, i );
-    pNewImage = RotateImage( pLayer->GetImage() );
 
+    pNewImage = RotateImage( pLayer->GetImage() );
     pLayer->SetLayerImage( pNewImage );
+
+    if ( pLayer->m_HasMask )
+    {
+      pNewImage = RotateImage( pLayer->GetMask() );
+      pLayer->SetLayerMask( pNewImage );
+    }
   }
 
   // Selection

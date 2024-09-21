@@ -121,6 +121,7 @@ CPainterFileOpen* OpenFileDialog( DWORD dwFileTypes )
     mapFormate[_T( "*.PSD" )] = _T( "PhotoShop Files" );
 
     mapFormate[_T( "*.PNG" )] = _T( "PNG Files" );
+    mapFormate[_T( "*.WEBP" )] = _T( "WEBP Files" );
 
     mapFormate[_T( "*.JPG;*.JPEG" )] = _T( "JPEG Files" );
 

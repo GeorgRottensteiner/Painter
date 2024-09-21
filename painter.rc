@@ -80,11 +80,11 @@ BEGIN
         MENUITEM "&Open...\tStrg+O",            ID_FILE_OPEN
         MENUITEM SEPARATOR
         MENUITEM "&Batch Conversion...",        ID_BATCH_CONVERSION
-        MENUITEM "&Create Animation",        ID_MENU_ANI_CREATOR
+        MENUITEM "&Create Animation",           ID_MENU_ANI_CREATOR
         MENUITEM SEPARATOR
-        MENUITEM "Last File",                ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM "Last File",                   ID_FILE_MRU_FILE1, GRAYED
         MENUITEM SEPARATOR
-        MENUITEM "E&xit",                    ID_APP_EXIT
+        MENUITEM "E&xit",                       ID_APP_EXIT
     END
     POPUP "&Edit"
     BEGIN
@@ -97,16 +97,16 @@ BEGIN
     END
     POPUP "&Generate"
     BEGIN
-        MENUITEM "from &Windows font...",        ID_MENU_CREATE_FONT
+        MENUITEM "from &Windows font...",       ID_MENU_CREATE_FONT
     END
     POPUP "&View"
     BEGIN
-        MENUITEM "S&tatus bar",               ID_VIEW_STATUS_BAR
-        MENUITEM "Tool bars...",                 ID_MENU_TOOLBARS
+        MENUITEM "S&tatus bar",                 ID_VIEW_STATUS_BAR
+        MENUITEM "Tool bars...",                ID_MENU_TOOLBARS
     END
     POPUP "&?"
     BEGIN
-        MENUITEM "Inf&o about Painter...",       ID_APP_ABOUT
+        MENUITEM "Inf&o about Painter...",      ID_APP_ABOUT
         MENUITEM "Test",                        ID__TEST
     END
 END
@@ -125,9 +125,9 @@ BEGIN
         MENUITEM "&Batch conversion",           ID_BATCH_CONVERSION
         MENUITEM "Create Animation",            ID_MENU_ANI_CREATOR
         MENUITEM SEPARATOR
-        MENUITEM "Last File",                ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM "Last File",                   ID_FILE_MRU_FILE1, GRAYED
         MENUITEM SEPARATOR
-        MENUITEM "E&xit",                    ID_APP_EXIT
+        MENUITEM "E&xit",                       ID_APP_EXIT
     END
     POPUP "&Edit"
     BEGIN
@@ -145,13 +145,13 @@ BEGIN
         MENUITEM "^v Mirror vertical\tV",       ID_BEARBEITEN_MIRRORV
         POPUP "Rotate"
         BEGIN
-            MENUITEM "by 90°",             ID_BEARBEITEN_ROTIEREN
-            MENUITEM "free rotate...",            ID_MENU_ROTATE_FREE
+            MENUITEM "by 90°",                      ID_BEARBEITEN_ROTIEREN
+            MENUITEM "free rotate...",              ID_MENU_ROTATE_FREE
         END
         MENUITEM SEPARATOR
         POPUP "Extras"
         BEGIN
-            MENUITEM "Isometrise",              ID_BEARBEITEN_ISOMETRISIEREN
+            MENUITEM "Isometrise",                  ID_BEARBEITEN_ISOMETRISIEREN
             MENUITEM "2xSAI",                       ID_EXTRAS_2XSAI
         END
         MENUITEM SEPARATOR
@@ -174,7 +174,7 @@ BEGIN
     POPUP "&View"
     BEGIN
         MENUITEM "S&tatus bar",                 ID_VIEW_STATUS_BAR
-        MENUITEM "Tool bars...",                 ID_MENU_TOOLBARS
+        MENUITEM "Tool bars...",                ID_MENU_TOOLBARS
     END
     POPUP "&Special"
     BEGIN
@@ -240,12 +240,12 @@ BEGIN
     POPUP "&Fenster"
     BEGIN
         MENUITEM "Over&lapping",                ID_WINDOW_CASCADE
-        MENUITEM "&Tile horizontally",              ID_WINDOW_TILE_HORZ
-        MENUITEM "&Arrange symbols",           ID_WINDOW_ARRANGE
+        MENUITEM "&Tile horizontally",          ID_WINDOW_TILE_HORZ
+        MENUITEM "&Arrange symbols",            ID_WINDOW_ARRANGE
     END
     POPUP "&?"
     BEGIN
-        MENUITEM "Inf&o about Painter...",       ID_APP_ABOUT
+        MENUITEM "Inf&o about Painter...",      ID_APP_ABOUT
     END
 END
 
@@ -254,40 +254,40 @@ BEGIN
     POPUP "&File"
     BEGIN
         MENUITEM "&Neu\tStrg+N",                ID_FILE_NEW
-        MENUITEM "O&pen...\tStrg+O",          ID_FILE_OPEN
+        MENUITEM "O&pen...\tStrg+O",            ID_FILE_OPEN
         MENUITEM "S&chließen",                  ID_FILE_CLOSE
         MENUITEM "Close all",                   ID_FILE_CLOSEALL
-        MENUITEM "&Save\tStrg+S",          ID_FILE_SAVE
-        MENUITEM "Save &as...",         ID_FILE_SAVE_AS
+        MENUITEM "&Save\tStrg+S",               ID_FILE_SAVE
+        MENUITEM "Save &as...",                 ID_FILE_SAVE_AS
         MENUITEM SEPARATOR
-        MENUITEM "&Batch Conversion",        ID_BATCH_CONVERSION
+        MENUITEM "&Batch Conversion",           ID_BATCH_CONVERSION
         MENUITEM SEPARATOR
-        MENUITEM "Last opened file",     ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM "Last opened file",            ID_FILE_MRU_FILE1, GRAYED
         MENUITEM SEPARATOR
-        MENUITEM "E&xit",                    ID_APP_EXIT
+        MENUITEM "E&xit",                       ID_APP_EXIT
     END
     POPUP "&Edit"
     BEGIN
-        MENUITEM "&Undo\tStrg+Z",         ID_EDIT_UNDO
+        MENUITEM "&Undo\tStrg+Z",               ID_EDIT_UNDO
         MENUITEM SEPARATOR
-        MENUITEM "&Cut\tStrg+X",       ID_EDIT_CUT
-        MENUITEM "&Copy\tStrg+C",           ID_EDIT_COPY
-        MENUITEM "Paste\tStrg+V",           ID_EDIT_PASTE
+        MENUITEM "&Cut\tStrg+X",                ID_EDIT_CUT
+        MENUITEM "&Copy\tStrg+C",               ID_EDIT_COPY
+        MENUITEM "Paste\tStrg+V",               ID_EDIT_PASTE
         MENUITEM SEPARATOR
-        MENUITEM "&Export...",             ID_BEARBEITEN_EXPORTIEREN
-        MENUITEM "&Import...",             ID_BEARBEITEN_IMPORTIEREN
-        MENUITEM "Change Size...",            ID_BEARBEITEN_RESIZE
+        MENUITEM "&Export...",                  ID_BEARBEITEN_EXPORTIEREN
+        MENUITEM "&Import...",                  ID_BEARBEITEN_IMPORTIEREN
+        MENUITEM "Change Size...",              ID_BEARBEITEN_RESIZE
         MENUITEM SEPARATOR
-        MENUITEM "Document Properties",       ID_BEARBEITEN_DOKUMENTEINSTELLUNGEN
+        MENUITEM "Document Properties",         ID_BEARBEITEN_DOKUMENTEINSTELLUNGEN
     END
     POPUP "&Create"
     BEGIN
-        MENUITEM "from &Windows font...",        ID_MENU_CREATE_FONT
+        MENUITEM "from &Windows font...",       ID_MENU_CREATE_FONT
     END
     POPUP "&View"
     BEGIN
-        MENUITEM "S&tatus bar",               ID_VIEW_STATUS_BAR
-        MENUITEM "Tool bars...",                 ID_MENU_TOOLBARS
+        MENUITEM "S&tatus bar",                 ID_VIEW_STATUS_BAR
+        MENUITEM "Tool bars...",                ID_MENU_TOOLBARS
     END
     POPUP "Special"
     BEGIN
@@ -301,21 +301,21 @@ BEGIN
             MENUITEM "Alpha",                       32863
         END
         MENUITEM SEPARATOR
-        MENUITEM "Convert to &8 bit",     ID_CONVERT_TO_8BPP
-        MENUITEM "Convert to &16bit",     ID_CONVERT_TO_16BPP
-        MENUITEM "Convert to &24bit",     ID_CONVERT_TO_24BPP
-        MENUITEM "Convert to &32bit",     ID_CONVERT_TO_32BPP
+        MENUITEM "Convert to &8 bit",           ID_CONVERT_TO_8BPP
+        MENUITEM "Convert to &16bit",           ID_CONVERT_TO_16BPP
+        MENUITEM "Convert to &24bit",           ID_CONVERT_TO_24BPP
+        MENUITEM "Convert to &32bit",           ID_CONVERT_TO_32BPP
     END
     POPUP "&Window"
     BEGIN
-        MENUITEM "&New Window",              ID_WINDOW_NEW
+        MENUITEM "&New Window",                 ID_WINDOW_NEW
         MENUITEM "Over&lapping",                ID_WINDOW_CASCADE
-        MENUITEM "&Tile Horizontally",                     ID_WINDOW_TILE_HORZ
-        MENUITEM "&Arrange Symbols",           ID_WINDOW_ARRANGE
+        MENUITEM "&Tile Horizontally",          ID_WINDOW_TILE_HORZ
+        MENUITEM "&Arrange Symbols",            ID_WINDOW_ARRANGE
     END
     POPUP "&?"
     BEGIN
-        MENUITEM "&Info about Painter...",            ID_APP_ABOUT
+        MENUITEM "&Info about Painter...",      ID_APP_ABOUT
     END
 END
 
@@ -545,8 +545,7 @@ BEGIN
     LISTBOX         IDC_LIST_EFFEKTE,7,193,251,71,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     PUSHBUTTON      "Effects >>",IDC_BUTTON_EFFEKTLISTE,216,23,41,14
     PUSHBUTTON      "New Effects",IDC_BUTTON_NEWEFFEKT,264,193,50,14
-    CONTROL         "Single Effect",IDC_CHECK_EFFEKT_SINGLE,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,212,49,102,10
+    CONTROL         "Single Effect",IDC_CHECK_EFFEKT_SINGLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,212,49,102,10
     PUSHBUTTON      "Choose Font...",IDC_BUTTON_FONT,201,7,56,14
     CONTROL         "Fill Text",IDC_CHECK_FILLED,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,54,72,10
 END
@@ -699,8 +698,7 @@ BEGIN
     CONTROL         "very good quality",IDC_RADIO_JPEG_PERFEKT,"Button",BS_AUTORADIOBUTTON,28,44,128,10
     CONTROL         "good quality",IDC_RADIO_JPEG_GUT,"Button",BS_AUTORADIOBUTTON,28,56,128,10
     CONTROL         "regular quality",IDC_RADIO_JPEG_NORMAL,"Button",BS_AUTORADIOBUTTON,28,68,128,10
-    CONTROL         "average quality",IDC_RADIO_JPEG_DURCHSCHNITT,
-                    "Button",BS_AUTORADIOBUTTON,28,80,128,10
+    CONTROL         "average quality",IDC_RADIO_JPEG_DURCHSCHNITT,"Button",BS_AUTORADIOBUTTON,28,80,128,10
     CONTROL         "bad quality",IDC_RADIO_JPEG_SCHLECHT,"Button",BS_AUTORADIOBUTTON,28,92,128,10
 END
 
@@ -760,8 +758,7 @@ BEGIN
     PUSHBUTTON      "Zoom Factor",IDC_BUTTON_FILTER_ZOOMFAKTOR,311,6,50,14
     GROUPBOX        "Filter parameters:",IDC_STATIC_FILTER_SETTINGS,153,209,265,97
     LTEXT           "Graphic: Width x Height",IDC_STATIC_FILTER_INFO,23,186,74,8
-    CONTROL         "add as new layer",IDC_CHECK_FILTER_NEWLAYER,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,22,198,98,10
+    CONTROL         "add as new layer",IDC_CHECK_FILTER_NEWLAYER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,22,198,98,10
     GROUPBOX        "Effect list:",IDC_STATIC,7,209,141,97
     CONTROL         "Tree1",IDC_TREE_EFFEKTE,"SysTreeView32",TVS_HASBUTTONS | TVS_HASLINES | TVS_LINESATROOT | TVS_DISABLEDRAGDROP | TVS_SHOWSELALWAYS | TVS_FULLROWSELECT | WS_BORDER | WS_HSCROLL | WS_TABSTOP,13,219,130,81
     PUSHBUTTON      "Render",IDC_BUTTON_RENDER,131,184,50,14,NOT WS_VISIBLE
@@ -1276,6 +1273,18 @@ BEGIN
     LTEXT           "Save GIF as",IDC_STATIC,4,4,176,8
     CONTROL         "GIF 87a",IDC_RADIO_GIF_87,"Button",BS_AUTORADIOBUTTON,25,21,41,10
     CONTROL         "GIF 89a",IDC_RADIO_GIF_89,"Button",BS_AUTORADIOBUTTON,25,38,41,10
+END
+
+IDD_DIALOG_WEBP_OPTIONS DIALOGEX 0, 0, 187, 74
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "WebP Parameters"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,40,53,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,96,53,50,14
+    LTEXT           "Save WEBP with these settings:",IDC_STATIC,4,4,176,8
+    CONTROL         "Default (75)",IDC_RADIO_WEBP_DEFAULT_75,"Button",BS_AUTORADIOBUTTON,28,32,128,10
+    CONTROL         "Losless",IDC_RADIO_WEBP_LOSLESS,"Button",BS_AUTORADIOBUTTON,28,19,128,10
 END
 
 
@@ -1814,6 +1823,14 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 101
     END
+
+    IDD_DIALOG_WEBP_OPTIONS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 180
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 67
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
@@ -1985,6 +2002,11 @@ BEGIN
 END
 
 IDD_DIALOG_GIF_OPTIONS AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_DIALOG_WEBP_OPTIONS AFX_DIALOG_LAYOUT
 BEGIN
     0
 END

@@ -176,6 +176,7 @@
     <ClCompile Include="DlgTOptionsFreehand2.cpp" />
     <ClCompile Include="DlgTOptionsLine.cpp" />
     <ClCompile Include="DlgTOptionsSelection.cpp" />
+    <ClCompile Include="DlgWebPOptions.cpp" />
     <ClCompile Include="DocumentInfo.cpp" />
     <ClCompile Include="EffektAura.cpp" />
     <ClCompile Include="EffektBevel.cpp" />
@@ -433,6 +434,7 @@
     <ClInclude Include="DlgTOptionsFreehand2.h" />
     <ClInclude Include="DlgTOptionsLine.h" />
     <ClInclude Include="DlgTOptionsSelection.h" />
+    <ClInclude Include="DlgWebPOptions.h" />
     <ClInclude Include="DocumentInfo.h" />
     <ClInclude Include="EffektAura.h" />
     <ClInclude Include="EffektBevel.h" />

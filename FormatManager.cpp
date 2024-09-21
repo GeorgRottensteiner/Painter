@@ -264,7 +264,7 @@ bool CFormatManager::SaveWithFreeImage( int fif, const GR::Char* FileName, Image
         }
         if ( !FreeImage_SaveU( FIF_JPEG, dib, GR::Convert::ToUTF16( FileName ).c_str(), dwOption ) )
         {
-          AfxMessageBox( _T( "Konnte JPEG nicht speichern! (nicht unterstützte Farbtiefe?)" ) );
+          AfxMessageBox( _T( "Failed to save to JPEG! (not supported color depth?)" ) );
           return false;
         }
       }
