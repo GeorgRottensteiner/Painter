@@ -4,7 +4,7 @@
 
 
 
-class CPolygonFillAA : public CPolygonFill
+class CPolygonFillAA : public GR::Graphic::PolygonFill
 {
 
   public:

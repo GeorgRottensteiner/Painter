@@ -186,7 +186,7 @@ class CSettings : public INotifyMember<GR::u32>
     BOOL RemovePattern( CPattern *pP );
 
 
-    void Log( const GR::Char* Text );
+    void Log( const char* Text );
 
     void UpdateActiveViewInfo();
 

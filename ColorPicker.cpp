@@ -1016,7 +1016,7 @@ void CColorPicker::OnChangeREditRot()
 
   if ( math::clamp( 0, iColor, 255 ) )
   {
-    m_REditRot.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%d", iColor ) ).c_str() );
+    m_REditRot.SetWindowText( GR::Convert::ToUTF16( GR::String( CMisc::printf( "%d", iColor ) ) ).c_str() );
   }
 
   m_WorkColor &= 0x00ffff;
@@ -1044,7 +1044,7 @@ void CColorPicker::OnChangeREditGruen()
 
   if ( math::clamp( 0, iColor, 255 ) )
   {
-    m_REditGruen.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%d", iColor ) ).c_str() );
+    m_REditGruen.SetWindowText( GR::Convert::ToUTF16( GR::String( CMisc::printf( "%d", iColor ) ) ).c_str() );
   }
 
 
@@ -1074,7 +1074,7 @@ void CColorPicker::OnChangeREditBlau()
 
   if ( math::clamp( 0, iColor, 255 ) )
   {
-    m_REditBlau.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%d", iColor ) ).c_str() );
+    m_REditBlau.SetWindowText( GR::Convert::ToUTF16( GR::String( CMisc::printf( "%d", iColor ) ) ).c_str() );
   }
 
   m_WorkColor &= 0xffff00;
@@ -1103,7 +1103,7 @@ void CColorPicker::OnChangeREditHue()
 
   if ( math::clamp( 0, iColor, 360 ) )
   {
-    m_REditHue.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%d", iColor ) ).c_str() );
+    m_REditHue.SetWindowText( GR::Convert::ToUTF16( GR::String( CMisc::printf( "%d", iColor ) ) ).c_str() );
   }
 
   m_WheelPos = iColor;
@@ -1131,7 +1131,7 @@ void CColorPicker::OnChangeREditSaturation()
 
   if ( math::clamp( 0, iColor, 255 ) )
   {
-    m_REditSat.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%d", iColor ) ).c_str() );
+    m_REditSat.SetWindowText( GR::Convert::ToUTF16( GR::String( CMisc::printf( "%d", iColor ) ) ).c_str() );
   }
 
   m_RectPosX = iColor;
@@ -1159,7 +1159,7 @@ void CColorPicker::OnChangeREditLight()
 
   if ( math::clamp( 0, iColor, 255 ) )
   {
-    m_REditLight.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%d", iColor ) ).c_str() );
+    m_REditLight.SetWindowText( GR::Convert::ToUTF16( GR::String( CMisc::printf( "%d", iColor ) ) ).c_str() );
   }
 
   m_RectPosY = iColor;

@@ -24,20 +24,20 @@ extern CPainterApp      theApp;
 IMPLEMENT_DYNAMIC(CPainterFileOpen, CFileDialogEx)
 
 CPainterFileOpen::CPainterFileOpen(BOOL bOpenFileDialog, LPCTSTR lpszDefExt, LPCTSTR lpszFileName,
-		DWORD dwFlags, LPCTSTR lpszFilter, CWnd* pParentWnd) :
-		CFileDialogEx(bOpenFileDialog, lpszDefExt, lpszFileName, dwFlags, lpszFilter, pParentWnd)
+    DWORD dwFlags, LPCTSTR lpszFilter, CWnd* pParentWnd) :
+    CFileDialogEx(bOpenFileDialog, lpszDefExt, lpszFileName, dwFlags, lpszFilter, pParentWnd)
 {
-	m_ofn.Flags |= OFN_ENABLETEMPLATE;
-	m_ofn.hInstance = AfxGetInstanceHandle();
+  m_ofn.Flags |= OFN_ENABLETEMPLATE;
+  m_ofn.hInstance = AfxGetInstanceHandle();
   m_ofn.lpTemplateName = MAKEINTRESOURCE( IDD_DIALOG_FILE_OPEN );
 }
 
 
 
 BEGIN_MESSAGE_MAP(CPainterFileOpen, CFileDialogEx)
-	//{{AFX_MSG_MAP(CPainterFileOpen)
-	ON_WM_DRAWITEM()
-	//}}AFX_MSG_MAP
+  //{{AFX_MSG_MAP(CPainterFileOpen)
+  ON_WM_DRAWITEM()
+  //}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -49,7 +49,7 @@ void CPainterFileOpen::OnDestroy()
 
 
 
-void CPainterFileOpen::GetPreview( const GR::Char* Temp )
+void CPainterFileOpen::GetPreview( const char* Temp )
 {
   GR::Font*           pFont;
 
@@ -278,9 +278,9 @@ void CPainterFileOpen::GetPreview( const GR::Char* Temp )
 
 BOOL CPainterFileOpen::OnInitDialog() 
 {
-	CFileDialogEx::OnInitDialog();
+  CFileDialogEx::OnInitDialog();
 
-	return TRUE;
+  return TRUE;
 }
 
 
@@ -377,7 +377,7 @@ void CPainterFileOpen::OnFileNameChange()
   }
   else
   {
-    SendDlgItemMessage( IDC_STATIC_FILE_OPEN_WIDTH, WM_SETTEXT, 0, (LPARAM)GR::Convert::ToUTF16( CMisc::printf( "%d", Width ) ).c_str() );
+    SendDlgItemMessage( IDC_STATIC_FILE_OPEN_WIDTH, WM_SETTEXT, 0, (LPARAM)GR::Convert::ToUTF16( Misc::Format() << Width ).c_str() );
   }
   if ( Height == 0 )
   {
@@ -385,7 +385,7 @@ void CPainterFileOpen::OnFileNameChange()
   }
   else
   {
-    SendDlgItemMessage( IDC_STATIC_FILE_OPEN_HEIGHT, WM_SETTEXT, 0, (LPARAM)GR::Convert::ToUTF16( CMisc::printf( "%d", Height ) ).c_str() );
+    SendDlgItemMessage( IDC_STATIC_FILE_OPEN_HEIGHT, WM_SETTEXT, 0, (LPARAM)GR::Convert::ToUTF16( Misc::Format() << Height ).c_str() );
   }
   if ( BitDepth == 0 )
   {
@@ -393,7 +393,7 @@ void CPainterFileOpen::OnFileNameChange()
   }
   else
   {
-    SendDlgItemMessage( IDC_STATIC_FILE_OPEN_DEPTH, WM_SETTEXT, 0, (LPARAM)GR::Convert::ToUTF16( CMisc::printf( "%d", BitDepth ) ).c_str() );
+    SendDlgItemMessage( IDC_STATIC_FILE_OPEN_DEPTH, WM_SETTEXT, 0, (LPARAM)GR::Convert::ToUTF16( Misc::Format() << BitDepth ).c_str() );
   }
   if ( Frames == 0 )
   {
@@ -401,7 +401,7 @@ void CPainterFileOpen::OnFileNameChange()
   }
   else
   {
-    SendDlgItemMessage( IDC_STATIC_FILE_OPEN_FRAMES, WM_SETTEXT, 0, (LPARAM)GR::Convert::ToUTF16( CMisc::printf( "%d", Frames ) ).c_str() );
+    SendDlgItemMessage( IDC_STATIC_FILE_OPEN_FRAMES, WM_SETTEXT, 0, (LPARAM)GR::Convert::ToUTF16( Misc::Format() << Frames ).c_str() );
   }
   if ( FileType == OPEN_FILE::TYPE::UNKNOWN )
   {
@@ -458,7 +458,7 @@ void CPainterFileOpen::OnDrawItem( int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct
       DeleteObject( hPen );
       DeleteObject( hBrush );
 
-      // Größenverhältnis beibehalten!
+      // GrÃ¶ÃŸenverhÃ¤ltnis beibehalten!
       int width = lpDrawItemStruct->rcItem.right - lpDrawItemStruct->rcItem.left,
           height = lpDrawItemStruct->rcItem.bottom - lpDrawItemStruct->rcItem.top,
           xOffset,
@@ -519,7 +519,7 @@ void CPainterFileOpen::OnDrawItem( int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct
     }
   }
 
-	CFileDialogEx::OnDrawItem( nIDCtl, lpDrawItemStruct );
+  CFileDialogEx::OnDrawItem( nIDCtl, lpDrawItemStruct );
 }
 
 

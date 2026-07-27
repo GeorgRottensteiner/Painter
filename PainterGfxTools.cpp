@@ -286,13 +286,8 @@ void HMirrorImage( GR::Graphic::Image *pImage )
 
 
 
-/*-VMirrorImage---------------------------------------------------------------+
- |                                                                            |
- +----------------------------------------------------------------------------*/
-
 void VMirrorImage( GR::Graphic::Image *pImage )
 {
-
   int           i,
                 j;
 

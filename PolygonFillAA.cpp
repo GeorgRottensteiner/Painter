@@ -20,7 +20,7 @@ void CPolygonFillAA::DrawScanLine( int YToScan, GR::Graphic::ContextDescriptor& 
   // The nearest pixel on or to the right of left edges is drawn, and the nearest pixel to the left 
   // of but not on right edges is drawn
 
-  CurrentEdge = AETPtr;
+  CurrentEdge = _pActiveEdgeTable;
 
   dh::Log( "====Y %d====", YToScan );
 
@@ -37,7 +37,7 @@ void CPolygonFillAA::DrawScanLine( int YToScan, GR::Graphic::ContextDescriptor& 
 
     dh::Log( "Edge %d, %d, %d, %d", CurrentEdge->WholePixelXMove, CurrentEdge->ErrorTerm, CurrentEdge->ErrorTermAdjDown, CurrentEdge->ErrorTermAdjUp );
 
-    CurrentEdge = CurrentEdge->NextEdge;
+    CurrentEdge = CurrentEdge->pNextEdge;
 
     dh::Log( "-Edge %d bis %d", LeftX, CurrentEdge->X );
 
@@ -76,7 +76,7 @@ void CPolygonFillAA::DrawScanLine( int YToScan, GR::Graphic::ContextDescriptor& 
     {
       cdTarget.HLine( LeftX, CurrentEdge->X - 1, YToScan, dwColor );
     }
-    CurrentEdge = CurrentEdge->NextEdge;
+    CurrentEdge = CurrentEdge->pNextEdge;
   }
 
 

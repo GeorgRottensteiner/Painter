@@ -110,6 +110,7 @@ ON_COMMAND(ID_SPECIAL_EXCHANGECOLOR, &CMainFrame::OnSpecialExchangecolor)
 ON_COMMAND( ID_FILE_CLOSEALL, &CMainFrame::OnFileCloseAll )
 ON_COMMAND( ID_SPECIAL_SAFETYSAVE, &CMainFrame::OnSpecialSafetySave )
 ON_COMMAND( ID__TEST, &CMainFrame::OnRestoreSafetySave )
+ON_COMMAND( ID_MENU_SPECIAL_EXPORTASHEXDATA, &CMainFrame::OnMenuSpecialExportasHexData )
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -299,7 +300,7 @@ int CMainFrame::OnCreate( LPCREATESTRUCT lpCreateStruct )
     tMapControlBars::iterator   itCB( m_mapControlBars.find( Func.m_strGroupName ) );
     if ( itCB == m_mapControlBars.end() )
     {
-      // ein neuer Control-Bar muß her
+      // ein neuer Control-Bar muÃŸ her
       GRControlBar*   pBar = NULL;
       
       if ( Func.m_dwControlType == CBCT_DIALOG )
@@ -724,8 +725,7 @@ void CMainFrame::OnUpdateMenuToggleSnap(CCmdUI* pCmdUI)
 
 void CMainFrame::OnSpecialSelectionVonMaske() 
 {
-
-	ViewInfo *pViewInfo = theApp.GetActiveViewInfo();
+	ViewInfo* pViewInfo = theApp.GetActiveViewInfo();
 
   if ( !pViewInfo )
   {
@@ -750,13 +750,13 @@ void CMainFrame::OnSpecialSelectionVonMaske()
   pViewInfo->m_pDocInfo->UpdateMarchingAnts();
 
   pViewInfo->m_pDocInfo->ShowAllViews();
-	
 }
+
+
 
 void CMainFrame::OnSpecialSelectionInvert() 
 {
-
-	ViewInfo *pViewInfo = theApp.GetActiveViewInfo();
+	ViewInfo* pViewInfo = theApp.GetActiveViewInfo();
 
   if ( !pViewInfo )
   {
@@ -776,14 +776,9 @@ void CMainFrame::OnSpecialSelectionInvert()
   
   pViewInfo->m_pDocInfo->UpdateMarchingAnts();
   pViewInfo->m_pDocInfo->ShowAllViews();
-	
 }
 
 
-
-/*-OnNotify-------------------------------------------------------------------+
- |                                                                            |
- +----------------------------------------------------------------------------*/
 
 void CMainFrame::OnNotify( const GR::u32& NotifyMessage, INotifyMember<GR::u32>* pFromMember )
 {
@@ -1464,14 +1459,6 @@ void CMainFrame::OnEndSession( BOOL Ending )
 
         tempDataTotal.AppendBuffer( tempData );
       }
-
-      /*
-      POSITION posView = pDoc->GetFirstViewPosition();
-      while ( posView )
-      {
-        CView* pView = pDoc->GetNextView( posView );
-
-      }*/
     }
   }
   GR::IO::FileUtil::WriteFileFromBuffer( tempPath, tempDataTotal );
@@ -1510,30 +1497,75 @@ void CMainFrame::OnRestoreSafetySave()
           DocumentType  docType = (DocumentType)chunkReader.ReadI32();
           SaveType      saveType = (SaveType)chunkReader.ReadI32();
 
-          CDocument*    pDoc = NULL;
+          CMultiDocTemplate* pDocTemplate = NULL;
 
           switch ( docType )
           {
             case DT_IMAGE:
-              pDoc = theApp.pDocTemplate->CreateNewDocument();
+              pDocTemplate = theApp.pDocTemplate;
               break;
             case DT_FONT:
-              pDoc = theApp.pFontTemplate->CreateNewDocument();
+              pDocTemplate = theApp.pFontTemplate;
               break;
             default:
               dh::Log( "Unsupported DocumentType %d encountered!", docType );
               return;
           }
 
+          auto pDoc      = pDocTemplate->CreateNewDocument();
+          auto pFrameWnd = pDocTemplate->CreateNewFrame( pDoc, NULL );
+
           auto  pDocInfo = theApp.GetDocumentInfoFromDocument( pDoc );
           pDocInfo->RestoreFromTempData( chunkReader );
           pDocInfo->m_SaveType = saveType;
 
-          auto pFrameWnd = theApp.pDocTemplate->CreateNewFrame( pDoc, NULL );
-
-          theApp.pDocTemplate->InitialUpdateFrame( pFrameWnd, pDoc, TRUE );
+          pDocTemplate->InitialUpdateFrame( pFrameWnd, pDoc, TRUE );
         }
         break;
     }
+  }
+}
+
+
+
+void CMainFrame::OnMenuSpecialExportasHexData()
+{
+  ViewInfo* pViewInfo = theApp.GetActiveViewInfo();
+
+  if ( !pViewInfo )
+  {
+    return;
+  }
+
+  GR::u32   curFrame = pViewInfo->m_pDocInfo->CurrentFrame();
+
+  for ( size_t i = 0; i < pViewInfo->m_pDocInfo->m_LayeredFrames[curFrame].LayerCount(); ++i )
+  {
+    auto pImage = pViewInfo->m_pDocInfo->m_LayeredFrames[curFrame].Layers[i].GetImage();
+    GR::Graphic::Image* pMask = NULL;
+    if ( pViewInfo->m_pDocInfo->m_LayeredFrames[curFrame].Layers[i].m_HasMask )
+    {
+      pMask = pViewInfo->m_pDocInfo->m_LayeredFrames[curFrame].Layers[i].GetMask();
+    }
+    ByteBuffer    imageData( pImage->GetWidth() * pImage->GetHeight() * 4 );
+
+    for ( int y = 0; y < pImage->GetHeight(); ++y )
+    {
+      for ( int x = 0; x < pImage->GetWidth(); ++x )
+      {
+        GR::u32   color = pImage->GetPixel( x, y );
+        if ( pMask != NULL )
+        {
+          color &= ~0xff000000;
+          color |= ( pMask->GetPixel( x, y ) << 24 );
+        }
+        else
+        {
+          color |= 0xff000000;
+        }
+        imageData.SetU32At( ( x + y * pImage->GetWidth() ) * 4, color );
+      }
+    }
+    dh::Log( imageData.ToHexString().c_str() );
   }
 }

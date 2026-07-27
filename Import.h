@@ -26,7 +26,7 @@ namespace GR
 
 HBITMAP CreateBitmapFromImageData( GR::Graphic::ImageData* pData );
 HBITMAP CreateBitmapFromImage( GR::Graphic::Image* pImage, GR::Graphic::Palette* pPalette );
-bool LoadPSD( DocumentInfo* pDocInfo, const GR::Char* FileName );
+bool LoadPSD( DocumentInfo* pDocInfo, const char* FileName );
 
 CPainterFileOpen *OpenFileDialog( DWORD dwFileTypes );
 

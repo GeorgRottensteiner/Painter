@@ -94,7 +94,7 @@ BOOL CUndoLayerChange::Restore()
       AfxGetMainWnd()->MessageBox( _T( "Cannot Undo, Layer missing!" ) );
       return FALSE;
     }
-    std::vector<CLayer*>::iterator    it( m_pDocInfo->m_LayeredFrames[m_dwFrameIndex].Layers.begin() );
+    auto it( m_pDocInfo->m_LayeredFrames[m_dwFrameIndex].Layers.begin() );
     std::advance( it, m_dwLayerIndex );
 
     m_pDocInfo->m_LayeredFrames[m_dwFrameIndex].Layers.erase( it );
@@ -102,10 +102,10 @@ BOOL CUndoLayerChange::Restore()
   else if ( m_ChangeType == ULC_REMOVE_LAYER )
   {
     // den Layer wieder einsetzen
-    std::vector<CLayer*>::iterator    it( m_pDocInfo->m_LayeredFrames[m_dwFrameIndex].Layers.begin() );
+    auto it( m_pDocInfo->m_LayeredFrames[m_dwFrameIndex].Layers.begin() );
     std::advance( it, m_dwLayerIndex );
 
-    m_pDocInfo->m_LayeredFrames[m_dwFrameIndex].Layers.insert( it, m_pLayer );
+    m_pDocInfo->m_LayeredFrames[m_dwFrameIndex].Layers.insert( it, *m_pLayer );
 
     m_pLayer = NULL;
   }
@@ -114,7 +114,7 @@ BOOL CUndoLayerChange::Restore()
     CLayer*   pLayer = m_pDocInfo->GetLayer( m_dwFrameIndex, m_dwLayerIndex );
 
     m_pDocInfo->m_LayeredFrames[m_dwFrameIndex].Layers[m_dwLayerIndex] = m_pDocInfo->m_LayeredFrames[m_dwFrameIndex].Layers[m_dwSecondLayerIndex];
-    m_pDocInfo->m_LayeredFrames[m_dwFrameIndex].Layers[m_dwSecondLayerIndex] = pLayer;
+    m_pDocInfo->m_LayeredFrames[m_dwFrameIndex].Layers[m_dwSecondLayerIndex] = *pLayer;
   }
 
   pSettings->Notify( NF_LAYER_CHANGED );

@@ -482,7 +482,7 @@ void CPainterApp::OnAppAbout()
 
 
 
-CDocument* CPainterApp::CheckAndOpen( const GR::Char* File )
+CDocument* CPainterApp::CheckAndOpen( const char* File )
 {
 
 #define OPEN_AS_BTN         0
@@ -492,12 +492,12 @@ CDocument* CPainterApp::CheckAndOpen( const GR::Char* File )
 
   if ( !GR::IO::FileUtil::FileExists( File ) )
   {
-    AfxMessageBox( GR::Convert::ToUTF16( CMisc::printf( "File %s could not be opened.\n", File ) ).c_str() );
+    AfxMessageBox( GR::Convert::ToUTF16( Misc::Format( "File %1% could not be opened" ) << File ).c_str() );
     return NULL;
   }
 
   GR::String      extension = GR::Strings::ToUpper( Path::Extension( File ) );
-  GR::WString         fullPath = GR::Convert::ToUTF16( File );
+  GR::WString     fullPath = GR::Convert::ToUTF16( GR::String( File ) );
 
   dwOpenFormat = OPEN_AS_BTN;
   if ( extension == "FNX" )
@@ -1017,26 +1017,26 @@ void CPainterApp::ShowStatusMessage()
   pMainFrame->m_wndStatusBar.SetFont( m_pMainWnd->GetFont() );
 
   // Info
-  pMainFrame->m_wndStatusBar.SetPaneText( 2, GR::Convert::ToUTF16( CMisc::printf( "%dx%dx%d Zoom %d%% Frame %d/%d ", 
-                    pDocInfo->Width(), pDocInfo->Height(), pDocInfo->GetTrueBitDepth(),
-                    pViewInfo->m_ZoomFaktor,
-                    pDocInfo->CurrentFrame() + 1,
-                    pDocInfo->m_LayeredFrames.size() ) ).c_str() );
+  pMainFrame->m_wndStatusBar.SetPaneText( 2, GR::Convert::ToUTF16( Misc::Format( "%1%x%2%x%3% Zoom %4%%% Frame %5%/%6% " )
+                    << pDocInfo->Width() << pDocInfo->Height() << pDocInfo->GetTrueBitDepth()
+                    << pViewInfo->m_ZoomFaktor
+                    << pDocInfo->CurrentFrame() + 1
+                    << pDocInfo->m_LayeredFrames.size() ).c_str() );
 
   // Koordinaten
-  pMainFrame->m_wndStatusBar.SetPaneText( 3, GR::Convert::ToUTF16( CMisc::printf( "%d,%d", pDocInfo->m_ActX, pDocInfo->m_ActY ) ).c_str() );
+  pMainFrame->m_wndStatusBar.SetPaneText( 3, GR::Convert::ToUTF16( Misc::Format( "%1%,%2%" ) << pDocInfo->m_ActX << pDocInfo->m_ActY ).c_str() );
 
   // Auswahl
   if ( pViewInfo->m_FloatingSelection )
   {
     // da fliegt grade eine Selection rum!
-    pMainFrame->m_wndStatusBar.SetPaneText( 4, GR::Convert::ToUTF16( CMisc::printf( "%d,%d - %d,%d  (%dx%d)",
-                pDocInfo->m_ActX - pDocInfo->m_SelectionWidth / 2,
-                pDocInfo->m_ActY - pDocInfo->m_SelectionHeight / 2,
-                pDocInfo->m_ActX - pDocInfo->m_SelectionWidth / 2 + pDocInfo->m_SelectionWidth - 1,
-                pDocInfo->m_ActY - pDocInfo->m_SelectionHeight / 2 + pDocInfo->m_SelectionHeight - 1,
-                pDocInfo->m_SelectionWidth,
-                pDocInfo->m_SelectionHeight ) ).c_str() );
+    pMainFrame->m_wndStatusBar.SetPaneText( 4, GR::Convert::ToUTF16( Misc::Format( "%1%,%2% - %3%,%4%  (%5%x%6%)" )
+                << pDocInfo->m_ActX - pDocInfo->m_SelectionWidth / 2
+                << pDocInfo->m_ActY - pDocInfo->m_SelectionHeight / 2
+                << pDocInfo->m_ActX - pDocInfo->m_SelectionWidth / 2 + pDocInfo->m_SelectionWidth - 1
+                << pDocInfo->m_ActY - pDocInfo->m_SelectionHeight / 2 + pDocInfo->m_SelectionHeight - 1
+                << pDocInfo->m_SelectionWidth
+                << pDocInfo->m_SelectionHeight ).c_str() );
   }
   else if ( ( pViewInfo->m_Selecting )
   &&        ( ( pSettings->m_dwFunction == CSettings::F_SELECTION )
@@ -1044,24 +1044,24 @@ void CPainterApp::ShowStatusMessage()
   ||          ( pSettings->m_dwFunction == CSettings::F_RECTANGLE ) ) )
   {
     // Auswahl, die gerade getätigt wird
-    pMainFrame->m_wndStatusBar.SetPaneText( 4, GR::Convert::ToUTF16( CMisc::printf( "%d,%d - %d,%d  (%dx%d)",
-                pDocInfo->m_StartX,
-                pDocInfo->m_StartY,
-                pDocInfo->m_StartX + abs( pDocInfo->m_StartX - pDocInfo->m_ActX ),
-                pDocInfo->m_StartY + abs( pDocInfo->m_StartY - pDocInfo->m_ActY ),
-                abs( pDocInfo->m_StartX - pDocInfo->m_ActX ) + 1,
-                abs( pDocInfo->m_StartY - pDocInfo->m_ActY ) + 1 ) ).c_str() );
+    pMainFrame->m_wndStatusBar.SetPaneText( 4, GR::Convert::ToUTF16( Misc::Format( "%1%,%2% - %3%,%4%  (%5%x%6%)" )
+                << pDocInfo->m_StartX
+                << pDocInfo->m_StartY
+                << pDocInfo->m_StartX + abs( pDocInfo->m_StartX - pDocInfo->m_ActX )
+                << pDocInfo->m_StartY + abs( pDocInfo->m_StartY - pDocInfo->m_ActY )
+                << abs( pDocInfo->m_StartX - pDocInfo->m_ActX ) + 1
+                << abs( pDocInfo->m_StartY - pDocInfo->m_ActY ) + 1 ).c_str() );
   }
   else if ( pDocInfo->HasSelection() )
   {
     // fertige Auswahl
-    pMainFrame->m_wndStatusBar.SetPaneText( 4, GR::Convert::ToUTF16( CMisc::printf( "%d,%d - %d,%d  (%dx%d)",
-                pDocInfo->m_Selection.left,
-                pDocInfo->m_Selection.top,
-                pDocInfo->m_Selection.right,
-                pDocInfo->m_Selection.bottom,
-                pDocInfo->m_Selection.right - pDocInfo->m_Selection.left + 1,
-                pDocInfo->m_Selection.bottom - pDocInfo->m_Selection.top + 1 ) ).c_str() );
+    pMainFrame->m_wndStatusBar.SetPaneText( 4, GR::Convert::ToUTF16( Misc::Format( "%1%,%2% - %3%,%4%  (%5%x%6%)" )
+                << pDocInfo->m_Selection.left
+                << pDocInfo->m_Selection.top
+                << pDocInfo->m_Selection.right
+                << pDocInfo->m_Selection.bottom
+                << pDocInfo->m_Selection.right - pDocInfo->m_Selection.left + 1
+                << pDocInfo->m_Selection.bottom - pDocInfo->m_Selection.top + 1 ).c_str() );
   }
   else
   {

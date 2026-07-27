@@ -17,7 +17,7 @@
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_DEU)
 LANGUAGE LANG_GERMAN, SUBLANG_GERMAN
-#pragma code_page(1252)
+#pragma code_page(65001)
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -46,7 +46,7 @@ BEGIN
     "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_DEU)\r\n"
     "#ifdef _WIN32\r\n"
     "LANGUAGE 7, 1\r\n"
-    "#pragma code_page(1252)\r\n"
+    "#pragma code_page(65001)\r\n"
     "#endif //_WIN32\r\n"
     "#include ""res\\Painter.rc2""  // Nicht mit Microsoft Visual C++ bearbeitete Ressourcen\r\n"
     "#include ""l.deu\\afxres.rc""          // Standardkomponenten\r\n"
@@ -145,7 +145,7 @@ BEGIN
         MENUITEM "^v Mirror vertical\tV",       ID_BEARBEITEN_MIRRORV
         POPUP "Rotate"
         BEGIN
-            MENUITEM "by 90°",                      ID_BEARBEITEN_ROTIEREN
+            MENUITEM "by 90Â°",                      ID_BEARBEITEN_ROTIEREN
             MENUITEM "free rotate...",              ID_MENU_ROTATE_FREE
         END
         MENUITEM SEPARATOR
@@ -209,6 +209,8 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "Photoshop Filter...",         ID_MENU_PS_FILTER
         MENUITEM SEPARATOR
+        MENUITEM "Export as Hex Data",          ID_MENU_SPECIAL_EXPORTASHEXDATA
+        MENUITEM SEPARATOR
         MENUITEM "Safety Save",                 ID_SPECIAL_SAFETYSAVE
     END
     POPUP "&Colors"
@@ -255,7 +257,7 @@ BEGIN
     BEGIN
         MENUITEM "&Neu\tStrg+N",                ID_FILE_NEW
         MENUITEM "O&pen...\tStrg+O",            ID_FILE_OPEN
-        MENUITEM "S&chließen",                  ID_FILE_CLOSE
+        MENUITEM "S&chlieÃŸen",                  ID_FILE_CLOSE
         MENUITEM "Close all",                   ID_FILE_CLOSEALL
         MENUITEM "&Save\tStrg+S",               ID_FILE_SAVE
         MENUITEM "Save &as...",                 ID_FILE_SAVE_AS
@@ -466,8 +468,6 @@ STYLE DS_SETFONT | WS_CHILD
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
     LTEXT           "Character:",IDC_STATIC_FONT_ZEICHENNR,7,6,43,8
-    EDITTEXT        IDC_EDIT_FONT_ZEICHENNR,56,4,40,14,ES_NUMBER
-    CONTROL         "Spin1",IDC_SPIN_FONT_ZEICHENNR,"msctls_updown32",UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,97,4,11,14
     LTEXT           "Width:",IDC_STATIC,7,22,43,8
     EDITTEXT        IDC_EDIT_FONT_BREITE,56,20,40,14,ES_READONLY | ES_NUMBER
     CONTROL         "Spin1",IDC_SPIN_FONT_BREITE,"msctls_updown32",UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,97,20,11,14
@@ -482,7 +482,9 @@ BEGIN
     CONTROL         "Spin1",IDC_SPIN_FONT_YOFFSET,"msctls_updown32",UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,97,68,11,14
     LTEXT           "This is the font...",IDC_STATIC_FONT_INHALT,118,0,201,199
     LTEXT           "Static",IDC_STATIC_FONT_PREVIEW,7,98,100,95,0,WS_EX_STATICEDGE
-    PUSHBUTTON      "Delete",IDC_BTN_KILL_LETTER,7,86,46,10
+    PUSHBUTTON      "Delete",IDC_BTN_KILL_LETTER,56,86,46,10
+    PUSHBUTTON      "Add",IDC_BTN_ADD_LETTER,7,86,46,10,WS_DISABLED
+    COMBOBOX        IDC_COMBO_LETTER,56,4,52,189,CBS_DROPDOWN | WS_VSCROLL | WS_TABSTOP
 END
 
 IDD_DIALOG_BATCH DIALOG 0, 0, 333, 298
@@ -2011,6 +2013,11 @@ BEGIN
     0
 END
 
+IDD_PAINTERFONTVIEW_FORM AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -2047,7 +2054,7 @@ BEGIN
     ID_INDICATOR_CAPS       "UF"
     ID_INDICATOR_NUM        "NUM"
     ID_INDICATOR_SCRL       "RF"
-    ID_INDICATOR_OVR        "ÜB"
+    ID_INDICATOR_OVR        "ÃœB"
     ID_INDICATOR_REC        "MA"
 END
 
@@ -2088,15 +2095,15 @@ END
 
 STRINGTABLE
 BEGIN
-    ID_NEXT_PANE            "Wechselt zum nächsten Fensterausschnitt.\nNächster Ausschnitt"
-    ID_PREV_PANE            "Springt zum vorherigen Fensterausschnitt zurück.\nVorheriger Ausschnitt"
+    ID_NEXT_PANE            "Wechselt zum nÃ¤chsten Fensterausschnitt.\nNÃ¤chster Ausschnitt"
+    ID_PREV_PANE            "Springt zum vorherigen Fensterausschnitt zurÃ¼ck.\nVorheriger Ausschnitt"
 END
 
 STRINGTABLE
 BEGIN
-    ID_WINDOW_NEW           "Öffnet ein weiteres Fenster für das aktive Dokument.\nNeues Fenster"
+    ID_WINDOW_NEW           "Ã–ffnet ein weiteres Fenster fÃ¼r das aktive Dokument.\nNeues Fenster"
     ID_WINDOW_ARRANGE       "Ordnet die Symbole im unteren Bereich des Fensters an.\nSymbole anordnen"
-    ID_WINDOW_CASCADE       "Ordnet die Fenster überlappend an.\nÜberlappende Fenster"
+    ID_WINDOW_CASCADE       "Ordnet die Fenster Ã¼berlappend an.\nÃœberlappende Fenster"
     ID_WINDOW_TILE_HORZ     "Ordnet die Fenster nebeneinander an.\nFenster nebeneinander"
     ID_WINDOW_TILE_VERT     "Ordnet die Fenster nebeneinander an.\nFenster nebeneinander"
     ID_WINDOW_SPLIT         "Teilt das aktive Fenster in Ausschnitte.\nTeilen"
@@ -2104,17 +2111,17 @@ END
 
 STRINGTABLE
 BEGIN
-    ID_EDIT_CLEAR           "Löscht die Markierung.\nLöschen"
-    ID_EDIT_CLEAR_ALL       "Löscht alles.\nAlles löschen"
-    ID_EDIT_COPY            "Kopiert die Markierung und überträgt sie in die Zwischenablage.\nKopieren"
-    ID_EDIT_CUT             "Entfernt die Markierung und überträgt sie in die Zwischenablage.\nAusschneiden"
+    ID_EDIT_CLEAR           "LÃ¶scht die Markierung.\nLÃ¶schen"
+    ID_EDIT_CLEAR_ALL       "LÃ¶scht alles.\nAlles lÃ¶schen"
+    ID_EDIT_COPY            "Kopiert die Markierung und Ã¼bertrÃ¤gt sie in die Zwischenablage.\nKopieren"
+    ID_EDIT_CUT             "Entfernt die Markierung und Ã¼bertrÃ¤gt sie in die Zwischenablage.\nAusschneiden"
     ID_EDIT_FIND            "Sucht den angegebenen Text.\nSuchen"
-    ID_EDIT_PASTE           "Fügt den Inhalt der Zwischenablage ein.\nEinfügen"
+    ID_EDIT_PASTE           "FÃ¼gt den Inhalt der Zwischenablage ein.\nEinfÃ¼gen"
     ID_EDIT_REPEAT          "Wiederholt die letzte Aktion.\nWiederholen"
     ID_EDIT_REPLACE         "Ersetzt einen bestimmten Text durch einen anderen.\nErsetzen"
     ID_EDIT_SELECT_ALL      "Markiert das gesamte Dokument.\nAlles markieren"
-    ID_EDIT_UNDO            "Macht die letzte Aktion rückgängig.\nRückgängig"
-    ID_EDIT_REDO            "Wiederholt die vorher rückgängig gemachte Aktion.\nWiederherstellen"
+    ID_EDIT_UNDO            "Macht die letzte Aktion rÃ¼ckgÃ¤ngig.\nRÃ¼ckgÃ¤ngig"
+    ID_EDIT_REDO            "Wiederholt die vorher rÃ¼ckgÃ¤ngig gemachte Aktion.\nWiederherstellen"
 END
 
 STRINGTABLE
@@ -2125,18 +2132,18 @@ END
 
 STRINGTABLE
 BEGIN
-    AFX_IDS_SCSIZE          "Ändert die Fenstergröße."
-    AFX_IDS_SCMOVE          "Ändert die Position des Fensters."
+    AFX_IDS_SCSIZE          "Ã„ndert die FenstergrÃ¶ÃŸe."
+    AFX_IDS_SCMOVE          "Ã„ndert die Position des Fensters."
     AFX_IDS_SCMINIMIZE      "Verkleinert das Fenster zu einem Symbol."
-    AFX_IDS_SCMAXIMIZE      "Vergrößert das Fenster zu voller Größe."
-    AFX_IDS_SCNEXTWINDOW    "Wechselt zum nächsten Dokumentfenster."
+    AFX_IDS_SCMAXIMIZE      "VergrÃ¶ÃŸert das Fenster zu voller GrÃ¶ÃŸe."
+    AFX_IDS_SCNEXTWINDOW    "Wechselt zum nÃ¤chsten Dokumentfenster."
     AFX_IDS_SCPREVWINDOW    "Wechselt zum vorherigen Dokumentfenster."
-    AFX_IDS_SCCLOSE         "Schließt das aktive Fenster und fordert zur Dokumentspeicherung auf."
+    AFX_IDS_SCCLOSE         "SchlieÃŸt das aktive Fenster und fordert zur Dokumentspeicherung auf."
 END
 
 STRINGTABLE
 BEGIN
-    AFX_IDS_SCRESTORE       "Stellt das Fenster in seiner normalen Größe wieder her."
+    AFX_IDS_SCRESTORE       "Stellt das Fenster in seiner normalen GrÃ¶ÃŸe wieder her."
     AFX_IDS_SCTASKLIST      "Aktiviert die Task-Liste."
     AFX_IDS_MDICHILD        "Aktiviert dieses Fenster."
 END
@@ -2146,32 +2153,32 @@ BEGIN
     ID_PAINT_BOX            "Wechselt in den Rechteck-Modus.\nRechteck"
     ID_PAINT_CIRCLE         "Wechselt in den Kreis-Modus.\nKreis"
     ID_PAINT_LINE           "Wechselt in den Linien-Modus.\nLinie"
-    ID_PAINT_FILL           "Wechselt in den Füllen-Modus.\nFüllen"
+    ID_PAINT_FILL           "Wechselt in den FÃ¼llen-Modus.\nFÃ¼llen"
     ID_PAINT_ZOOMOUT        "Wechselt in den Lupen-Modus.\nLupe"
     ID_ANIM_PLAY            "Spielt die Animation ab.\nStart"
     ID_ANIM_STOP            "Stoppt die Animation.\nStop"
-    ID_ANIM_STEP_FORWARD    "Zeigt das nächste Frame der Animation.\nWeiter"
-    ID_ANIM_STEP_BACK       "Zeigt das vorige Frame der Animation.\nZurück"
+    ID_ANIM_STEP_FORWARD    "Zeigt das nÃ¤chste Frame der Animation.\nWeiter"
+    ID_ANIM_STEP_BACK       "Zeigt das vorige Frame der Animation.\nZurÃ¼ck"
     ID_ANIM_HOME            "Zeigt das erste Frame der Animation.\nAnfang"
     ID_ANIM_END             "Zeigt das letzte Frame der Animation.\nEnde"
 END
 
 STRINGTABLE
 BEGIN
-    ID_ANIM_FRAME_DELETE    "Löscht das aktuelle Frame aus der Animation.\nLöschen"
-    ID_ANIM_FRAME_INSERT    "Fügt an der aktuellen Stelle der Animation ein Frame ein.\nEinfügen"
+    ID_ANIM_FRAME_DELETE    "LÃ¶scht das aktuelle Frame aus der Animation.\nLÃ¶schen"
+    ID_ANIM_FRAME_INSERT    "FÃ¼gt an der aktuellen Stelle der Animation ein Frame ein.\nEinfÃ¼gen"
     ID_BEARBEITEN_EIGENSCHAFTEN "Eigenschaften"
     ID_PAINT_SELECTION      "Auswahlrahmen ziehen\nAuswahlrahmen"
-    ID_BEARBEITEN_LOESCHEN  "Löschen"
+    ID_BEARBEITEN_LOESCHEN  "LÃ¶schen"
     ID_PAINT_FREEHAND1      "Einzel-Pixel\nEinzel-Pixel"
-    ID_EDIT_PASTEASSELECTION "Einfügen als Selection"
-    ID_EDIT_PASTEASNEWIMAGE "Einfügen als neues Bild"
+    ID_EDIT_PASTEASSELECTION "EinfÃ¼gen als Selection"
+    ID_EDIT_PASTEASNEWIMAGE "EinfÃ¼gen als neues Bild"
 END
 
 STRINGTABLE
 BEGIN
     ID_ANIM_FRAME_INSERTBEHIND 
-                            "Nach dem aktuellen Frame einfügen\nHinten anfügen"
+                            "Nach dem aktuellen Frame einfÃ¼gen\nHinten anfÃ¼gen"
     ID_PAINT_BRIGHTEN       "Erhellen-Modus\nErhellen"
     ID_PAINT_DARKEN         "Verdunklungs-Modus\nVerdunkeln"
 END
@@ -2195,7 +2202,7 @@ END
 
 STRINGTABLE
 BEGIN
-    ID_PAINT_TEXT           "Text einfügen\nText einfügen"
+    ID_PAINT_TEXT           "Text einfÃ¼gen\nText einfÃ¼gen"
     ID_MENU_ANI_CREATOR     "Animation erstellen"
     ID_MENU_UNDO            "Undo\nUndo"
 END
@@ -2213,7 +2220,7 @@ END
 
 STRINGTABLE
 BEGIN
-    AFX_IDP_ASK_TO_SAVE     "Änderungen in %1 speichern?"
+    AFX_IDP_ASK_TO_SAVE     "Ã„nderungen in %1 speichern?"
 END
 
 #endif    // German (Germany) resources

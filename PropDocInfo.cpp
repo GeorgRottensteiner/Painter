@@ -59,12 +59,12 @@ BOOL CPropDocInfo::OnInitDialog()
     return FALSE;
   }
 
-  DWORD   dwColors = m_pDocInfo->CountUsedColors();
+  GR::u32 dwColors = m_pDocInfo->CountUsedColors();
 
   m_StaticName.SetWindowText( GR::Convert::ToUTF16( m_pDocInfo->m_FileName ).c_str() );
-  m_StaticDocSize.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%dx%d px", m_pDocInfo->Width(), m_pDocInfo->Height() ) ).c_str() );
-  m_StaticUsedColors.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%d unique colors", dwColors ) ).c_str() );
-  m_StaticDepth.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%d bpp", m_pDocInfo->m_BitDepth ) ).c_str() );
+  m_StaticDocSize.SetWindowText( GR::Convert::ToUTF16( Misc::Format( "%1%x%2% px" ) << m_pDocInfo->Width() << m_pDocInfo->Height() ).c_str() );
+  m_StaticUsedColors.SetWindowText( GR::Convert::ToUTF16( Misc::Format( "%1% unique colors" ) << dwColors ).c_str() );
+  m_StaticDepth.SetWindowText( GR::Convert::ToUTF16( Misc::Format( "%1% bpp" ) << m_pDocInfo->m_BitDepth ).c_str() );
   m_StaticPath.SetWindowText( GR::Convert::ToUTF16( m_pDocInfo->m_FileName ).c_str() );
 
   switch ( m_pDocInfo->m_DocType )

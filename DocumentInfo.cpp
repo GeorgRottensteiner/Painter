@@ -21,6 +21,7 @@
 
 #include <Grafik\ContextDescriptor.h>
 #include <Grafik/Image.h>
+#include <Grafik/Font.h>
 #include <Grafik/GFXPage.h>
 
 #include <IO/FileChunk.h>
@@ -74,22 +75,6 @@ DocumentInfo::~DocumentInfo()
 
   pSettings->RemoveNotifyMember( this );
 
-  tVectLayeredFrames::iterator    itFrames( m_LayeredFrames.begin() );
-  while ( itFrames != m_LayeredFrames.end() )
-  {
-    tVectLayers&    layers = itFrames->Layers;
-
-    tVectLayers::iterator   itLayer( layers.begin() );
-    while ( itLayer != layers.end() )
-    {
-      CLayer*   pLayer = *itLayer;
-
-      delete pLayer;
-
-      ++itLayer;
-    }
-    ++itFrames;
-  }
   m_LayeredFrames.clear();
 
   SafeDelete( m_pImageSelection );
@@ -148,7 +133,7 @@ CLayer* DocumentInfo::AddLayer( GR::Graphic::Image* pOrigin, size_t Frame, size_
 
   tVectLayers&  layers = m_LayeredFrames[Frame].Layers;
 
-  CLayer*   pLayer = new CLayer();
+  CLayer   layer;
 
   if ( layers.empty() )
   {
@@ -156,41 +141,41 @@ CLayer* DocumentInfo::AddLayer( GR::Graphic::Image* pOrigin, size_t Frame, size_
     m_CurrentLayer = 0;
     if ( pOrigin == NULL )
     {
-      pLayer->SetLayerImage( new GR::Graphic::Image() );
+      layer.SetLayerImage( new GR::Graphic::Image() );
     }
     else
     {
-      pLayer->SetLayerImage( pOrigin );
+      layer.SetLayerImage( pOrigin );
     }
-    pLayer->m_Name = "Hintergrund";
+    layer.m_Name = "Background";
   }
   else
   {
     // ein zusätzlicher Layer
-    pLayer->SetTransparencyIndex( true, 0 );
+    layer.SetTransparencyIndex( true, 0 );
     if ( pOrigin == NULL )
     {
-      pLayer->SetLayerImage( new GR::Graphic::Image( GetImage( Frame, 0 ) ) );
+      layer.SetLayerImage( new GR::Graphic::Image( GetImage( Frame, 0 ) ) );
     }
     else
     {
-      pLayer->SetLayerImage( pOrigin );
+      layer.SetLayerImage( pOrigin );
     }
-    pLayer->m_Name = "Layer";
+    layer.m_Name = "Layer";
   }
 
-  pLayer->m_MaskEnabled = false;
-  pLayer->SetLayerMask( NULL );
+  layer.m_MaskEnabled = false;
+  layer.SetLayerMask( NULL );
 
   if ( size_t( LayerInsertPos ) < layers.size() )
   {
-    layers.insert( layers.begin() + LayerInsertPos, pLayer );
+    layers.insert( layers.begin() + LayerInsertPos, layer );
   }
   else
   {
-    layers.push_back( pLayer );
+    layers.push_back( layer );
   }
-  return pLayer;
+  return &layers.back();
 }
 
 
@@ -207,13 +192,12 @@ void DocumentInfo::RemoveLayer( CLayer* pLayer, size_t Frame )
   }
 
   int   layerIndex = 0;
-  std::vector<CLayer*>::iterator   it( m_LayeredFrames[Frame].Layers.begin() );
+  auto it( m_LayeredFrames[Frame].Layers.begin() );
   while ( it != m_LayeredFrames[Frame].Layers.end() )
   {
-    if ( *it == pLayer )
+    if ( &( *it ) == pLayer )
     {
       pLayer->Clear();
-      delete pLayer;
       m_LayeredFrames[Frame].Layers.erase( it );
 
       if ( m_CurrentLayer == layerIndex )
@@ -258,7 +242,7 @@ CLayer* DocumentInfo::ActiveLayer()
   {
     m_CurrentLayer = 0;
   }
-  return layers[m_CurrentLayer];
+  return &layers[m_CurrentLayer];
 }
 
 
@@ -545,8 +529,7 @@ bool DocumentInfo::PasteFromClipBoard( int iMode, ViewInfo* pAlternativeViewInfo
 
   GR::Graphic::Palette      palTemp;
 
-  //DWORD   dwTargetDepth = GetBitDepth();
-  DWORD     dwTargetDepth = pViewInfo->GetViewBitDepth();
+  GR::u32   dwTargetDepth = pViewInfo->GetViewBitDepth();
   if ( iMode == 1 )
   {
     dwTargetDepth = pPack->m_pImage->GetDepth();
@@ -627,7 +610,7 @@ bool DocumentInfo::PasteFromClipBoard( int iMode, ViewInfo* pAlternativeViewInfo
 
     if ( pPack->m_pImage->GetDepth() != dwTargetDepth )
     {
-      AfxMessageBox( GR::Convert::ToUTF16( CMisc::printf( "Conversion from %d to %d not supported!", pPack->m_pImage->GetDepth(), dwTargetDepth ) ).c_str() );
+      AfxMessageBox( GR::Convert::ToUTF16( Misc::Format( "Conversion from %1% to %2% not supported!" ) << pPack->m_pImage->GetDepth() << dwTargetDepth ).c_str() );
       SafeDelete( pPack->m_pImage );
       SafeDelete( pPack );
       return false;
@@ -667,7 +650,7 @@ bool DocumentInfo::PasteFromClipBoard( int iMode, ViewInfo* pAlternativeViewInfo
 
     if ( pPack->m_pImage->GetDepth() != dwTargetDepth )
     {
-      AfxMessageBox( GR::Convert::ToUTF16( CMisc::printf( "Conversion from %d to %d not supported!", pPack->m_pImage->GetDepth(), dwTargetDepth ) ).c_str() );
+      AfxMessageBox( GR::Convert::ToUTF16( Misc::Format( "Conversion from %1% to %2% not supported!" ) << pPack->m_pImage->GetDepth() << dwTargetDepth ).c_str() );
       SafeDelete( pPack->m_pImage );
       SafeDelete( pPack );
       return false;
@@ -707,7 +690,7 @@ bool DocumentInfo::PasteFromClipBoard( int iMode, ViewInfo* pAlternativeViewInfo
 
     if ( pPack->m_pImage->GetDepth() != dwTargetDepth )
     {
-      AfxMessageBox( GR::Convert::ToUTF16( CMisc::printf( "Conversion from %d to %d not supported!", pPack->m_pImage->GetDepth(), dwTargetDepth ) ).c_str() );
+      AfxMessageBox( GR::Convert::ToUTF16( Misc::Format( "Conversion from %1% to %2% not supported!" ) << pPack->m_pImage->GetDepth() << dwTargetDepth ).c_str() );
       SafeDelete( pPack->m_pImage );
       SafeDelete( pPack );
       return false;
@@ -718,7 +701,7 @@ bool DocumentInfo::PasteFromClipBoard( int iMode, ViewInfo* pAlternativeViewInfo
   }
   else
   {
-    AfxMessageBox( GR::Convert::ToUTF16( CMisc::printf( "Color depth %d not supported!", pPack->m_pImage->GetDepth() ) ).c_str() );
+    AfxMessageBox( GR::Convert::ToUTF16( Misc::Format( "Color depth %1% not supported!" ) << pPack->m_pImage->GetDepth() ).c_str() );
     SafeDelete( pPack->m_pImage );
     SafeDelete( pPack );
     return false;
@@ -1785,11 +1768,11 @@ void DocumentInfo::ResizeCanvas( int iNewWidth, int iNewHeight, bool bCenterH, b
 
   for ( size_t frame = 0; frame < m_LayeredFrames.size(); ++frame )
   {
-    std::vector<CLayer*>::iterator   it( m_LayeredFrames[frame].Layers.begin() );
+    auto it( m_LayeredFrames[frame].Layers.begin() );
 
     while ( it != m_LayeredFrames[frame].Layers.end() )
     {
-      CLayer* pLayer = *it;
+      CLayer* pLayer = &( *it );
 
       GR::Graphic::Image* pImage = new GR::Graphic::Image( iNewWidth, iNewHeight, GetTrueBitDepth(), 0, 0 );
       GR::Graphic::Image* pOrigImage = pLayer->GetImage();
@@ -2384,6 +2367,13 @@ size_t DocumentInfo::AddFrame( size_t iFrameIndex )
 
 
 
+bool DocumentInfo::IsValidFrame()
+{
+  return m_CurrentFrame != (size_t)-1;
+}
+
+
+
 size_t DocumentInfo::CurrentFrame()
 {
   return m_CurrentFrame;
@@ -2391,17 +2381,18 @@ size_t DocumentInfo::CurrentFrame()
 
 
 
-void DocumentInfo::CurrentFrame( size_t dwFrameNr )
+void DocumentInfo::CurrentFrame( size_t frameNr )
 {
   if ( m_LayeredFrames.empty() )
   {
     return;
   }
-  if ( dwFrameNr >= m_LayeredFrames.size() )
+  if ( ( frameNr != (size_t)-1 )
+  &&   ( frameNr >= m_LayeredFrames.size() ) )
   {
-    dwFrameNr = 0;
+    frameNr = 0;
   }
-  m_CurrentFrame = dwFrameNr;
+  m_CurrentFrame = frameNr;
 
   pSettings->Notify( NF_LAYER_CHANGED );
 }
@@ -2410,7 +2401,6 @@ void DocumentInfo::CurrentFrame( size_t dwFrameNr )
 
 void DocumentInfo::RemoveFrame( size_t dwFrameNr )
 {
-
   if ( dwFrameNr >= m_LayeredFrames.size() )
   {
     return;
@@ -2420,19 +2410,7 @@ void DocumentInfo::RemoveFrame( size_t dwFrameNr )
     AfxMessageBox( _T( "Es muß mindestens ein Frame vorhanden sein!" ) );
     return;
   }
-  tVectLayers&    vectm_vectLayers = m_LayeredFrames[dwFrameNr].Layers;
-
-  tVectLayers::iterator   itLayer( vectm_vectLayers.begin() );
-  while ( itLayer != vectm_vectLayers.end() )
-  {
-    CLayer*   pLayer = *itLayer;
-
-    delete pLayer;
-
-    ++itLayer;
-  }
   m_LayeredFrames.erase( m_LayeredFrames.begin() + dwFrameNr );
-
 }
 
 
@@ -2536,7 +2514,7 @@ GR::Graphic::Image* DocumentInfo::GetImage( size_t iFrame, size_t iLayer )
   {
     return NULL;
   }
-  return m_LayeredFrames[iFrame].Layers[iLayer]->GetImage();
+  return m_LayeredFrames[iFrame].Layers[iLayer].GetImage();
 
 }
 
@@ -2553,7 +2531,7 @@ GR::Graphic::Image* DocumentInfo::GetMask( size_t iFrame, size_t iLayer )
   {
     return NULL;
   }
-  return m_LayeredFrames[iFrame].Layers[iLayer]->GetMask();
+  return m_LayeredFrames[iFrame].Layers[iLayer].GetMask();
 
 }
 
@@ -2561,7 +2539,6 @@ GR::Graphic::Image* DocumentInfo::GetMask( size_t iFrame, size_t iLayer )
 
 CLayer* DocumentInfo::GetLayer( size_t iFrame, size_t iLayer )
 {
-
   if ( iFrame >= m_LayeredFrames.size() )
   {
     return NULL;
@@ -2570,8 +2547,7 @@ CLayer* DocumentInfo::GetLayer( size_t iFrame, size_t iLayer )
   {
     return NULL;
   }
-  return m_LayeredFrames[iFrame].Layers[iLayer];
-
+  return &m_LayeredFrames[iFrame].Layers[iLayer];
 }
 
 
@@ -2598,20 +2574,16 @@ Frame* DocumentInfo::GetFrame( size_t iFrameNr )
 
 
 
-DWORD DocumentInfo::Width() const
+GR::u32 DocumentInfo::Width() const
 {
-
   return m_DocWidth;
-
 }
 
 
 
-DWORD DocumentInfo::Height() const
+GR::u32 DocumentInfo::Height() const
 {
-
   return m_DocHeight;
-
 }
 
 
@@ -2666,7 +2638,15 @@ ByteBuffer DocumentInfo::SaveTempData()
 
   MemoryStream      memOut( outBuffer, IIOStream::OT_WRITE_ONLY );
 
-  if ( !SavePNT( *this, memOut ) )
+  if ( m_DocType == DT_FONT )
+  {
+    docFrame = GR::IO::FileChunk( 0x0021 );
+    if ( !SaveFontIGF( (CPainterFontDoc*)this->m_pDoc, memOut ) )
+    {
+      return ByteBuffer();
+    }
+  }
+  else if ( !SavePNT( *this, memOut ) )
   {
     return ByteBuffer();
   }
@@ -2674,6 +2654,60 @@ ByteBuffer DocumentInfo::SaveTempData()
   tempDocData.AppendBuffer( docFrame.ToBuffer() );
 
   return tempDocData.ToBuffer();
+}
+
+
+
+bool LoadFontIGF( DocumentInfo& diInfo, IIOStream& ioIn )
+{
+      // ein IGF-Font!
+  diInfo.m_SaveType = SAVETYPE_IGF;
+  diInfo.SetSize( 600, 600 );
+  diInfo.m_DocType = DT_FONT;
+
+  GR::Font   font;
+
+  if ( !font.Load( ioIn ) )
+  {
+    return false;
+  }
+
+  diInfo.m_BitDepth = (GR::u8)font.GetDepth();
+
+  for ( size_t i = 0; i < font.NumLetters(); ++i )
+  {
+    size_t    iFrame = diInfo.AddFrame();
+    diInfo.m_LayeredFrames[iFrame].Palette = GR::Graphic::Palette::AlphaPalette();
+
+    GR::UTF8Char               letter = font.GetLetterChar( i );
+    GR::Graphic::Image* pLetter = font.GetLetter( letter );
+    if ( pLetter )
+    {
+      ( (CPainterFontDoc*)diInfo.m_pDoc )->m_ActualLetters.push_back( letter );
+      if ( letter == 'A' )
+      {
+        diInfo.CurrentFrame( iFrame );
+      }
+
+      diInfo.AddLayer( new GR::Graphic::Image( pLetter ), iFrame );
+
+      if ( diInfo.m_BitDepth == 32 )
+      {
+        // Spezial-Wurst Font mit Alpha-Maske
+        GR::Graphic::Image* pMask = new GR::Graphic::Image( pLetter->GetWidth(), pLetter->GetHeight(), 8 );
+
+        for ( int iX = 0; iX < pLetter->GetWidth(); ++iX )
+        {
+          for ( int iY = 0; iY < pLetter->GetHeight(); ++iY )
+          {
+            pMask->SetPixel( iX, iY, pLetter->GetPixel( iX, iY ) >> 24 );
+          }
+        }
+        diInfo.GetLayer( iFrame, 0 )->SetLayerMask( pMask );
+      }
+    }
+  }
+  return true;
 }
 
 
@@ -2698,10 +2732,19 @@ bool DocumentInfo::RestoreFromTempData( IIOStream& IOIn )
           return false;
         }
         break;
+      case 0x0021:
+        {
+          if ( !LoadFontIGF( *this, chunkReader ) )
+          {
+            return false;
+          }
+        }
+        break;
     }
   }
   SetModify( TRUE );
   return true;
 }
+
 
 

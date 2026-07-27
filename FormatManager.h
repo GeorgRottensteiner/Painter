@@ -91,8 +91,8 @@ class CFormatManager
 
     static CFormatManager& Instance();
 
-    ImageSet*                          Load( SaveType& saveType, const GR::Char* FileName );
-    bool                                Save( const SaveType saveType, const GR::Char* FileName, ImageSet* pSet );
+    ImageSet*                          Load( SaveType& saveType, const char* FileName );
+    bool                                Save( const SaveType saveType, const char* FileName, ImageSet* pSet );
 
     bool                                SupportsFormat( const SaveType saveType );
     tFileFormatSupport*                 GetFormat( const SaveType saveType );
@@ -104,8 +104,8 @@ class CFormatManager
 
     CFormatManager();
 
-    bool                                SaveWithFreeImage( int fif, const GR::Char* FileName, ImageSet* pSet );
-    bool                                ExtraProcessing( const GR::Char* FileName, const SaveType saveType, tFileFormatSupport& Format, GR::Graphic::ImageData* pData );
+    bool                                SaveWithFreeImage( int fif, const char* FileName, ImageSet* pSet );
+    bool                                ExtraProcessing( const char* FileName, const SaveType saveType, tFileFormatSupport& Format, GR::Graphic::ImageData* pData );
 
 
 };

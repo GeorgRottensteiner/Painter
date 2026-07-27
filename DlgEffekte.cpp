@@ -357,7 +357,7 @@ BOOL CDlgEffekte::OnInitDialog()
 
   m_eUsedFilter = E_NONE;
 
-  GetDlgItem( IDC_STATIC_FILTER_INFO )->SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%dx%dx%d", pImageSource->GetWidth(), pImageSource->GetHeight(), pImageSource->GetDepth() ) ).c_str() );
+  GetDlgItem( IDC_STATIC_FILTER_INFO )->SetWindowText( GR::Convert::ToUTF16( Misc::Format( "%1%x%2%x%3%" ) << pImageSource->GetWidth() << pImageSource->GetHeight() << pImageSource->GetDepth() ).c_str() );
 
   GetDlgItem( IDC_STATIC_PRE_VIEW )->ModifyStyle( 0, SS_OWNERDRAW );
   pPagePreFilter = new GR::Graphic::GDIPage();
@@ -570,7 +570,11 @@ void CDlgEffekte::OnButtonFilterZoomfaktor()
   {
     ZoomFaktor = 25;
   }
-  GetDlgItem( IDC_STATIC_FILTER_INFO )->SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%dx%dx%d (%d%%)", pImageSource->GetWidth(), pImageSource->GetHeight(), pImageSource->GetDepth(), ZoomFaktor ) ).c_str() );
+  GetDlgItem( IDC_STATIC_FILTER_INFO )->SetWindowText( GR::Convert::ToUTF16( Misc::Format( "%1%x%2%x%3% (%4%%%)" ) 
+        << pImageSource->GetWidth()
+        << pImageSource->GetHeight()
+        << pImageSource->GetDepth()
+        << ZoomFaktor ).c_str() );
 
   GetDlgItem( IDC_STATIC_POST_VIEW )->Invalidate();
   GetDlgItem( IDC_STATIC_PRE_VIEW )->Invalidate();

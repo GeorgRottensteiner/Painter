@@ -62,7 +62,7 @@ CSettings::CSettings()
 
   for ( int i = 0; i < GetSetting( "PatternCount" ); i++ )
   {
-    GR::Char    szTemp[MAX_PATH];
+    char    szTemp[MAX_PATH];
 
     CPattern *pPattern = new CPattern();
 
@@ -157,7 +157,7 @@ CSettings::~CSettings()
     std::list<CPattern*>::iterator   it( m_listPatterns.begin() );
 
     DWORD   dwNr = 0;
-    GR::Char    szTemp[MAX_PATH];
+    char    szTemp[MAX_PATH];
     while ( it != m_listPatterns.end() )
     {
       CPattern *pPattern = *it;
@@ -194,7 +194,7 @@ void CSettings::SetSetting( const GR::String& strName, int iValue )
     m_mapSettings.erase( it );
   }
 
-  GR::Char      szBuffer[200];
+  char      szBuffer[200];
 
   sprintf_s( szBuffer, 200, "%d", iValue );
 
@@ -215,7 +215,7 @@ void CSettings::SetSettingFloat( const GR::String& strName, float fValue )
     m_mapSettings.erase( it );
   }
 
-  GR::Char      szBuffer[200];
+  char      szBuffer[200];
 
   sprintf_s( szBuffer, 200, ( Misc::Format( "%1:3:2%" ) << fValue ).Result().c_str() );
 
@@ -386,7 +386,7 @@ BOOL CSettings::RemovePattern( CPattern *pP )
 
 
 
-void CSettings::Log( const GR::Char* Text )
+void CSettings::Log( const char* Text )
 {
   dh::Log( Text );
 }

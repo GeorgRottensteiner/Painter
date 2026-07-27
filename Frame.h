@@ -12,7 +12,7 @@ class Frame
   public:
 
 
-    typedef std::vector<CLayer*>        tVectLayers;
+    typedef std::vector<CLayer>        tVectLayers;
 
 
     tVectLayers               Layers;

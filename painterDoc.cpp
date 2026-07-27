@@ -149,7 +149,7 @@ BOOL CPainterDoc::OnCreateDocumentFromClipboard()
 
 
 
-BOOL SaveBTH( GR::Graphic::Image *pImage, const GR::Char* File )
+BOOL SaveBTH( GR::Graphic::Image *pImage, const char* File )
 {
   if ( pImage == NULL )
   {
@@ -508,13 +508,13 @@ BOOL CPainterDoc::OnSaveDocument( LPCTSTR lpszPathName )
 
 
 
-CPainterImagePackage* FreeImageLoad( const GR::Char* FileName )
+CPainterImagePackage* FreeImageLoad( const char* FileName )
 {
   CPainterImagePackage   *pImagePackage = new CPainterImagePackage();
 
   FIBITMAP        *dib = NULL;
 
-  GR::WString   utf16Filename = GR::Convert::ToUTF16( FileName );
+  GR::WString   utf16Filename = GR::Convert::ToUTF16( GR::String( FileName ) );
 
 
   switch ( FreeImage_GetFileTypeU( utf16Filename.c_str() ) )
@@ -1356,6 +1356,10 @@ void CPainterDoc::OnBearbeitenMirrorH()
     pLayer = diInfo.GetLayer( 0, i );
 
     HMirrorImage( pLayer->GetImage() );
+    if ( pLayer->m_HasMask )
+    {
+      HMirrorImage( pLayer->GetMask() );
+    }
   }
   diInfo.RedrawAllViews();
 }
@@ -1371,6 +1375,10 @@ void CPainterDoc::OnBearbeitenMirrorV()
   {
     pLayer = diInfo.GetLayer( 0, i );
     VMirrorImage( pLayer->GetImage() );
+    if ( pLayer->m_HasMask )
+    {
+      VMirrorImage( pLayer->GetMask() );
+    }
   }
   diInfo.RedrawAllViews();
 }

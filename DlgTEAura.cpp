@@ -64,8 +64,8 @@ BOOL CDlgTEAura::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 	
-  m_EditAuraSize.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%d", m_pEffekt->m_Param1 ) ).c_str() );
-  m_EditAuraOffset.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%d", m_pEffekt->m_Param2 ) ).c_str() );
+  m_EditAuraSize.SetWindowText( GR::Convert::ToUTF16( Misc::Format() << m_pEffekt->m_Param1 ).c_str() );
+  m_EditAuraOffset.SetWindowText( GR::Convert::ToUTF16( Misc::Format() << m_pEffekt->m_Param2 ).c_str() );
 	
 	return TRUE;
 }

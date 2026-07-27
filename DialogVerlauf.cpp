@@ -89,11 +89,8 @@ BOOL CDialogVerlauf::OnInitDialog()
 
   m_StaticPreview.ModifyStyle( 0, SS_OWNERDRAW, 0 );
 
-  GR::Char    szTemp[50];
-
-  sprintf_s( szTemp, 50, ( Misc::Format( "%1.2f" ) << m_Brush.Angle ).Result().c_str() );
   m_SpinAngle.SetRange( 0, 360 );
-  m_EditAngle.SetWindowText( GR::Convert::ToUTF16( szTemp ).c_str() );
+  m_EditAngle.SetWindowText( GR::Convert::ToUTF16( Misc::Format( "%1.2f" ) << m_Brush.Angle ).c_str() );
 
   m_AngleWnd.SetAngle( m_Brush.Angle );
 
@@ -105,8 +102,8 @@ BOOL CDialogVerlauf::OnInitDialog()
   m_REditPegPos.SetRange( 0.0f, 100.0f );
   m_REditPegPos.SetPosition( 50.0f );
 
-  m_ComboGradientType.AddString( GR::Convert::ToUTF16( "Linear" ).c_str() );
-  m_ComboGradientType.AddString( GR::Convert::ToUTF16( "Circular" ).c_str() );
+  m_ComboGradientType.AddString( L"Linear" );
+  m_ComboGradientType.AddString( L"Circular" );
 
   m_ComboGradientType.SetCurSel( pSettings->GetSetting( "GradientType" ) );
 
@@ -210,10 +207,7 @@ void CDialogVerlauf::OnChangeAngleWnd()
   m_Brush.Angle   = newValue;
   m_AngleWnd.SetAngle( newValue );
 
-  GR::Char    szTemp[50];
-
-  sprintf_s( szTemp, 50, ( Misc::Format( "%1:2%" ) << m_Brush.Angle ).Result().c_str() );
-  m_EditAngle.SetWindowText( GR::Convert::ToUTF16( szTemp ).c_str() );
+  m_EditAngle.SetWindowText( GR::Convert::ToUTF16( Misc::Format( "%1:2%" ) << m_Brush.Angle ).c_str() );
 
   m_RedrawPage = true;
   m_StaticPreview.Invalidate();
@@ -350,7 +344,7 @@ void CDialogVerlauf::OnBnClickedButtonSaveGradient()
 
   if ( !xmlGradient.Save( CMisc::AppPath( "gradients\\%s.grd", GR::Convert::ToUTF8( (LPCTSTR)cstrFileName ).c_str() ).c_str() ) )
   {
-    AfxMessageBox( GR::Convert::ToUTF16( CMisc::printf( "Failed to write File (%s)", CMisc::AppPath( "gradients\\%s.grd", (const GR::Char*)GR::Convert::ToUTF8( (LPCTSTR)cstrFileName ).c_str() ) ) ).c_str() );
+    AfxMessageBox( GR::Convert::ToUTF16( Misc::Format( "Failed to write File (%1%)" ) << CMisc::AppPath( "gradients\\%s.grd", (const char*)GR::Convert::ToUTF8( (LPCTSTR)cstrFileName ).c_str() ) ).c_str() );
   }
   else
   {

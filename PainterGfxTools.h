@@ -77,7 +77,5 @@ CPainterImagePackage* CreateImagePackFromHDIB( HGLOBAL hmem );
 CPainterImagePackage* CreateImagePackFromHTMLTag( const GR::String& Tag );
 HANDLE CreateHDIBFromImage( GR::Graphic::Image *pImage, GR::Graphic::Palette *pPal );
 
-void OpenPhotoShopFilter( ViewInfo& viewInfo, std::string strFilterFileName );
-
 
 #endif

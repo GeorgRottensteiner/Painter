@@ -234,13 +234,13 @@ void CDialogBatchConversion::OnButtonBatchStart()
     if ( targetPath.empty() )
     {
       // dieses File wird übersprungen
-      m_ListLog.AddString( GR::Convert::ToUTF16( CMisc::printf( "File %s kann nicht geschrieben werden.", sourceFile.c_str() ) ).c_str() );
+      m_ListLog.AddString( GR::Convert::ToUTF16( Misc::Format( "Cannot write file %1%" ) << sourceFile ).c_str() );
       m_ListLog.UpdateWindow();
       continue;
     }
 
     // jetzt umwandeln
-    m_ListLog.AddString( GR::Convert::ToUTF16( CMisc::printf( "Lade %s.", sourceFile.c_str() ) ).c_str() );
+    m_ListLog.AddString( GR::Convert::ToUTF16( Misc::Format( "Loading %1%" ) << sourceFile ).c_str() );
     pDummyImage = NULL;
 
     GR::Graphic::ImageData*   pData = ImageFormatManager::Instance().LoadData( sourceFile.c_str() );
@@ -299,11 +299,11 @@ void CDialogBatchConversion::OnButtonBatchStart()
         if ( CFormatManager::Instance().Save( saveType, targetPath.c_str(), &Set ) )
         {
           dwConverted++;
-          m_ListLog.AddString( GR::Convert::ToUTF16( CMisc::printf( "Schreibe %s.", targetPath.c_str() ) ).c_str() );
+          m_ListLog.AddString( GR::Convert::ToUTF16( Misc::Format( "Writing %1%" ) << targetPath ).c_str() );
         }
         else
         {
-          m_ListLog.AddString( GR::Convert::ToUTF16( CMisc::printf( "Fehler beim Schreiben von %s.", targetPath.c_str() ) ).c_str() );
+          m_ListLog.AddString( GR::Convert::ToUTF16( Misc::Format( "Error writing %1%" ) << targetPath ).c_str() );
         }
         m_ListLog.UpdateWindow();
         SafeDelete( pDummyImage );
@@ -329,7 +329,7 @@ void CDialogBatchConversion::OnButtonBatchStart()
     pPalette = NULL;
   }
   m_ListLog.AddString( _T( "Konvertierung beendet." ) );
-  m_ListLog.AddString( GR::Convert::ToUTF16( CMisc::printf( "%d Bilder von %d konvertiert.", dwConverted, dwCount ) ).c_str() );
+  m_ListLog.AddString( GR::Convert::ToUTF16( Misc::Format( "Converted %1% of %2% images" ) << (GR::u32)dwConverted << (GR::u32)dwCount ).c_str() );
   m_ListLog.UpdateWindow();
 }
 

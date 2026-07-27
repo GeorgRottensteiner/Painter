@@ -175,10 +175,6 @@ static unsigned int const g_DragListMsg = RegisterWindowMessage( DRAGLISTMSGSTRI
 
 
 
-/*-LBAlphaRegler--------------------------------------------------------------+
- |                                                                            |
- +----------------------------------------------------------------------------*/
-
 void CDlgPToolLayer::LBAlphaRegler( int iX, RECT& rc )
 {
 
@@ -214,11 +210,8 @@ void CDlgPToolLayer::LBAlphaRegler( int iX, RECT& rc )
 }
 
 #include <afxadv.h>
-#include ".\dlgptoollayer.h"
 
-/*-StartDrag------------------------------------------------------------------+
- |                                                                            |
- +----------------------------------------------------------------------------*/
+
 
 void StartDrag( GR::Graphic::Image *pImage )
 {
@@ -344,38 +337,38 @@ void CDlgPToolLayer::DoPopup( CLayer* pLayer, int iLayerIndex )
 
   if ( iLayerIndex != m_pDocInfo->CurrentLayer() )
   {
-    AppendMenuA( menuPopup, MF_STRING, 1, "Aktivieren" );
+    AppendMenuA( menuPopup, MF_STRING, 1, "Activate" );
   }
   if ( !pLayer->m_Visible )
   {
-    AppendMenuA( menuPopup, MF_STRING, 2, "Sichtbar machen" );
+    AppendMenuA( menuPopup, MF_STRING, 2, "Show" );
   }
   else
   {
-    AppendMenuA( menuPopup, MF_STRING, 2, "Unsichtbar machen" );
+    AppendMenuA( menuPopup, MF_STRING, 2, "Hide" );
   }
   if ( pLayer->m_HasMask )
   {
     if ( pLayer->m_MaskEnabled )
     {
-      AppendMenuA( menuPopup, MF_STRING, 4, "Maske deaktivieren" );
+      AppendMenuA( menuPopup, MF_STRING, 4, "Disable mask" );
     }
     else
     {
-      AppendMenuA( menuPopup, MF_STRING, 4, "Maske aktivieren" );
+      AppendMenuA( menuPopup, MF_STRING, 4, "Enable mask" );
     }
-    AppendMenuA( menuPopup, MF_STRING, 5, "Maske löschen" );
+    AppendMenuA( menuPopup, MF_STRING, 5, "Delete mask" );
   }
   if ( pLayer->m_Transparent )
   {
-    AppendMenuA( menuPopup, MF_STRING, 6, "aktuelle Farbe als transparent" );
+    AppendMenuA( menuPopup, MF_STRING, 6, "set current color as transparent" );
   }
 
   if ( pLayer != m_pDocInfo->GetLayer( m_pDocInfo->CurrentFrame(), 0 ) )
   {
-    AppendMenuA( menuPopup, MF_STRING, 3, "Löschen" );
+    AppendMenuA( menuPopup, MF_STRING, 3, "Delete" );
   }
-  AppendMenuA( menuPopup, MF_STRING, 7, "Umbenennen" );
+  AppendMenuA( menuPopup, MF_STRING, 7, "Rename" );
 
   ODMenu   odMenu( ODMenu::ODMS_XP );
 
@@ -398,11 +391,11 @@ void CDlgPToolLayer::DoPopup( CLayer* pLayer, int iLayerIndex )
   }
   else if ( dwResult == 3 )
   {
-    if ( AfxMessageBox( GR::Convert::ToUTF16( CMisc::printf( "Der Layer %s soll gelöscht werden.\nSind Sie sicher?", pLayer->m_Name.c_str() ) ).c_str(), MB_YESNO ) == IDYES )
+    if ( AfxMessageBox( GR::Convert::ToUTF16( Misc::Format( "Layer %1% will be deleted.\nAre you sure?" ) << pLayer->m_Name ).c_str(), MB_YESNO ) == IDYES )
     {
       m_pDocInfo->AddUndoLayerChange( iLayerIndex, 0, CUndoLayerChange::ULC_REMOVE_LAYER );
 
-      std::vector<CLayer*>::iterator    it( m_pDocInfo->m_LayeredFrames[m_pDocInfo->CurrentFrame()].Layers.begin() );
+      auto it( m_pDocInfo->m_LayeredFrames[m_pDocInfo->CurrentFrame()].Layers.begin() );
       std::advance( it, iLayerIndex );
 
       m_pDocInfo->m_LayeredFrames[m_pDocInfo->CurrentFrame()].Layers.erase( it );
@@ -735,7 +728,7 @@ void CDlgPToolLayer::OnButtonToolLayerMergeAll()
   // alle zusätzlichen m_vectLayers rauswerfen
   while ( m_pDocInfo->m_LayeredFrames[m_pDocInfo->CurrentFrame()].LayerCount() >= 2 )
   {
-    std::vector<CLayer*>::iterator    it( m_pDocInfo->m_LayeredFrames[m_pDocInfo->CurrentFrame()].Layers.begin() );
+    auto it( m_pDocInfo->m_LayeredFrames[m_pDocInfo->CurrentFrame()].Layers.begin() );
     ++it;
 
     m_pDocInfo->m_LayeredFrames[m_pDocInfo->CurrentFrame()].Layers.erase( it );
@@ -829,7 +822,7 @@ void CDlgPToolLayer::OnButtonToolLayerMerge()
       pLayer = m_pDocInfo->GetLayer( m_pDocInfo->CurrentFrame(), i );
       if ( pLayer->m_Visible )
       {
-        std::vector<CLayer*>::iterator    it( m_pDocInfo->m_LayeredFrames[m_pDocInfo->CurrentFrame()].Layers.begin() );
+        auto it( m_pDocInfo->m_LayeredFrames[m_pDocInfo->CurrentFrame()].Layers.begin() );
         std::advance( it, i );
 
         m_pDocInfo->m_LayeredFrames[m_pDocInfo->CurrentFrame()].Layers.erase( it );
@@ -1014,7 +1007,7 @@ LRESULT CDlgPToolLayer::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
     if ( pDLI->uNotification == DL_DROPPED )
     {
       // Layer-Liste neu aufbauen!
-      std::vector<CLayer*>     vectLayerTemp;
+      std::vector<CLayer>     vectLayerTemp;
 
 
       if ( m_pDocInfo != NULL )
@@ -1031,13 +1024,13 @@ LRESULT CDlgPToolLayer::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         }
         for ( int i = 0; i < m_Listm_vectLayers.GetCount(); i++ )
         {
-          vectLayerTemp.push_back( m_pDocInfo->GetLayer( m_pDocInfo->CurrentFrame(), m_Listm_vectLayers.GetItemData( i ) ) );
+          vectLayerTemp.push_back( *m_pDocInfo->GetLayer( m_pDocInfo->CurrentFrame(), m_Listm_vectLayers.GetItemData( i ) ) );
 
           int   iOldLayerIndex = 0;
-          std::vector<CLayer*>::iterator  it( m_pDocInfo->m_LayeredFrames[m_pDocInfo->CurrentFrame()].Layers.begin() );
+          auto it( m_pDocInfo->m_LayeredFrames[m_pDocInfo->CurrentFrame()].Layers.begin() );
           while ( it != m_pDocInfo->m_LayeredFrames[m_pDocInfo->CurrentFrame()].Layers.end() )
           {
-            if ( *it == m_pDocInfo->GetLayer( m_pDocInfo->CurrentFrame(), m_Listm_vectLayers.GetItemData( i ) ) )
+            if ( &( *it ) == m_pDocInfo->GetLayer( m_pDocInfo->CurrentFrame(), m_Listm_vectLayers.GetItemData( i ) ) )
             {
               int   iKey = i;
               if ( iKey > iOldLayerIndex )

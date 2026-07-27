@@ -25,7 +25,7 @@ public:
 	//{{AFX_DATA(CEffektDiffusor)
 	enum { IDD = IDD_EFFEKT_DIFFUSOR };
 	CEdit	m_EditIterations;
-	DWORD	m_dwIterations;
+	DWORD	m_Iterations;
 	//}}AFX_DATA
 
 

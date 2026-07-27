@@ -141,7 +141,7 @@ void CDialogAnimationErstellen::OnButtonStartAC()
     m_ListFiles.GetText( i, szSource );
 
     // jetzt umwandeln
-    m_ListLog.AddString( GR::Convert::ToUTF16( CMisc::printf( "Lade %s.", szSource ) ).c_str() );
+    m_ListLog.AddString( GR::Convert::ToUTF16( Misc::Format( "Loading %1%" ) << szSource ).c_str() );
     pDummyImage = NULL;
 
     GR::Graphic::ImageData*     pData = ImageFormatManager::Instance().LoadData( GR::Convert::ToUTF8( szSource ).c_str() );
@@ -174,7 +174,7 @@ void CDialogAnimationErstellen::OnButtonStartAC()
         pFile->WriteBlock( (BYTE*)pDummyImage->GetData(), pDummyImage->GetWidth() * pDummyImage->GetHeight() * dwFaktor );
 
         dwConverted++;
-        m_ListLog.AddString( GR::Convert::ToUTF16( CMisc::printf( "Adde %s.", szSource ) ).c_str() );
+        m_ListLog.AddString( GR::Convert::ToUTF16( Misc::Format( "Adding %1%" ) <<szSource ).c_str() );
         m_ListLog.UpdateWindow();
 
         delete pDummyImage;
@@ -183,7 +183,7 @@ void CDialogAnimationErstellen::OnButtonStartAC()
     }
     else
     {
-      m_ListLog.AddString( GR::Convert::ToUTF16( "-fehlgeschlagen" ).c_str() );
+      m_ListLog.AddString( L"-fehlgeschlagen" );
       m_ListLog.UpdateWindow();
     }
   }
@@ -196,6 +196,6 @@ void CDialogAnimationErstellen::OnButtonStartAC()
     pFile = NULL;
   }
   m_ListLog.AddString( _T( "Animation erstellt." ) );
-  m_ListLog.AddString( GR::Convert::ToUTF16( CMisc::printf( "%d Bilder von %d konvertiert.", dwConverted, dwCount ) ).c_str() );
+  m_ListLog.AddString( GR::Convert::ToUTF16( GR::String( CMisc::printf( "%d Bilder von %d konvertiert.", dwConverted, dwCount ) ) ).c_str() );
   m_ListLog.UpdateWindow();
 }

@@ -15,10 +15,17 @@ static char THIS_FILE[] = __FILE__;
 
 
 
-CDialogResize::CDialogResize(CWnd* pParent /*=NULL*/)
-	: CDialog(CDialogResize::IDD, pParent),
-    PercentageX( 100 ),
-    PercentageY( 100 )
+CDialogResize::CDialogResize( CWnd* pParent /*=NULL*/ )
+  : CDialog( CDialogResize::IDD, pParent ),
+  PercentageX( 100 ),
+  PercentageY( 100 ),
+  m_pDocInfo( NULL ),
+  Width( 0 ),
+  Height( 0 ),
+  ResizeType( 0 ),
+  m_DoNotUpdate( false ),
+  KeepAspectRatio( true ),
+  _LastChangeWasPercentage( false )
 {
 	//{{AFX_DATA_INIT(CDialogResize)
 		// HINWEIS: Der Klassen-Assistent fügt hier Elementinitialisierung ein
@@ -55,9 +62,6 @@ END_MESSAGE_MAP()
 
 BOOL CDialogResize::OnInitDialog() 
 {
-  DWORD       dwDummy;
-
-
 	CDialog::OnInitDialog();
 
   m_DoNotUpdate = true;
@@ -71,26 +75,45 @@ BOOL CDialogResize::OnInitDialog()
   SetDlgItemInt( IDC_RESIZE_BREITEALT,  m_pDocInfo->Width(), FALSE );
   SetDlgItemInt( IDC_RESIZE_HOEHEALT,   m_pDocInfo->Height(), FALSE );
 
+  _LastChangeWasPercentage = !!pSettings->GetSetting( "NewResize.UsingPercentage", 1 );
+
   ( (CButton*)GetDlgItem( IDC_RESIZE_CHECK_KEEP_ASPECTRATIO ) )->SetCheck( pSettings->GetSetting( "NewResize.KeepRatio", 1 ) );
 	
-  m_REditNewWidthP.SetPosition( pSettings->GetSetting( "NewResizeWidthPercent", 100 ) );
-  m_REditNewHeightP.SetPosition( pSettings->GetSetting( "NewResizeHeightPercent", 100 ) );
+  if ( _LastChangeWasPercentage )
+  {
+    m_REditNewWidthP.SetPosition( pSettings->GetSetting( "NewResizeWidthPercent", 100 ) );
+    m_REditNewHeightP.SetPosition( pSettings->GetSetting( "NewResizeHeightPercent", 100 ) );
 
-  PercentageX = pSettings->GetSetting( "NewResizeWidthPercent", 100 );
-  PercentageY = pSettings->GetSetting( "NewResizeHeightPercent", 100 );
+    PercentageX = pSettings->GetSetting( "NewResizeWidthPercent", 100 );
+    PercentageY = pSettings->GetSetting( "NewResizeHeightPercent", 100 );
 
-  m_REditNewWidth.SetPosition( (int)m_pDocInfo->Width() * pSettings->GetSetting( "NewResizeWidthPercent", 100 ) / 100 );
-  m_REditNewHeight.SetPosition( (int)m_pDocInfo->Height() * pSettings->GetSetting( "NewResizeHeightPercent", 100 ) / 100 );
+    m_REditNewWidth.SetPosition( (int)m_pDocInfo->Width() * pSettings->GetSetting( "NewResizeWidthPercent", 100 ) / 100 );
+    m_REditNewHeight.SetPosition( (int)m_pDocInfo->Height() * pSettings->GetSetting( "NewResizeHeightPercent", 100 ) / 100 );
+  }
+  else
+  {
+    m_REditNewWidth.SetPosition( pSettings->GetSetting( "NewResizeWidth", 100 ) );
+    m_REditNewHeight.SetPosition( pSettings->GetSetting( "NewResizeHeight", 100 ) );
+
+    int   iPercentH = 100 * pSettings->GetSetting( "NewResizeWidth", 100 ) / m_pDocInfo->Width();
+    int   iPercentV = 100 * pSettings->GetSetting( "NewResizeHeight", 100 ) / m_pDocInfo->Height();
+
+    m_REditNewWidthP.SetPosition( iPercentH );
+    if ( KeepAspectRatio )
+    {
+      m_REditNewHeightP.SetPosition( iPercentV );
+    }
+  }
 
   m_DoNotUpdate = false;
 
   KeepAspectRatio  = !!pSettings->GetSetting( "NewResize.KeepRatio", 1 );
 
   m_ComboResize.ResetContent();
-  dwDummy = m_ComboResize.AddString( _T( "Pixel für Pixel" ) );
-  m_ComboResize.SetItemData( dwDummy, RESIZE_PIXEL );
-  dwDummy = m_ComboResize.AddString( _T( "Bilinear" ) );
-  m_ComboResize.SetItemData( dwDummy, RESIZE_BILINEAR );
+  int item = m_ComboResize.AddString( _T( "Pixel für Pixel" ) );
+  m_ComboResize.SetItemData( item, RESIZE_PIXEL );
+  item = m_ComboResize.AddString( _T( "Bilinear" ) );
+  m_ComboResize.SetItemData( item, RESIZE_BILINEAR );
 
   m_ComboResize.SetItemData( m_ComboResize.AddString( _T( "Box" ) ), 10 + Resampler::SM_BOX );
   m_ComboResize.SetItemData( m_ComboResize.AddString( _T( "Triangle" ) ), 10 + Resampler::SM_TRIANGLE );
@@ -106,14 +129,14 @@ BOOL CDialogResize::OnInitDialog()
   m_ComboResize.SetItemData( m_ComboResize.AddString( _T( "Cubic Convolution" ) ), 10 + Resampler::SM_CUBICCONVOLUTION );
   m_ComboResize.SetItemData( m_ComboResize.AddString( _T( "Lanczos8" ) ), 10 + Resampler::SM_LANCZOS8 );
 
-  int   iSetting = pSettings->GetSetting( "NewResizeMethod", 0 );
+  int   setting = pSettings->GetSetting( "NewResizeMethod", 0 );
 
-  if ( iSetting >= 10 )
+  if ( setting >= 10 )
   {
-    iSetting -= 10;
-    iSetting += 2;
+    setting -= 10;
+    setting += 2;
   }
-  m_ComboResize.SetCurSel( iSetting );
+  m_ComboResize.SetCurSel( setting );
 
   ResizeType = pSettings->GetSetting( "NewResizeMethod", 0 );
 
@@ -124,9 +147,6 @@ BOOL CDialogResize::OnInitDialog()
 
 void CDialogResize::OnOK() 
 {
-  DWORD_PTR       dwDummy;
-
-
   CString     cstrGnu;
 
   m_REditNewWidth.GetWindowText( cstrGnu );
@@ -137,11 +157,12 @@ void CDialogResize::OnOK()
   KeepAspectRatio = !!( (CButton*)GetDlgItem( IDC_RESIZE_CHECK_KEEP_ASPECTRATIO ) )->GetCheck();
 
   pSettings->SetSetting( "NewResize.KeepRatio", KeepAspectRatio ? 1 : 0 );
+  pSettings->SetSetting( "NewResize.UsingPercentage", _LastChangeWasPercentage ? 1 : 0 );
 
-  dwDummy = m_ComboResize.GetCurSel();
-  if ( dwDummy != CB_ERR )
+  int item = m_ComboResize.GetCurSel();
+  if ( item != CB_ERR )
   {
-    ResizeType = (DWORD)m_ComboResize.GetItemData( (int)dwDummy );
+    ResizeType = (DWORD)m_ComboResize.GetItemData( item );
 
     pSettings->SetSetting( "NewResizeMethod", ResizeType );
   }
@@ -163,6 +184,8 @@ void CDialogResize::OnChangeREditNewWidth()
   }
 
   m_DoNotUpdate = true;
+
+  _LastChangeWasPercentage = false;
   
   CString   cstrGnu;
   m_REditNewWidth.GetWindowText( cstrGnu );
@@ -178,6 +201,9 @@ void CDialogResize::OnChangeREditNewWidth()
       m_REditNewHeight.SetPosition( (int)dwHeight );
     }
   }
+
+  pSettings->SetSetting( "NewResizeWidth", dwWidth );
+  pSettings->SetSetting( "NewResizeHeight", dwHeight );
 
   int   iPercentH = 100 * dwWidth / m_pDocInfo->Width();
   int   iPercentV = 100 * dwHeight / m_pDocInfo->Height();
@@ -210,6 +236,7 @@ void CDialogResize::OnChangeREditNewHeight()
   }
 
   m_DoNotUpdate = true;
+  _LastChangeWasPercentage = false;
   
   CString   cstrGnu;
   m_REditNewWidth.GetWindowText( cstrGnu );
@@ -225,6 +252,9 @@ void CDialogResize::OnChangeREditNewHeight()
       m_REditNewWidth.SetPosition( (int)dwWidth );
     }
   }
+
+  pSettings->SetSetting( "NewResizeWidth", dwWidth );
+  pSettings->SetSetting( "NewResizeHeight", dwHeight );
 
   int   iPercentH = 100 * dwWidth / m_pDocInfo->Width();
   int   iPercentV = 100 * dwHeight / m_pDocInfo->Height();
@@ -260,7 +290,8 @@ void CDialogResize::OnChangeREditNewWidthP()
                 
 
   m_DoNotUpdate = true;
-  
+  _LastChangeWasPercentage = true;
+
   CString   cstrGnu;
   m_REditNewWidthP.GetWindowText( cstrGnu );
   iWidthP = GR::Convert::ToI32( LPCTSTR( cstrGnu ) );
@@ -311,6 +342,8 @@ void CDialogResize::OnChangeREditNewHeightP()
                 
 
   m_DoNotUpdate = true;
+
+  _LastChangeWasPercentage = true;
   
   CString   cstrGnu;
   m_REditNewWidthP.GetWindowText( cstrGnu );

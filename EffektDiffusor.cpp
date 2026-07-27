@@ -2,9 +2,9 @@
 #include "EffektDiffusor.h"
 #include "DlgEffekte.h"
 
-#include <pjlib/math/pj_math_random.h>
-
 #include <String/Convert.h>
+
+#include <Math/Random.h>
 
 
 
@@ -19,7 +19,7 @@ CEffektDiffusor::CEffektDiffusor(CWnd* pParent /*=NULL*/)
 	: EffektTemplate(IDD,pParent)
 {
 	//{{AFX_DATA_INIT(CEffektDiffusor)
-	m_dwIterations = 0;
+	m_Iterations = 0;
 	//}}AFX_DATA_INIT
 }
 
@@ -29,7 +29,7 @@ void CEffektDiffusor::DoDataExchange(CDataExchange* pDX)
 	EffektTemplate::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CEffektDiffusor)
 	DDX_Control(pDX, IDC_EDIT_ITERATIONS, m_EditIterations);
-	DDX_Text(pDX, IDC_EDIT_ITERATIONS, m_dwIterations);
+	DDX_Text(pDX, IDC_EDIT_ITERATIONS, m_Iterations);
 	//}}AFX_DATA_MAP
 }
 
@@ -45,18 +45,13 @@ END_MESSAGE_MAP()
 
 
 
-/*-DoEffekt-------------------------------------------------------------------+
- |                                                                            |
- +----------------------------------------------------------------------------*/
-
 void CEffektDiffusor::DoEffekt()
 {
-
   int y, x;
   int width   = m_pCDSource->Width(),
       height  = m_pCDSource->Height();
 
-  int cycle = m_dwIterations;
+  int cycle = m_Iterations;
   
   // //- Ränder ausnullen
   // unsigned char* pCleaner; 
@@ -132,7 +127,7 @@ void CEffektDiffusor::DoEffekt()
   blockoffBsy[ 2 ][ 1 ] = 0;               //- links von mir
   blockoffBsy[ 3 ][ 1 ] = - 1;  //- links über von mir 
 
-  static math::CRand random;
+  static math::random random;
   int i, j;
 
   do
@@ -143,7 +138,7 @@ void CEffektDiffusor::DoEffekt()
       {
         for ( x = 1; x < width - 1; x += 2 )
         {
-          i = random( 2 ); 
+          i = random.rand( 2 ); 
           for ( j = 0; j < 4; ++j )
           {
             m_pCDTarget->PutPixel( x + blockoffA[j], 
@@ -160,7 +155,7 @@ void CEffektDiffusor::DoEffekt()
       {
         for ( x = 1; x < width - 1; x += 2 )
         {
-          i = random( 2 ); 
+          i = random.rand( 2 );
           for ( j = 0; j < 4; ++j )
           {
             m_pCDTarget->PutPixel( x + blockoffB[j], 
@@ -182,14 +177,12 @@ void CEffektDiffusor::DoEffekt()
     }
   }
   while ( cycle >= 0 );
-
 }
 
 
 
 void CEffektDiffusor::OnChangeEditIterations() 
 {
-
   if ( m_DoNotUpdate )
   {
     return;
@@ -197,10 +190,9 @@ void CEffektDiffusor::OnChangeEditIterations()
 
   CString   cstrGnu;
   m_EditIterations.GetWindowText( cstrGnu );
-  m_dwIterations = GR::Convert::ToU32( LPCTSTR( cstrGnu ) );
+  m_Iterations = GR::Convert::ToU32( LPCTSTR( cstrGnu ) );
 
   RestartRendering();
-	
 }
 
 
@@ -212,7 +204,7 @@ BOOL CEffektDiffusor::OnInitDialog()
   m_DoNotUpdate = TRUE;
 
   m_EditIterations.SetWindowText( _T( "5" ) );
-  m_dwIterations = 5;
+  m_Iterations = 5;
 
   m_DoNotUpdate = FALSE;
 	

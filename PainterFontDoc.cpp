@@ -53,12 +53,12 @@ CPainterFontDoc::~CPainterFontDoc()
 
 
 BEGIN_MESSAGE_MAP(CPainterFontDoc, CDocument)
-	//{{AFX_MSG_MAP(CPainterFontDoc)
-	ON_COMMAND(ID_CONVERT_TO_16BPP, OnConvertTo16bpp)
-	ON_COMMAND(ID_CONVERT_TO_24BPP, OnConvertTo24bpp)
-	ON_COMMAND(ID_CONVERT_TO_32BPP, OnConvertTo32bpp)
-	ON_COMMAND(ID_CONVERT_TO_8BPP, OnConvertTo8bpp)
-	//}}AFX_MSG_MAP
+  //{{AFX_MSG_MAP(CPainterFontDoc)
+  ON_COMMAND(ID_CONVERT_TO_16BPP, OnConvertTo16bpp)
+  ON_COMMAND(ID_CONVERT_TO_24BPP, OnConvertTo24bpp)
+  ON_COMMAND(ID_CONVERT_TO_32BPP, OnConvertTo32bpp)
+  ON_COMMAND(ID_CONVERT_TO_8BPP, OnConvertTo8bpp)
+  //}}AFX_MSG_MAP
   ON_COMMAND(ID_SPEZIAL_INVERTIEREN, OnSpezialInvertieren)
   ON_COMMAND(ID_BEARBEITEN_EXPORTIEREN, OnBearbeitenExportieren)
   ON_COMMAND(ID_BEARBEITEN_IMPORTIEREN, OnBearbeitenImportieren)
@@ -69,18 +69,18 @@ END_MESSAGE_MAP()
 #ifdef _DEBUG
 void CPainterFontDoc::AssertValid() const
 {
-	CDocument::AssertValid();
+  CDocument::AssertValid();
 }
 
 void CPainterFontDoc::Dump(CDumpContext& dc) const
 {
-	CDocument::Dump(dc);
+  CDocument::Dump(dc);
 }
 #endif //_DEBUG
 
 
 
-BOOL SaveFNXL( CPainterFontDoc *pDoc, const GR::Char* File )
+BOOL SaveFNXL( CPainterFontDoc *pDoc, const char* File )
 {
   WORD            wDummy;
 
@@ -94,7 +94,7 @@ BOOL SaveFNXL( CPainterFontDoc *pDoc, const GR::Char* File )
 
   if ( !ioOut.Open( File, IIOStream::OT_WRITE_ONLY ) )
   {
-    MessageBoxA( NULL, "Konnte Datei nicht zum Schreiben ˆffnen.", "Fehler", MB_OK | MB_APPLMODAL );
+    MessageBoxA( NULL, "Konnte Datei nicht zum Schreiben √∂ffnen.", "Fehler", MB_OK | MB_APPLMODAL );
     return FALSE;
   }
 
@@ -107,8 +107,8 @@ BOOL SaveFNXL( CPainterFontDoc *pDoc, const GR::Char* File )
 
   ioOut.WriteU16( 256 ); // Anzahl Zeichen
   ioOut.WriteU16( 256 ); // max. Breite
-  ioOut.WriteU16( 256 ); // max. Hˆhe
-  ioOut.WriteU16( 256 ); // max. Grˆﬂe
+  ioOut.WriteU16( 256 ); // max. H√∂he
+  ioOut.WriteU16( 256 ); // max. Gr√∂√üe
   ucDummy = (BYTE)pDoc->diInfo.ToLocalColor( CSettings::ColorCategory::WORKCOLOR );
   ioOut.WriteU8( ucDummy ); // Default-Farbe des Fonts
   for ( i = 0; i < 256; i++ )
@@ -126,7 +126,7 @@ BOOL SaveFNXL( CPainterFontDoc *pDoc, const GR::Char* File )
 
 
 
-BOOL SaveFNX( CPainterFontDoc *pDoc, const GR::Char* File )
+BOOL SaveFNX( CPainterFontDoc *pDoc, const char* File )
 {
   WORD            wDummy;
 
@@ -140,7 +140,7 @@ BOOL SaveFNX( CPainterFontDoc *pDoc, const GR::Char* File )
 
   if ( !ioOut.Open( File, IIOStream::OT_WRITE_ONLY ) )
   {
-    MessageBoxA( NULL, "Konnte Datei nicht zum Schreiben ˆffnen.", "Fehler", MB_OK | MB_APPLMODAL );
+    MessageBoxA( NULL, "Konnte Datei nicht zum Schreiben √∂ffnen.", "Fehler", MB_OK | MB_APPLMODAL );
     return FALSE;
   }
 
@@ -153,8 +153,8 @@ BOOL SaveFNX( CPainterFontDoc *pDoc, const GR::Char* File )
 
   ioOut.WriteU16( 256 ); // Anzahl Zeichen
   ioOut.WriteU16( 256 ); // max. Breite
-  ioOut.WriteU16( 256 ); // max. Hˆhe
-  ioOut.WriteU16( 256 ); // max. Grˆﬂe
+  ioOut.WriteU16( 256 ); // max. H√∂he
+  ioOut.WriteU16( 256 ); // max. Gr√∂√üe
 
   ucDummy = (BYTE)pDoc->diInfo.ToLocalColor( CSettings::ColorCategory::WORKCOLOR );
   ioOut.WriteU8( ucDummy );
@@ -173,7 +173,7 @@ BOOL SaveFNX( CPainterFontDoc *pDoc, const GR::Char* File )
 
 
 
-BOOL SaveFNH( CPainterFontDoc *pDoc, const GR::Char* File )
+BOOL SaveFNH( CPainterFontDoc *pDoc, const char* File )
 {
   WORD            wDummy;
 
@@ -187,7 +187,7 @@ BOOL SaveFNH( CPainterFontDoc *pDoc, const GR::Char* File )
 
   if ( !ioOut.Open( File, IIOStream::OT_WRITE_ONLY ) )
   {
-    MessageBoxA( NULL, "Konnte Datei nicht zum Schreiben ˆffnen.", "Fehler", MB_OK | MB_APPLMODAL );
+    MessageBoxA( NULL, "Konnte Datei nicht zum Schreiben √∂ffnen.", "Fehler", MB_OK | MB_APPLMODAL );
     return FALSE;
   }
 
@@ -200,8 +200,8 @@ BOOL SaveFNH( CPainterFontDoc *pDoc, const GR::Char* File )
 
   ioOut.WriteU16( 256 ); // Anzahl Zeichen
   ioOut.WriteU16( 256 ); // max. Breite
-  ioOut.WriteU16( 256 ); // max. Hˆhe
-  ioOut.WriteU16( 256 ); // max. Grˆﬂe
+  ioOut.WriteU16( 256 ); // max. H√∂he
+  ioOut.WriteU16( 256 ); // max. Gr√∂√üe
   ucDummy = (BYTE)pDoc->diInfo.ToLocalColor( CSettings::ColorCategory::WORKCOLOR );
   ioOut.WriteU8( ucDummy );
   for ( i = 0; i < 256; i++ )
@@ -219,7 +219,83 @@ BOOL SaveFNH( CPainterFontDoc *pDoc, const GR::Char* File )
 
 
 
-BOOL CPainterFontDoc::OnOpenDocument( LPCTSTR lpszPathName ) 
+bool SaveFontIGF( CPainterFontDoc* pDoc, const GR::String& fileName )
+{
+  GR::Font         font;
+
+  for ( size_t i = 0; i < pDoc->m_ActualLetters.size(); ++i )
+  {
+    GR::Graphic::Image* pLetter = pDoc->diInfo.GetImage( i, 0 );
+    if ( pLetter )
+    {
+      font.SetLetter( pDoc->m_ActualLetters[i], new GR::Graphic::Image( pLetter ) );
+      GR::Graphic::Image* pNewLetter = new GR::Graphic::Image( pLetter );
+
+      if ( pDoc->diInfo.m_BitDepth == 32 )
+      {
+        // Spezial-Wurst Font mit Alpha-Maske
+        GR::Graphic::Image* pMask = pDoc->diInfo.GetMask( i, 0 );
+
+        if ( ( pMask )
+        &&   ( pMask->GetWidth() == pNewLetter->GetWidth() )
+        &&   ( pMask->GetHeight() == pNewLetter->GetHeight() ) )
+        {
+          for ( int iX = 0; iX < pNewLetter->GetWidth(); ++iX )
+          {
+            for ( int iY = 0; iY < pNewLetter->GetHeight(); ++iY )
+            {
+              pNewLetter->SetPixel( iX, iY, ( pNewLetter->GetPixel( iX, iY ) & 0x00ffffff ) | ( pMask->GetPixel( iX, iY ) << 24 ) );
+            }
+          }
+        }
+      }
+      font.SetLetter( pDoc->m_ActualLetters[i], pNewLetter );
+    }
+  }
+  return font.Save( fileName.c_str() );
+}
+
+
+
+bool SaveFontIGF( CPainterFontDoc* pDoc, IIOStream& ioOut )
+{
+  GR::Font         font;
+
+  for ( size_t i = 0; i < pDoc->m_ActualLetters.size(); ++i )
+  {
+    GR::Graphic::Image* pLetter = pDoc->diInfo.GetImage( i, 0 );
+    if ( pLetter )
+    {
+      font.SetLetter( pDoc->m_ActualLetters[i], new GR::Graphic::Image( pLetter ) );
+      GR::Graphic::Image* pNewLetter = new GR::Graphic::Image( pLetter );
+
+      if ( pDoc->diInfo.m_BitDepth == 32 )
+      {
+        // Spezial-Wurst Font mit Alpha-Maske
+        GR::Graphic::Image* pMask = pDoc->diInfo.GetMask( i, 0 );
+
+        if ( ( pMask )
+        && ( pMask->GetWidth() == pNewLetter->GetWidth() )
+        && ( pMask->GetHeight() == pNewLetter->GetHeight() ) )
+        {
+          for ( int iX = 0; iX < pNewLetter->GetWidth(); ++iX )
+          {
+            for ( int iY = 0; iY < pNewLetter->GetHeight(); ++iY )
+            {
+              pNewLetter->SetPixel( iX, iY, ( pNewLetter->GetPixel( iX, iY ) & 0x00ffffff ) | ( pMask->GetPixel( iX, iY ) << 24 ) );
+            }
+          }
+        }
+      }
+      font.SetLetter( pDoc->m_ActualLetters[i], pNewLetter );
+    }
+  }
+  return font.Save( ioOut );
+}
+
+
+
+BOOL CPainterFontDoc::OnOpenDocument( LPCTSTR lpszPathName )
 {
   POSITION        pos;
 
@@ -232,6 +308,7 @@ BOOL CPainterFontDoc::OnOpenDocument( LPCTSTR lpszPathName )
   GR::String      filename = GR::Convert::ToUTF8( lpszPathName );
   GR::String      extension = GR::Strings::ToUpper( Path::Extension( filename ) );
 
+  GR::Font      font;
 
   if ( extension == "FNX" )
   {
@@ -242,9 +319,7 @@ BOOL CPainterFontDoc::OnOpenDocument( LPCTSTR lpszPathName )
 
     diInfo.m_BitDepth = 8;
 
-    GR::Font    Font;
-
-    Font.LoadFNT( filename.c_str(), 8 );
+    font.LoadFNT( filename.c_str(), 8 );
 
     for ( int i = 0; i < 256; i++ )
     {
@@ -252,7 +327,7 @@ BOOL CPainterFontDoc::OnOpenDocument( LPCTSTR lpszPathName )
 
       *diInfo.GetPalette( diInfo.CurrentFrame() ) = theApp.m_PainterPalette;
       
-      diInfo.AddLayer( new GR::Graphic::Image( Font.GetLetter( i ) ), 
+      diInfo.AddLayer( new GR::Graphic::Image( font.GetLetter( i ) ),
                        diInfo.AddFrame() );
     }
 
@@ -269,15 +344,13 @@ BOOL CPainterFontDoc::OnOpenDocument( LPCTSTR lpszPathName )
 
     diInfo.m_BitDepth = 16;
 
-    GR::Font    Font;
-
-    Font.LoadFNT( filename.c_str(), 16 );
+    font.LoadFNT( filename.c_str(), 16 );
 
     for ( int i = 0; i < 256; i++ )
     {
-      if ( Font.GetLetter( i ) )
+      if ( font.GetLetter( i ) )
       {
-        diInfo.AddLayer( new GR::Graphic::Image( Font.GetLetter( i ) ), 
+        diInfo.AddLayer( new GR::Graphic::Image( font.GetLetter( i ) ), 
                          diInfo.AddFrame() );
       }
       else
@@ -297,20 +370,28 @@ BOOL CPainterFontDoc::OnOpenDocument( LPCTSTR lpszPathName )
     diInfo.SetSize( 600, 600 );
     diInfo.m_DocType      = DT_FONT;
 
-    GR::Font    Font;
+    font.Load( filename.c_str() );
 
-    Font.Load( filename.c_str() );
+    diInfo.m_BitDepth = (GR::u8)font.GetDepth();
 
-    diInfo.m_BitDepth = (GR::u8)Font.GetDepth();
-
-    for ( int i = 0; i < 256; i++ )
+    for ( size_t i = 0; i < font.NumLetters(); ++i )
     {
-      size_t    iFrame = diInfo.AddFrame();
-      diInfo.m_LayeredFrames[iFrame].Palette = GR::Graphic::Palette::AlphaPalette();
-
-      GR::Graphic::Image*   pLetter = Font.GetLetter( i );
-      if ( pLetter )
+      GR::u32               letter = font.GetLetterChar( i );
+      GR::Graphic::Image* pLetter = font.GetLetter( letter );
+      // skip invalid letters (TODO, there's more than > 0x10ffff)
+      if ( ( letter <= 0x10FFFF )
+      &&   ( pLetter ) )
       {
+        size_t    iFrame = diInfo.AddFrame();
+
+        diInfo.m_LayeredFrames[iFrame].Palette = GR::Graphic::Palette::AlphaPalette();
+
+        m_ActualLetters.push_back( GR::UTF8Char( letter ) );
+        if ( letter == 'A' )
+        {
+          diInfo.CurrentFrame( iFrame );
+        }
+
         diInfo.AddLayer( new GR::Graphic::Image( pLetter ), iFrame );
 
         if ( diInfo.m_BitDepth == 32 )
@@ -331,15 +412,13 @@ BOOL CPainterFontDoc::OnOpenDocument( LPCTSTR lpszPathName )
     }
 
     SetTitle( _T( "New Document" ) );
-
-    diInfo.CurrentFrame( 65 );
   }
 
   pView->OnInitialUpdate();
 
   diInfo.m_FileName = filename;
 
-	return TRUE;
+  return TRUE;
 }
 
 
@@ -350,7 +429,7 @@ void CPainterFontDoc::OnCloseDocument()
   {
     return;
   }
-	CDocument::OnCloseDocument();
+  CDocument::OnCloseDocument();
 }
 
 
@@ -374,7 +453,7 @@ BOOL CPainterFontDoc::OnSaveDocument( LPCTSTR lpszPathName )
 
   if ( extension.empty() )
   {
-    // keine Extension dran, eine vom Typ abh‰ngige Extension anh‰ngen
+    // keine Extension dran, eine vom Typ abh√§ngige Extension anh√§ngen
     if ( diInfo.m_SaveType == SAVETYPE_FNH )
     {
       fileName += ".fnh";
@@ -419,40 +498,7 @@ BOOL CPainterFontDoc::OnSaveDocument( LPCTSTR lpszPathName )
   }
   else if ( diInfo.m_SaveType == SAVETYPE_IGF )
   {
-    // Die Datei ist ein Font...
-    GR::Font         aFont;
-
-    // TODO - 256-Beschr‰nkung raus
-    for ( int i = 0; i < 256; ++i )
-    {
-      GR::Graphic::Image*   pLetter = diInfo.GetImage( i, 0 );
-
-      if ( pLetter )
-      {
-        GR::Graphic::Image*   pNewLetter = new GR::Graphic::Image( pLetter );
-
-        if ( diInfo.m_BitDepth == 32 )
-        {
-          // Spezial-Wurst Font mit Alpha-Maske
-          GR::Graphic::Image*   pMask = diInfo.GetMask( i, 0 );
-
-          if ( ( pMask )
-          &&   ( pMask->GetWidth() == pNewLetter->GetWidth() )
-          &&   ( pMask->GetHeight() == pNewLetter->GetHeight() ) )
-          {
-            for ( int iX = 0; iX < pNewLetter->GetWidth(); ++iX )
-            {
-              for ( int iY = 0; iY < pNewLetter->GetHeight(); ++iY )
-              {
-                pNewLetter->SetPixel( iX, iY, ( pNewLetter->GetPixel( iX, iY ) & 0x00ffffff ) | ( pMask->GetPixel( iX, iY ) << 24 ) );
-              }
-            }
-          }
-        }
-        aFont.SetLetter( i, pNewLetter );
-      }
-    }
-    aFont.Save( fileName.c_str() );
+    SaveFontIGF( this, fileName );
     diInfo.SetModify( FALSE );
   }
   else
@@ -460,7 +506,7 @@ BOOL CPainterFontDoc::OnSaveDocument( LPCTSTR lpszPathName )
     // Die Datei hat wohl ein unbekanntes Format...
     AfxMessageBox( _T( "Unbekanntes Dateiformat" ) );
   }
-	return TRUE;
+  return TRUE;
 }
 
 
@@ -471,11 +517,11 @@ void CPainterFontDoc::OnConvertTo16bpp()
   if ( ( diInfo.m_BitDepth == 15 )
   ||   ( diInfo.m_BitDepth == 16 ) )
   {
-    // muﬂ nicht umgewandelt werden!
+    // mu√ü nicht umgewandelt werden!
     return;
   }
   diInfo.ConvertTo16bpp();
-	
+  
 }
 
 
@@ -489,11 +535,11 @@ void CPainterFontDoc::OnConvertTo24bpp()
 
   if ( diInfo.m_BitDepth == 24 )
   {
-    // muﬂ nicht umgewandelt werden!
+    // mu√ü nicht umgewandelt werden!
     return;
   }
   diInfo.ConvertTo24bpp();
-	
+  
 }
 
 
@@ -507,11 +553,11 @@ void CPainterFontDoc::OnConvertTo32bpp()
 
   if ( diInfo.m_BitDepth == 32 )
   {
-    // muﬂ nicht umgewandelt werden!
+    // mu√ü nicht umgewandelt werden!
     return;
   }
   diInfo.ConvertTo32bpp();
-	
+  
 }
 
 
@@ -521,11 +567,11 @@ void CPainterFontDoc::OnConvertTo8bpp()
 
   if ( diInfo.m_BitDepth == 8 )
   {
-    // muﬂ nicht umgewandelt werden!
+    // mu√ü nicht umgewandelt werden!
     return;
   }
   diInfo.ConvertTo8bpp();
-	
+  
 }
 
 

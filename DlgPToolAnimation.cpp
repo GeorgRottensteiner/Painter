@@ -79,7 +79,10 @@ void CDlgPToolAnimation::OnNotify( const GR::u32& NotifyMessage, INotifyMember<G
     case NF_LAYER_CHANGED:
       if ( m_pViewInfo )
       {
-        m_EditDelay.SetWindowText( GR::Convert::ToUTF16( GR::Convert::ToString( m_pViewInfo->m_pDocInfo->GetFrame( m_pViewInfo->m_pDocInfo->CurrentFrame() )->Delay ) ).c_str() );
+        if ( m_pViewInfo->m_pDocInfo->IsValidFrame() )
+        {
+          m_EditDelay.SetWindowText( GR::Convert::ToUTF16( GR::Convert::ToString( m_pViewInfo->m_pDocInfo->GetFrame( m_pViewInfo->m_pDocInfo->CurrentFrame() )->Delay ) ).c_str() );
+        }
       }
       break;
     case NF_ACTIVE_VIEW_CHANGED:
@@ -98,7 +101,8 @@ void CDlgPToolAnimation::OnNotify( const GR::u32& NotifyMessage, INotifyMember<G
         m_EditDelay.EnableWindow();
         m_StaticDelay.EnableWindow();
 
-        if ( !m_pViewInfo->m_pDocInfo->m_LayeredFrames.empty() )
+        if ( ( !m_pViewInfo->m_pDocInfo->m_LayeredFrames.empty() )
+          && ( m_pViewInfo->m_pDocInfo->IsValidFrame() ) )
         {
           m_EditDelay.SetWindowText( GR::Convert::ToUTF16( GR::Convert::ToString( m_pViewInfo->m_pDocInfo->GetFrame( m_pViewInfo->m_pDocInfo->CurrentFrame() )->Delay ) ).c_str() );
         }

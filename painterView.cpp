@@ -588,7 +588,7 @@ void CPainterView::OnActivateView( BOOL bActivate, CView* pActivateView, CView* 
 
 void CPainterView::OnPaletteLaden() 
 {
-  GR::Char                szTemp[MAX_PATH];
+  char                    szTemp[MAX_PATH];
 
   CPainterDoc*            pDoc;
 
@@ -1045,8 +1045,7 @@ void CPainterView::OnKeyUp( UINT nChar, UINT nRepCnt, UINT nFlags )
   }
   else if ( nChar == 'H' )
   {
-    if ( ( !bShift )
-    &&   ( !bControl ) )
+    if ( !bControl )
     {
       // Bild horizontal spiegeln!
       if ( m_viewInfo.m_pImageFloatingSelection != NULL )
@@ -1064,7 +1063,15 @@ void CPainterView::OnKeyUp( UINT nChar, UINT nRepCnt, UINT nFlags )
       {
         CLayer* pLayer = pDoc->diInfo.GetLayer( 0, i );
 
-        if ( m_viewInfo.m_Type == ViewInfo::VI_ALPHA )
+        if ( !bShift )
+        {
+          HMirrorImage( pLayer->GetImage() );
+          if ( pLayer->m_HasMask )
+          {
+            HMirrorImage( pLayer->GetMask() );
+          }
+        }
+        else if ( m_viewInfo.m_Type == ViewInfo::VI_ALPHA )
         {
           HMirrorImage( pLayer->GetMask() );
         }
@@ -1078,8 +1085,7 @@ void CPainterView::OnKeyUp( UINT nChar, UINT nRepCnt, UINT nFlags )
   }
   else if ( nChar == 'V' )
   {
-    if ( ( !bShift )
-    &&   ( !bControl ) )
+    if ( !bControl )
     {
       // Bild vertikal spiegeln
       if ( m_viewInfo.m_pImageFloatingSelection != NULL )
@@ -1097,7 +1103,15 @@ void CPainterView::OnKeyUp( UINT nChar, UINT nRepCnt, UINT nFlags )
       {
         CLayer* pLayer = pDoc->diInfo.GetLayer( 0, i );
 
-        if ( m_viewInfo.m_Type == ViewInfo::VI_ALPHA )
+        if ( !bShift )
+        {
+          VMirrorImage( pLayer->GetImage() );
+          if ( pLayer->m_HasMask )
+          {
+            VMirrorImage( pLayer->GetMask() );
+          }
+        }
+        else if ( m_viewInfo.m_Type == ViewInfo::VI_ALPHA )
         {
           VMirrorImage( pLayer->GetMask() );
         }

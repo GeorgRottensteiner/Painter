@@ -275,7 +275,7 @@ void SHReverse( short& wValue )
     };
 
 
-bool LoadPSD( DocumentInfo* pDocInfo, const GR::Char* FileName )
+bool LoadPSD( DocumentInfo* pDocInfo, const char* FileName )
 {
   GR::IO::FileStream    aFile;
 

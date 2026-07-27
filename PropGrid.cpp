@@ -49,10 +49,10 @@ BOOL CPropGrid::OnInitDialog()
 
 	CPropertyPage::OnInitDialog();
 
-  m_EditGridXOffset.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%d", m_iGridXOffset ) ).c_str() );
-  m_EditGridYOffset.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%d", m_iGridYOffset ) ).c_str() );
-  m_EditGridWidth.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%d", m_iGridWidth ) ).c_str() );
-  m_EditGridHeight.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%d", m_iGridHeight ) ).c_str() );
+  m_EditGridXOffset.SetWindowText( GR::Convert::ToUTF16( Misc::Format() << m_iGridXOffset ).c_str() );
+  m_EditGridYOffset.SetWindowText( GR::Convert::ToUTF16( Misc::Format() << m_iGridYOffset ).c_str() );
+  m_EditGridWidth.SetWindowText( GR::Convert::ToUTF16( Misc::Format() << m_iGridWidth ).c_str() );
+  m_EditGridHeight.SetWindowText( GR::Convert::ToUTF16( Misc::Format() << m_iGridHeight ).c_str() );
   m_CheckSnap.SetCheck( m_bEnableSnap );
 	
 	return TRUE;

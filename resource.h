@@ -399,6 +399,7 @@
 #define IDC_BUTTON_SAVE_GRADIENT        1271
 #define IDC_COMBO1                      1272
 #define IDC_COMBO_PRESET_GRADIENTS      1272
+#define IDC_COMBO_LETTER                1272
 #define IDC_EDIT_DELAY                  1273
 #define IDC_BUTTON_PLAY_ANIM            1274
 #define IDC_BUTTON_STOP_ANIM            1275
@@ -412,6 +413,7 @@
 #define IDC_REDIT_LOWER                 1280
 #define IDC_BTN_KILL_LETTER             1281
 #define IDC_STATIC_FILTER_SETTINGS      1282
+#define IDC_BTN_ADD_LETTER              1282
 #define IDC_RADIO_GIF_87                1283
 #define IDC_RADIO_GIF_89                1284
 #define IDC_RADIO_WEBP_DEFAULT_75       1284
@@ -514,14 +516,17 @@
 #define ID_DATEI_CLOSEALL               32917
 #define ID_SPECIAL_SAFETYSAVE           32918
 #define ID__TEST                        32919
+#define ID_SPECIAL_EXPORTASHEXDATA      32920
+#define ID_SPECIAL_                     32921
+#define ID_MENU_SPECIAL_EXPORTASHEXDATA 32922
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_3D_CONTROLS                     1
-#define _APS_NEXT_RESOURCE_VALUE        298
-#define _APS_NEXT_COMMAND_VALUE         32920
+#define _APS_NEXT_RESOURCE_VALUE        299
+#define _APS_NEXT_COMMAND_VALUE         32923
 #define _APS_NEXT_CONTROL_VALUE         1288
 #define _APS_NEXT_SYMED_VALUE           124
 #endif

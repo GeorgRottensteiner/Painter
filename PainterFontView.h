@@ -80,7 +80,6 @@ protected:
 	//{{AFX_MSG(CPainterFontView)
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct);
-	afx_msg void OnChangeEditFontZeichennr();
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
@@ -95,12 +94,10 @@ protected:
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 public:
-  CEdit m_EditZeichen;
   CEdit m_EditWidth;
   CEdit m_EditHeight;
   CEdit m_EditXOffset;
   CEdit m_EditYOffset;
-  CSpinButtonCtrl m_SpinZeichen;
   CSpinButtonCtrl m_SpinWidth;
   CSpinButtonCtrl m_SpinHeight;
   CSpinButtonCtrl m_SpinXOffset;
@@ -124,6 +121,12 @@ public:
   afx_msg void OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags);
 
   BOOL PreTranslateMessage( MSG* pMsg );
+  CButton m_BtnAddLetter;
+  afx_msg void OnBnClickedBtnAddLetter();
+  CComboBox m_ComboLetter;
+  afx_msg void OnCbnSelchangeComboLetter();
+  afx_msg void OnCbnEditchangeComboLetter();
+  CButton m_BtnDeleteLetter;
 };
 
 /////////////////////////////////////////////////////////////////////////////

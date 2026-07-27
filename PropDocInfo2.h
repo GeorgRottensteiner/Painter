@@ -17,7 +17,7 @@ class CPropDocInfo2 : public CPropertyPage
 // Konstruktion
 public:
 
-  DWORD         m_dwScrollWidth,
+  GR::u32				m_dwScrollWidth,
                 m_dwScrollHeight;
 	CPropDocInfo2();
 	~CPropDocInfo2();

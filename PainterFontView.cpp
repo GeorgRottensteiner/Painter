@@ -33,7 +33,7 @@ CPainterFontView::CPainterFontView()
     m_DoNotUpdate( false )
 {
 	//{{AFX_DATA_INIT(CPainterFontView)
-		// HINWEIS: Der Klassen-Assistent fügt hier Elementinitialisierung ein
+		// HINWEIS: Der Klassen-Assistent fÃ¼gt hier Elementinitialisierung ein
 	//}}AFX_DATA_INIT
 
   m_viewInfo.m_pView = (CScrollView*)this;
@@ -48,7 +48,7 @@ CPainterFontView::~CPainterFontView()
 
 
 
-CPainterFontDoc* CPainterFontView::GetDocument() // Die endgültige (nicht zur Fehlersuche kompilierte) Version ist Inline
+CPainterFontDoc* CPainterFontView::GetDocument() // Die endgÃ¼ltige (nicht zur Fehlersuche kompilierte) Version ist Inline
 {
 	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CPainterFontDoc)));
 	return (CPainterFontDoc*)m_pDocument;
@@ -58,22 +58,23 @@ CPainterFontDoc* CPainterFontView::GetDocument() // Die endgültige (nicht zur Fe
 
 void CPainterFontView::DoDataExchange(CDataExchange* pDX)
 {
-  CFormView::DoDataExchange(pDX);
+  CFormView::DoDataExchange( pDX );
   //{{AFX_DATA_MAP(CPainterFontView)
-  // HINWEIS: Der Klassen-Assistent fügt hier DDX- und DDV-Aufrufe ein
+  // HINWEIS: Der Klassen-Assistent fÃ¼gt hier DDX- und DDV-Aufrufe ein
   //}}AFX_DATA_MAP
-  DDX_Control(pDX, IDC_EDIT_FONT_ZEICHENNR, m_EditZeichen);
-  DDX_Control(pDX, IDC_EDIT_FONT_BREITE, m_EditWidth);
-  DDX_Control(pDX, IDC_EDIT_FONT_HOEHE, m_EditHeight);
-  DDX_Control(pDX, IDC_EDIT_FONT_XOFFSET, m_EditXOffset);
-  DDX_Control(pDX, IDC_EDIT_FONT_YOFFSET, m_EditYOffset);
-  DDX_Control(pDX, IDC_SPIN_FONT_ZEICHENNR, m_SpinZeichen);
-  DDX_Control(pDX, IDC_SPIN_FONT_BREITE, m_SpinWidth);
-  DDX_Control(pDX, IDC_SPIN_FONT_HOEHE, m_SpinHeight);
-  DDX_Control(pDX, IDC_SPIN_FONT_XOFFSET, m_SpinXOffset);
-  DDX_Control(pDX, IDC_SPIN_FONT_YOFFSET, m_SpinYOffset);
-  DDX_Control(pDX, IDC_STATIC_FONT_INHALT, m_StaticLetter);
-  DDX_Control(pDX, IDC_STATIC_FONT_ZEICHENNR, m_StaticZeichen);
+  DDX_Control( pDX, IDC_EDIT_FONT_BREITE, m_EditWidth );
+  DDX_Control( pDX, IDC_EDIT_FONT_HOEHE, m_EditHeight );
+  DDX_Control( pDX, IDC_EDIT_FONT_XOFFSET, m_EditXOffset );
+  DDX_Control( pDX, IDC_EDIT_FONT_YOFFSET, m_EditYOffset );
+  DDX_Control( pDX, IDC_SPIN_FONT_BREITE, m_SpinWidth );
+  DDX_Control( pDX, IDC_SPIN_FONT_HOEHE, m_SpinHeight );
+  DDX_Control( pDX, IDC_SPIN_FONT_XOFFSET, m_SpinXOffset );
+  DDX_Control( pDX, IDC_SPIN_FONT_YOFFSET, m_SpinYOffset );
+  DDX_Control( pDX, IDC_STATIC_FONT_INHALT, m_StaticLetter );
+  DDX_Control( pDX, IDC_STATIC_FONT_ZEICHENNR, m_StaticZeichen );
+  DDX_Control( pDX, IDC_BTN_ADD_LETTER, m_BtnAddLetter );
+  DDX_Control( pDX, IDC_COMBO_LETTER, m_ComboLetter );
+  DDX_Control( pDX, IDC_BTN_KILL_LETTER, m_BtnDeleteLetter );
 }
 
 
@@ -81,7 +82,6 @@ BEGIN_MESSAGE_MAP(CPainterFontView, CFormView)
 	//{{AFX_MSG_MAP(CPainterFontView)
 	ON_WM_CREATE()
 	ON_WM_DRAWITEM()
-	ON_EN_CHANGE(IDC_EDIT_FONT_ZEICHENNR, OnChangeEditFontZeichennr)
 	ON_WM_SETCURSOR()
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONUP()
@@ -100,6 +100,9 @@ BEGIN_MESSAGE_MAP(CPainterFontView, CFormView)
   ON_COMMAND(32863, OnSplitAlpha)
   ON_BN_CLICKED(IDC_BTN_KILL_LETTER, OnBnClickedBtnKillLetter)
   ON_WM_KEYUP()
+    ON_BN_CLICKED( IDC_BTN_ADD_LETTER, &CPainterFontView::OnBnClickedBtnAddLetter )
+  ON_CBN_SELCHANGE( IDC_COMBO_LETTER, &CPainterFontView::OnCbnSelchangeComboLetter )
+  ON_CBN_EDITCHANGE( IDC_COMBO_LETTER, &CPainterFontView::OnCbnEditchangeComboLetter )
 END_MESSAGE_MAP()
 
 
@@ -170,6 +173,9 @@ void CPainterFontView::OnDrawItem( int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct
     GR::Graphic::Image*    pImageLetter = pFontDoc->diInfo.GetImage( pFontDoc->diInfo.CurrentFrame(), 0 );
     if ( pImageLetter == NULL )
     {
+      HBRUSH hBrush = CreateSolidBrush( GetSysColor( COLOR_3DFACE ) );
+      FillRect( hdc, &rc, hBrush );
+      DeleteObject( hBrush );
       return;
     }
 
@@ -228,7 +234,7 @@ void CPainterFontView::OnDrawItem( int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct
     HBRUSH hBrush = CreateSolidBrush( GetSysColor( COLOR_3DFACE ) );
     if ( rc.right >= (int)width * m_viewInfo.m_ZoomFaktor / 100 )
     {
-      // rechts muß eine Box hin!
+      // rechts muÃŸ eine Box hin!
       rc.left += width * m_viewInfo.m_ZoomFaktor / 100;
 
       rc.bottom = height * m_viewInfo.m_ZoomFaktor / 100;
@@ -238,7 +244,7 @@ void CPainterFontView::OnDrawItem( int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct
     GetClientRect( &rc );
     if ( rc.bottom >= (int)height * m_viewInfo.m_ZoomFaktor / 100 )
     {
-      // unten muß eine Box hin!
+      // unten muÃŸ eine Box hin!
       rc.top += height * m_viewInfo.m_ZoomFaktor / 100;
       rc.right = width * m_viewInfo.m_ZoomFaktor / 100;
 
@@ -248,7 +254,7 @@ void CPainterFontView::OnDrawItem( int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct
     if ( ( rc.right >= (int)width * m_viewInfo.m_ZoomFaktor / 100 )
     &&   ( rc.bottom >= (int)height * m_viewInfo.m_ZoomFaktor / 100 ) )
     {
-      // rechts unten muß eine Box hin!
+      // rechts unten muÃŸ eine Box hin!
       rc.top += height * m_viewInfo.m_ZoomFaktor / 100;
       rc.left += width * m_viewInfo.m_ZoomFaktor / 100;
 
@@ -259,7 +265,7 @@ void CPainterFontView::OnDrawItem( int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct
     // Selektionsrahmen
     m_viewInfo.DrawSelectionFrame( hdc );
 
-    // und wieder löschen
+    // und wieder lÃ¶schen
     m_viewInfo.m_RedrawFlags = 0;
   }
   else if ( nIDCtl == IDC_STATIC_FONT_PREVIEW )
@@ -285,11 +291,11 @@ void CPainterFontView::OnInitialUpdate()
   hwndFontWorkArea = m_StaticLetter.GetSafeHwnd();
   m_StaticLetter.ModifyStyle( 0, SS_OWNERDRAW );
 
-  m_SpinZeichen.SetRange( 0, 255 );
   m_SpinWidth.SetRange( 0, 255 );
   m_SpinHeight.SetRange( 0, 255 );
   m_SpinXOffset.SetRange( -255, 255 );
   m_SpinYOffset.SetRange( -255, 255 );
+  m_ComboLetter.LimitText( 1 );
 
   pFontDoc = GetDocument();
 
@@ -299,7 +305,16 @@ void CPainterFontView::OnInitialUpdate()
 
   if ( pFontDoc != NULL )
   {
-    m_EditZeichen.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%d", pFontDoc->diInfo.CurrentFrame() ) ).c_str() );
+    m_ComboLetter.ResetContent();
+    for ( size_t i = 0; i < pFontDoc->diInfo.m_LayeredFrames.size(); ++i )
+    {
+      GR::WString   wstr;
+      wstr += pFontDoc->m_ActualLetters[i];
+      m_ComboLetter.AddString( wstr.c_str() );
+    }
+    GR::String letter;
+    letter += pFontDoc->m_ActualLetters[pFontDoc->diInfo.CurrentFrame()];
+    m_ComboLetter.SetWindowText( GR::Convert::ToUTF16( letter ).c_str() );
 
     m_EditXOffset.SetWindowText( _T( "0" ) );
     m_EditYOffset.SetWindowText( _T( "0" ) );
@@ -320,67 +335,9 @@ void CPainterFontView::OnInitialUpdate()
       }
     }
   }
+  m_ComboLetter.SetCurSel( m_viewInfo.m_pDocInfo->CurrentFrame() );
+  OnCbnSelchangeComboLetter();
   RedrawFontPreview();
-}
-
-
-
-void CPainterFontView::OnChangeEditFontZeichennr() 
-{
-  GR::tChar                 szTemp[MAX_PATH];
-
-  CPainterFontDoc*          pFontDoc;
-
-
-  pFontDoc = GetDocument();
-  if ( ( pFontDoc == NULL )
-  ||   ( m_DoNotUpdate ) )
-  {
-    // schwerer Fehler! (oder Init?)
-    return;
-  }
-
-  if ( m_EditZeichen.GetSafeHwnd() == NULL )
-  {
-    return;
-  }
-  m_EditZeichen.GetLine( 0, szTemp, MAX_PATH );
-  int charValue = GR::Convert::ToI32( szTemp );
-  if ( charValue < 0 )
-  {
-    charValue = 0;
-    m_EditZeichen.SetWindowText( _T( "0" ) );
-  }
-  if ( charValue > 255 )
-  {
-    charValue = 255;
-    m_EditZeichen.SetWindowText( _T( "255" ) );
-  }
-  if ( charValue >= 32 )
-  {
-    m_StaticZeichen.SetWindowText( GR::Convert::ToUTF16( GR::Convert::ISO8895ToUTF8( CMisc::printf( "Zeichen (%c):", charValue ) ) ).c_str() );
-  }
-  else
-  {
-    m_StaticZeichen.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "Zeichen:", charValue ) ).c_str() );
-  }
-
-  pFontDoc->diInfo.CurrentFrame( (unsigned char)charValue );
-  if ( pFontDoc->diInfo.m_LayeredFrames.size() > pFontDoc->diInfo.CurrentFrame() )
-  {
-    GR::Graphic::Image*   pImage = pFontDoc->diInfo.GetImage( pFontDoc->diInfo.CurrentFrame(), 0 );
-    if ( pImage )
-    {
-      m_EditWidth.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%d", pFontDoc->diInfo.GetImage( pFontDoc->diInfo.CurrentFrame(), 0 )->GetWidth() ) ).c_str() );
-      m_EditHeight.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%d", pFontDoc->diInfo.GetImage( pFontDoc->diInfo.CurrentFrame(), 0 )->GetHeight() ) ).c_str() );
-    }
-    else
-    {
-      m_EditWidth.SetWindowText( _T( "0" ) );
-      m_EditHeight.SetWindowText( _T( "0" ) );
-    }
-  }
-  LetterNumberChanged( charValue );
 }
 
 
@@ -400,15 +357,40 @@ BOOL CPainterFontView::OnSetCursor( CWnd* pWnd, UINT nHitTest, UINT message )
     SetCursor( LoadCursor( NULL, IDC_ARROW ) );
     return TRUE;
   }
-  theApp.SetAppCursor( &pDoc->diInfo );
-  
-	return TRUE;
+  POINT ptMouse;
+  RECT  rcEditor;
+
+  GetCursorPos( &ptMouse );
+
+  m_StaticLetter.GetWindowRect( &rcEditor );
+
+  if ( PtInRect( &rcEditor, ptMouse ) )
+  {
+    int actX = m_viewInfo.m_ptScrollOffset.x + ( ( ptMouse.x - rcEditor.left ) * 100 / m_viewInfo.m_ZoomFaktor );
+    int actY = m_viewInfo.m_ptScrollOffset.y + ( ( ptMouse.y - rcEditor.top ) * 100 / m_viewInfo.m_ZoomFaktor );
+
+    GR::Graphic::Image* pImage = pDoc->diInfo.GetImage( pDoc->diInfo.CurrentFrame(), 0 );
+
+    if ( ( actX >= 0 )
+    &&   ( pImage != NULL )
+    &&   ( actX < pImage->GetWidth() )
+    &&   ( actY >= 0 )
+    &&   ( actY < pImage->GetHeight() ) )
+    {
+      theApp.SetAppCursor( &pDoc->diInfo );
+      return TRUE;
+    }
+  }
+  return CView::OnSetCursor( pWnd, nHitTest, message );
 }
 
 
 
 void CPainterFontView::OnLButtonDown( UINT nFlags, CPoint point ) 
 {
+  CPainterFontDoc* pDoc = GetDocument();
+  GR::Graphic::Image* pImage = pDoc->diInfo.GetImage( pDoc->diInfo.CurrentFrame(), 0 );
+
   RECT                      rc,
                             rcParent;
   
@@ -421,6 +403,30 @@ void CPainterFontView::OnLButtonDown( UINT nFlags, CPoint point )
 
   point.x = ( ( point.x * 100 ) / m_viewInfo.m_ZoomFaktor );
   point.y = ( ( point.y * 100 ) / m_viewInfo.m_ZoomFaktor );
+
+  pDoc->diInfo.m_ActX = point.x;
+  pDoc->diInfo.m_ActY = point.y;
+  if ( pDoc->diInfo.m_ActX < 0 )
+  {
+    pDoc->diInfo.m_ActX = 0;
+  }
+  if ( pDoc->diInfo.m_ActY < 0 )
+  {
+    pDoc->diInfo.m_ActY = 0;
+  }
+  if ( pImage )
+  {
+    if ( pDoc->diInfo.m_ActX >= pImage->GetWidth() )
+    {
+      pDoc->diInfo.m_ActX = pImage->GetWidth() - 1;
+    }
+    if ( pDoc->diInfo.m_ActY >= pImage->GetHeight() )
+    {
+      pDoc->diInfo.m_ActY = pImage->GetHeight() - 1;
+    }
+  }
+  point.x = pDoc->diInfo.m_ActX;
+  point.y = pDoc->diInfo.m_ActY;
 
   pSettings->SnapToGrid( &point );
 
@@ -733,7 +739,7 @@ void CPainterFontView::OnDeltaposSpinFontHoehe(NMHDR* pNMHDR, LRESULT* pResult)
 
   if ( pNMUpDown->iDelta == -1 )
   {
-    // Buchstaben-Höhe verkleinern
+    // Buchstaben-HÃ¶he verkleinern
     GR::Graphic::Image* pImage = pDoc->diInfo.GetImage( pDoc->diInfo.CurrentFrame(), 0 );
 
     GR::Graphic::Image* pMask = pDoc->diInfo.GetMask( pDoc->diInfo.CurrentFrame(), 0 );
@@ -841,6 +847,37 @@ void CPainterFontView::OnBearbeitenPasteasselection()
   {
     return;
   }
+
+  if ( GetFocus()->GetSafeHwnd() == m_ComboLetter.GetSafeHwnd() )
+  {
+    // paste into combo
+    if ( OpenClipboard() )
+    {
+      HANDLE hClipboardData = GetClipboardData( CF_UNICODETEXT );
+      if ( hClipboardData )
+      {
+        WCHAR* pchData = (WCHAR*)GlobalLock( hClipboardData );
+        if ( pchData )
+        {
+          GR::WString   wString = pchData;
+          GlobalUnlock( hClipboardData );
+
+          GR::String clipText = GR::Convert::ToUTF8( wString );
+
+          if ( !clipText.empty() )
+          {
+            m_ComboLetter.SetWindowTextW( GR::Convert::ToUTF16( clipText.substr( 0, 1 ) ).c_str() );
+          }
+        }
+      }
+
+      CloseClipboard();
+      Invalidate( FALSE );
+    }
+    theApp.ShowStatusMessage();
+    return;
+  }
+
   if ( OpenClipboard() )
   {
     pDoc->diInfo.PasteFromClipBoard( 0 );
@@ -902,6 +939,22 @@ void CPainterFontView::DoUpdate( LPARAM lHint, GR::tRect* pRect )
     if ( pRect != NULL )
     {
       m_viewInfo.m_rectRedraw.Combine( *pRect );
+      if ( m_viewInfo.m_rectRedraw.Left < 0 )
+      {
+        m_viewInfo.m_rectRedraw.Left = 0;
+      }
+      if ( m_viewInfo.m_rectRedraw.Right > (int)m_viewInfo.m_pDocInfo->Width() )
+      {
+        m_viewInfo.m_rectRedraw.Right = m_viewInfo.m_pDocInfo->Width();
+      }
+      if ( m_viewInfo.m_rectRedraw.Top < 0 )
+      {
+        m_viewInfo.m_rectRedraw.Top = 0;
+      }
+      if ( m_viewInfo.m_rectRedraw.Bottom > (int)m_viewInfo.m_pDocInfo->Height() )
+      {
+        m_viewInfo.m_rectRedraw.Bottom = m_viewInfo.m_pDocInfo->Height();
+      }
     }
   }
   if ( m_viewInfo.m_RedrawFlags == ViewInfo::REDRAW_ALL )
@@ -927,9 +980,9 @@ void CPainterFontView::OnUpdate( CView* pSender, LPARAM lHint, CObject* pHint )
   if ( lHint == ViewInfo::REDRAW_UPDATE_VIEW_INFO )
   {
     if ( pSender != this )
-    {
+    { 
       m_DoNotUpdate = true;
-      m_EditZeichen.SetWindowText( GR::Convert::ToUTF16( ( Misc::Format() << m_viewInfo.m_pDocInfo->CurrentFrame() ).Result() ).c_str() );
+      m_ComboLetter.SetWindowText( GR::Convert::ToUTF16( ( Misc::Format() << m_viewInfo.m_pDocInfo->CurrentFrame() ).Result() ).c_str() );
       m_DoNotUpdate = false;
 
       m_EditWidth.SetWindowText( GR::Convert::ToUTF16( ( Misc::Format() << m_viewInfo.m_pDocInfo->GetImage( m_viewInfo.m_pDocInfo->CurrentFrame(), 0 )->GetWidth() ).Result() ).c_str() );
@@ -1064,13 +1117,6 @@ void CPainterFontView::LetterNumberChanged( int iChar )
 
 
 
-void CPainterFontView::OnBnClickedBtnKillLetter()
-{
-  // TODO: Fügen Sie hier Ihren Kontrollbehandlungscode für die Benachrichtigung ein.
-}
-
-
-
 BOOL CPainterFontView::PreTranslateMessage( MSG* pMsg )
 {
   if ( pMsg->hwnd == m_StaticLetter.GetSafeHwnd() )
@@ -1144,3 +1190,284 @@ void CPainterFontView::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 
 
+void CPainterFontView::OnBnClickedBtnAddLetter()
+{
+  CPainterFontDoc* pDoc = GetDocument();
+
+  CString     myString;
+
+  m_ComboLetter.GetWindowText( myString );
+
+  GR::String  letter = GR::Convert::ToUTF8( (LPCTSTR)myString );
+  if ( letter.empty() )
+  {
+    return;
+  }
+
+  GR::Char charValue = letter[0];
+
+  bool foundLetter = false;
+  size_t letterIndex = (size_t)-1;
+  for ( size_t i = 0; i < pDoc->diInfo.m_LayeredFrames.size(); ++i )
+  {
+    if ( pDoc->m_ActualLetters[i] == charValue )
+    {
+      letterIndex = i;
+      foundLetter = true;
+      break;
+    }
+  }
+  if ( foundLetter )
+  {
+    return;
+  }
+
+  pDoc->diInfo.AddUndoFrameChange( pDoc->diInfo.CurrentFrame(), CUndoFrameChange::UFC_INSERT_FRAME );
+  int   newFrame = pDoc->diInfo.AddFrame( letterIndex );
+  pDoc->m_ActualLetters.insert( pDoc->m_ActualLetters.begin() + newFrame, GR::UTF8Char( charValue ) );
+  pDoc->diInfo.AddLayer( new GR::Graphic::Image( 32, 32, pDoc->diInfo.m_BitDepth ), newFrame );
+
+  int newChoice = m_ComboLetter.InsertString( m_ComboLetter.GetCurSel(), GR::Convert::ToUTF16( letter ).c_str() );
+
+  if ( pDoc->diInfo.m_BitDepth <= 8 )
+  {
+    for ( size_t i = 0; i < pDoc->diInfo.m_LayeredFrames.size(); ++i )
+    {
+      if ( pDoc->diInfo.m_LayeredFrames[i].Palette.Entries() > 0 )
+      {
+        *pDoc->diInfo.GetPalette( newFrame ) = pDoc->diInfo.m_LayeredFrames[i].Palette;
+      }
+    }
+  }
+
+  m_ComboLetter.SetCurSel( newChoice );
+  OnCbnSelchangeComboLetter();
+
+  m_viewInfo.RedrawView();
+  pDoc->diInfo.SetModify( TRUE );
+  theApp.ShowStatusMessage();
+}
+
+
+
+void CPainterFontView::OnBnClickedBtnKillLetter()
+{
+  CPainterFontDoc* pDoc = GetDocument();
+
+  CString     myString;
+
+  m_ComboLetter.GetWindowText( myString );
+
+  GR::String  letter = GR::Convert::ToUTF8( (LPCTSTR)myString );
+  if ( letter.empty() )
+  {
+    return;
+  }
+  GR::Char charValue = letter[0];
+
+  bool foundLetter = false;
+  size_t letterIndex = (size_t)-1;
+  for ( size_t i = 0; i < pDoc->diInfo.m_LayeredFrames.size(); ++i )
+  {
+    if ( pDoc->m_ActualLetters[i] == charValue )
+    {
+      letterIndex = i;
+      foundLetter = true;
+      break;
+    }
+  }
+  if ( !foundLetter )
+  {
+    return;
+  }
+  if ( MessageBoxW( GR::Convert::ToUTF16( Misc::Format( "Do you really want to delete the letter '%1%'?" ) << letter ).c_str(), L"Delete letter", MB_YESNO | MB_ICONQUESTION ) != IDYES )
+  {
+    return;
+  }
+  pDoc->diInfo.AddUndoFrameChange( pDoc->diInfo.CurrentFrame(), CUndoFrameChange::UFC_REMOVE_FRAME );
+  pDoc->diInfo.RemoveFrame( letterIndex );
+  pDoc->m_ActualLetters.erase( pDoc->m_ActualLetters.begin() + letterIndex );
+  m_ComboLetter.DeleteString( letterIndex );
+  m_ComboLetter.SetCurSel( 0 );
+  OnCbnSelchangeComboLetter();
+  m_viewInfo.RedrawView();
+  pDoc->diInfo.SetModify( TRUE );
+  theApp.ShowStatusMessage();
+}
+
+
+
+void CPainterFontView::OnCbnSelchangeComboLetter()
+{
+  CPainterFontDoc* pFontDoc;
+
+
+  pFontDoc = GetDocument();
+  if ( ( pFontDoc == NULL )
+  ||   ( m_DoNotUpdate ) )
+  {
+    // schwerer Fehler! (oder Init?)
+    return;
+  }
+
+  if ( m_ComboLetter.GetSafeHwnd() == NULL )
+  {
+    return;
+  }
+  CString     myString;
+
+  if ( m_ComboLetter.GetCurSel() == -1 )
+  {
+    m_EditWidth.EnableWindow( FALSE );
+    m_EditHeight.EnableWindow( FALSE );
+    m_EditXOffset.EnableWindow( FALSE );
+    m_EditYOffset.EnableWindow( FALSE );
+
+    m_StaticZeichen.SetWindowText( L"Unknown letter" );
+    return;
+  }
+
+  m_ComboLetter.GetLBText( m_ComboLetter.GetCurSel(), myString );
+
+  GR::String  letter = GR::Convert::ToUTF8( (LPCTSTR)myString );
+  if ( letter.empty() )
+  {
+    m_EditWidth.EnableWindow( FALSE );
+    m_EditHeight.EnableWindow( FALSE );
+    m_EditXOffset.EnableWindow( FALSE );
+    m_EditYOffset.EnableWindow( FALSE );
+
+    m_StaticZeichen.SetWindowText( L"Unknown letter" );
+    return;
+  }
+
+  m_EditWidth.EnableWindow( TRUE );
+  m_EditHeight.EnableWindow( TRUE );
+  m_EditXOffset.EnableWindow( TRUE );
+  m_EditYOffset.EnableWindow( TRUE );
+
+  GR::Char charValue = letter[0];
+
+  size_t letterIndex = 0;
+  for ( size_t i = 0; i < pFontDoc->diInfo.m_LayeredFrames.size(); ++i )
+  {
+    if ( pFontDoc->m_ActualLetters[i] == charValue )
+    {
+      letterIndex = i;
+      break;
+    }
+  }
+
+  pFontDoc->diInfo.CurrentFrame( letterIndex );
+  m_StaticZeichen.SetWindowText( GR::Convert::ToUTF16( Misc::Format( "(%1%) (%2x%)" ) << letter << (GR::u32)charValue ).c_str() );
+  if ( pFontDoc->diInfo.m_LayeredFrames.size() > pFontDoc->diInfo.CurrentFrame() )
+  {
+    GR::Graphic::Image* pImage = pFontDoc->diInfo.GetImage( pFontDoc->diInfo.CurrentFrame(), 0 );
+    if ( pImage )
+    {
+      m_EditWidth.SetWindowText( GR::Convert::ToUTF16( Misc::Format() << pFontDoc->diInfo.GetImage( pFontDoc->diInfo.CurrentFrame(), 0 )->GetWidth() ).c_str() );
+      m_EditHeight.SetWindowText( GR::Convert::ToUTF16( Misc::Format() << pFontDoc->diInfo.GetImage( pFontDoc->diInfo.CurrentFrame(), 0 )->GetHeight() ).c_str() );
+    }
+    else
+    {
+      m_EditWidth.SetWindowText( _T( "0" ) );
+      m_EditHeight.SetWindowText( _T( "0" ) );
+    }
+  }
+  LetterNumberChanged( letterIndex );
+  m_BtnDeleteLetter.EnableWindow( TRUE );
+  m_BtnAddLetter.EnableWindow( FALSE );
+}
+
+
+
+void CPainterFontView::OnCbnEditchangeComboLetter()
+{
+  CPainterFontDoc* pFontDoc;
+
+
+  pFontDoc = GetDocument();
+  if ( ( pFontDoc == NULL )
+  ||   ( m_DoNotUpdate ) )
+  {
+    // schwerer Fehler! (oder Init?)
+    return;
+  }
+
+  if ( m_ComboLetter.GetSafeHwnd() == NULL )
+  {
+    return;
+  }
+  CString     myString;
+
+  m_ComboLetter.GetWindowText( myString );
+
+  GR::String  letter = GR::Convert::ToUTF8( (LPCTSTR)myString );
+  if ( letter.empty() )
+  {
+    m_EditWidth.EnableWindow( FALSE );
+    m_EditHeight.EnableWindow( FALSE );
+    m_EditXOffset.EnableWindow( FALSE );
+    m_EditYOffset.EnableWindow( FALSE );
+    m_StaticZeichen.SetWindowText( L"Unknown letter" );
+    return;
+  }
+
+  GR::Char charValue = letter[0];
+
+  bool foundLetter = false;
+  size_t letterIndex = (size_t)-1;
+  for ( size_t i = 0; i < pFontDoc->diInfo.m_LayeredFrames.size(); ++i )
+  {
+    if ( pFontDoc->m_ActualLetters[i] == charValue )
+    {
+      letterIndex = i;
+      foundLetter = true;
+      break;
+    }
+  }
+
+  if ( foundLetter )
+  {
+    pFontDoc->diInfo.CurrentFrame( letterIndex );
+    m_StaticZeichen.SetWindowText( GR::Convert::ToUTF16( Misc::Format( "(%1%) (%2x%)" ) << letter << (GR::u32)charValue ).c_str() );
+    if ( pFontDoc->diInfo.m_LayeredFrames.size() > pFontDoc->diInfo.CurrentFrame() )
+    {
+      GR::Graphic::Image* pImage = pFontDoc->diInfo.GetImage( pFontDoc->diInfo.CurrentFrame(), 0 );
+      if ( pImage )
+      {
+        m_EditWidth.SetWindowText( GR::Convert::ToUTF16( Misc::Format() << pFontDoc->diInfo.GetImage( pFontDoc->diInfo.CurrentFrame(), 0 )->GetWidth() ).c_str() );
+        m_EditHeight.SetWindowText( GR::Convert::ToUTF16( Misc::Format() << pFontDoc->diInfo.GetImage( pFontDoc->diInfo.CurrentFrame(), 0 )->GetHeight() ).c_str() );
+      }
+      else
+      {
+        m_EditWidth.SetWindowText( _T( "0" ) );
+        m_EditHeight.SetWindowText( _T( "0" ) );
+      }
+    }
+    LetterNumberChanged( letterIndex );
+
+    m_BtnDeleteLetter.EnableWindow( TRUE );
+    m_BtnAddLetter.EnableWindow( FALSE );
+
+    m_EditWidth.EnableWindow( TRUE );
+    m_EditHeight.EnableWindow( TRUE );
+    m_EditXOffset.EnableWindow( TRUE );
+    m_EditYOffset.EnableWindow( TRUE );
+  }
+  else
+  {
+    m_StaticZeichen.SetWindowText( L"Unknown letter" );
+    m_EditWidth.EnableWindow( FALSE );
+    m_EditHeight.EnableWindow( FALSE );
+    m_EditXOffset.EnableWindow( FALSE );
+    m_EditYOffset.EnableWindow( FALSE );
+
+    pFontDoc->diInfo.CurrentFrame( -1 );
+    pFontDoc->UpdateAllViews( this, ViewInfo::REDRAW_UPDATE_VIEW_INFO );
+    DoUpdate( ViewInfo::REDRAW_ALL );
+
+    m_BtnDeleteLetter.EnableWindow( FALSE );
+    m_BtnAddLetter.EnableWindow( TRUE );
+  }
+}

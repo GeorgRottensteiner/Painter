@@ -12,6 +12,11 @@
 
 class CPainterFontView;
 
+
+#include <Grafik/Font.h>
+
+
+
 class CPainterFontDoc : public CDocument
 {
 protected:
@@ -39,6 +44,8 @@ public:
 
   DocumentInfo     diInfo;
 
+	std::vector<GR::UTF8Char>		m_ActualLetters;
+
 
 #ifdef _DEBUG
 	virtual void AssertValid() const;
@@ -60,6 +67,12 @@ public:
   afx_msg void OnBearbeitenImportieren();
   afx_msg void OnBearbeitenResize();
 };
+
+
+
+bool SaveFontIGF( CPainterFontDoc* pDoc, IIOStream& ioOut );
+
+
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ fügt unmittelbar vor der vorhergehenden Zeile zusätzliche Deklarationen ein.

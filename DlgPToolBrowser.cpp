@@ -645,7 +645,7 @@ void CDlgPToolBrowser::ThumbPopup( int Index )
 
 void CDlgPToolBrowser::QueryAndDeleteFile( const GR::String& Filename, int ItemIndex )
 {
-  if ( AfxMessageBox( GR::Convert::ToUTF16( CMisc::printf( "File '%s' will be deleted.\nAre you sure?", Filename.c_str() ) ).c_str(), MB_YESNO ) == IDYES )
+  if ( AfxMessageBox( GR::Convert::ToUTF16( Misc::Format( "File '%1%' will be deleted.\nAre you sure?" ) << Filename ).c_str(), MB_YESNO ) == IDYES )
   {
     tThumbnail*   pThumb = (tThumbnail*)m_ListThumbs.GetItemData( ItemIndex );
     if ( pThumb )

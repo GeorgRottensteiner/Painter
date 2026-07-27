@@ -28,6 +28,7 @@ public:
   bool                  m_DoNotUpdate;
 
   bool                  KeepAspectRatio;
+  bool                  _LastChangeWasPercentage;
 
 
 

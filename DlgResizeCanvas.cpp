@@ -52,13 +52,13 @@ BOOL CDlgResizeCanvas::OnInitDialog()
 	CDialog::OnInitDialog();
 
 
-  m_EditBreite.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%d", m_pDocInfo->Width() ) ).c_str() );
-  m_EditHoehe.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%d", m_pDocInfo->Height() ) ).c_str() );
+  m_EditBreite.SetWindowText( GR::Convert::ToUTF16( Misc::Format() << m_pDocInfo->Width() ).c_str() );
+  m_EditHoehe.SetWindowText( GR::Convert::ToUTF16( Misc::Format() << m_pDocInfo->Height() ).c_str() );
 	
   m_EditNewWidth.SetFocus();
 
-  m_EditNewWidth.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%d", pSettings->GetSetting( "NewCanvasWidth", m_pDocInfo->Width() ) ) ).c_str() );
-  m_EditNewHeight.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%d", pSettings->GetSetting( "NewCanvasHeight", m_pDocInfo->Height() ) ) ).c_str() );
+  m_EditNewWidth.SetWindowText( GR::Convert::ToUTF16( Misc::Format() << pSettings->GetSetting( "NewCanvasWidth", m_pDocInfo->Width() ) ).c_str() );
+  m_EditNewHeight.SetWindowText( GR::Convert::ToUTF16( Misc::Format() << pSettings->GetSetting( "NewCanvasHeight", m_pDocInfo->Height() ) ).c_str() );
 
   m_CheckCenterH.SetCheck( pSettings->GetSettingString( "NewCanvasCenterH" ) != "No" );
   m_CheckCenterV.SetCheck( pSettings->GetSettingString( "NewCanvasCenterV" ) != "No" );

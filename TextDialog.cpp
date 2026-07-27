@@ -136,10 +136,10 @@ BOOL CTextDialog::OnInitDialog()
   m_EditText.SetWindowText( GR::Convert::ToUTF16( m_Text ).c_str() );
 
   m_SpinKerning.SetRange( -100, 500 );
-  m_EditKerning.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%d", m_Kerning ) ).c_str() );
+  m_EditKerning.SetWindowText( GR::Convert::ToUTF16( Misc::Format() << m_Kerning ).c_str() );
 
   m_SpinTilt.SetRange( -200, 200 );
-  m_EditTilt.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%d", m_Tilt ) ).c_str() );
+  m_EditTilt.SetWindowText( GR::Convert::ToUTF16( Misc::Format() << m_Tilt ).c_str() );
 
   if ( m_Filled )
   {
@@ -400,7 +400,7 @@ void CTextDialog::RebuildPreview()
 
     for ( size_t i = 0; i < m_Text.length(); i++ )
     {
-      szDummy[0] = m_Text[i];
+      szDummy[0] = (GR::tChar)m_Text[i];
       if ( BeginPath( hdcTarget ) )
       {
         TextOut( hdcTarget,

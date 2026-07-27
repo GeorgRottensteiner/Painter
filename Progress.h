@@ -28,9 +28,9 @@ public:
 	CProgressCtrl	m_ProgressBar;
 	//}}AFX_DATA
 
-  CProgress( GR::Char* Text, int iPos, int iMax );
+  CProgress( const char* Text, int iPos, int iMax );
 
-  void SetText( GR::Char* Text );
+  void SetText( const char* Text );
   void SetPosition( int iPosition, int iFull );
 
 

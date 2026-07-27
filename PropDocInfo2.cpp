@@ -47,8 +47,8 @@ BOOL CPropDocInfo2::OnInitDialog()
 	CPropertyPage::OnInitDialog();
 	
 
-  m_StaticScrollWidth.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%d", m_dwScrollWidth ) ).c_str() );
-  m_StaticScrollHeight.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%d", m_dwScrollHeight ) ).c_str() );
+  m_StaticScrollWidth.SetWindowText( GR::Convert::ToUTF16( Misc::Format() << m_dwScrollWidth ).c_str() );
+  m_StaticScrollHeight.SetWindowText( GR::Convert::ToUTF16( Misc::Format() << m_dwScrollHeight ).c_str() );
 	
 	return TRUE;  // return TRUE unless you set the focus to a control
 	              // EXCEPTION: OCX-Eigenschaftenseiten sollten FALSE zurückgeben

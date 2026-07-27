@@ -1,10 +1,8 @@
-// UndoSizeChange.cpp: implementation of the CUndoSizeChange class.
-//
-//////////////////////////////////////////////////////////////////////
-
 #include "stdafx.h"
 #include "UndoFrameChange.h"
 #include "DocumentInfo.h"
+
+#include "PainterFontDoc.h"
 
 #include <Misc/Misc.h>
 #include <Grafik/Image.h>
@@ -16,9 +14,7 @@ static char THIS_FILE[]=__FILE__;
 #define new DEBUG_NEW
 #endif
 
-//////////////////////////////////////////////////////////////////////
-// Construction/Destruction
-//////////////////////////////////////////////////////////////////////
+
 
 CUndoFrameChange::CUndoFrameChange()
   : m_pDocInfo( NULL ),
@@ -28,24 +24,18 @@ CUndoFrameChange::CUndoFrameChange()
 
 }
 
+
+
 CUndoFrameChange::~CUndoFrameChange()
 {
-
-  std::vector<CLayer*>::iterator    it( m_vectImages.begin() );
-  while ( it != m_vectImages.end() )
-  {
-    delete *it;
-
-    ++it;
-  }
   m_vectImages.clear();
-
 }
 
 
 CUndoFrameChange::CUndoFrameChange( DocumentInfo* pDocInfo,
                                     eFrameChangeType fcType,
-                                    DWORD dwFrameIndex )
+                                    GR::u32 dwFrameIndex,
+                                    GR::u32 userData )
 {
 
   if ( !pDocInfo )
@@ -56,6 +46,7 @@ CUndoFrameChange::CUndoFrameChange( DocumentInfo* pDocInfo,
   m_pDocInfo        = pDocInfo;
   m_dwFrameIndex    = dwFrameIndex;
   m_fcType          = fcType;
+  m_UserData        = userData;
 
   if ( m_fcType == UFC_REMOVE_FRAME )
   {
@@ -64,20 +55,11 @@ CUndoFrameChange::CUndoFrameChange( DocumentInfo* pDocInfo,
     DocumentInfo::tVectLayers::iterator   it( layers.begin() );
     while ( it != layers.end() )
     {
-      CLayer*   pLayer = *it;
+      CLayer& layer = *it;
 
+      CLayer   savedLayer( layer );
 
-      CLayer*   pSavedLayer = new CLayer( *pLayer );
-
-      /*
-      pSavedLayer->SetLayerImage( new GR::Graphic::Image( pLayer->GetImage() ) );
-      if ( pLayer->m_HasMask )
-      {
-        pSavedLayer->SetLayerMask( new GR::Graphic::Image( pLayer->GetMask() ) );
-      }
-      */
-
-      m_vectImages.push_back( pSavedLayer );
+      m_vectImages.push_back( savedLayer );
 
       ++it;
     }
@@ -87,14 +69,12 @@ CUndoFrameChange::CUndoFrameChange( DocumentInfo* pDocInfo,
     
 
   }
-
 }
 
 
 
 BOOL CUndoFrameChange::Restore()
 {
-
   if ( m_fcType == UFC_INSERT_FRAME )
   {
     m_pDocInfo->RemoveFrame( m_dwFrameIndex );
@@ -102,6 +82,12 @@ BOOL CUndoFrameChange::Restore()
   else if ( m_fcType == UFC_REMOVE_FRAME )
   {
     size_t   dwFrame = m_pDocInfo->AddFrame( m_dwFrameIndex );
+    if ( m_pDocInfo->m_DocType == DT_FONT )
+    {
+      CPainterFontDoc* pFontDoc = (CPainterFontDoc*)m_pDocInfo->m_pDoc;
+
+      pFontDoc->m_ActualLetters.insert( pFontDoc->m_ActualLetters.begin() + dwFrame, (GR::UTF8Char)m_UserData );
+    }
 
     DocumentInfo::tVectLayers&   Vectm_vectLayers = m_pDocInfo->m_LayeredFrames[dwFrame].Layers;
 
@@ -116,7 +102,6 @@ BOOL CUndoFrameChange::Restore()
   m_pDocInfo->RedrawAllViews();
 
   return TRUE;
-
 }
 
 
@@ -128,13 +113,15 @@ CUndoState* CUndoFrameChange::CreateComplementCopy()
   {
     return new CUndoFrameChange( m_pDocInfo,
                                  UFC_REMOVE_FRAME,
-                                 m_dwFrameIndex );
+                                 m_dwFrameIndex,
+                                 m_UserData );
   }
   else if ( m_fcType == UFC_REMOVE_FRAME )
   {
     return new CUndoFrameChange( m_pDocInfo,
                                  UFC_INSERT_FRAME,
-                                 m_dwFrameIndex );
+                                 m_dwFrameIndex,
+                                 m_UserData );
   }
   return NULL;
 

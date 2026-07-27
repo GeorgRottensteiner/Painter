@@ -99,9 +99,9 @@ BOOL CNewDocumentDialog::OnInitDialog()
   m_Type = DT_IMAGE;
   m_EditFrames.EnableWindow( FALSE );
 
-  m_EditWidth.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%d", pSettings->GetSetting( "NewDocWidth", GetSystemMetrics( SM_CXSCREEN ) ) ) ).c_str() );
-  m_EditHeight.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%d", pSettings->GetSetting( "NewDocHeight", GetSystemMetrics( SM_CYSCREEN ) ) ) ).c_str() );
-  m_EditFrames.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%d", pSettings->GetSetting( "NewDocFrames", 1 ) ) ).c_str() );
+  m_EditWidth.SetWindowText( GR::Convert::ToUTF16( Misc::Format() << pSettings->GetSetting( "NewDocWidth", GetSystemMetrics( SM_CXSCREEN ) ) ).c_str() );
+  m_EditHeight.SetWindowText( GR::Convert::ToUTF16( Misc::Format() << pSettings->GetSetting( "NewDocHeight", GetSystemMetrics( SM_CYSCREEN ) ) ).c_str() );
+  m_EditFrames.SetWindowText( GR::Convert::ToUTF16( Misc::Format() << pSettings->GetSetting( "NewDocFrames", 1 ) ).c_str() );
 
   m_ComboType.ResetContent();
   m_ComboType.AddString( _T( "Single Image" ) );

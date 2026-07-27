@@ -81,7 +81,7 @@ public:
 
   void ChangeFunction( DWORD dwNewFunction );
 
-  CDocument* CheckAndOpen( const GR::Char* File );
+  CDocument* CheckAndOpen( const char* File );
 
   void ShowStatusMessage( void );
   DocumentInfo* GetActiveDocumentInfo();

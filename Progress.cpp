@@ -45,7 +45,7 @@ extern CPainterApp theApp;
 
 
 
-CProgress::CProgress( GR::Char* Text, int iPos, int iMax )
+CProgress::CProgress( const char* Text, int iPos, int iMax )
 {
   Create( MAKEINTRESOURCE( IDD_DIALOG_PROGRESS ), theApp.pMainFrame );
   SetText( Text );
@@ -75,15 +75,15 @@ void CProgress::SetPosition( int iPosition, int iFull )
   {
     iProzent = 100;
   }
-  m_Prozent.SetWindowText( GR::Convert::ToUTF16( CMisc::printf( "%02d%%", iProzent ) ).c_str() );
+  m_Prozent.SetWindowText( GR::Convert::ToUTF16( Misc::Format( "%01:2%%%" ) << iProzent ).c_str() );
   m_ProgressBar.SetPos( iProzent );
 }
 
 
 
-void CProgress::SetText( GR::Char *szText )
+void CProgress::SetText( const char* szText )
 {
-  m_Info.SetWindowText( GR::Convert::ToUTF16( szText ).c_str() );
+  m_Info.SetWindowText( GR::Convert::ToUTF16( GR::String( szText ) ).c_str() );
 }
 
 

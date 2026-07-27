@@ -65,7 +65,7 @@ class CPainterFileOpen : public CFileDialogEx
 	  //}}AFX_MSG
 	  DECLARE_MESSAGE_MAP()
 
-      void GetPreview( const GR::Char* Temp );
+      void GetPreview( const char* Temp );
 
 	    virtual void            OnFileNameChange();
 	    virtual void            OnFolderChange();

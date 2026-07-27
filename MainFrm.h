@@ -141,6 +141,7 @@ public:
   afx_msg void OnSpecialSafetySave();
   afx_msg void OnRestoreSafetySave();
   afx_msg void OnClose();
+  afx_msg void OnMenuSpecialExportasHexData();
 };
 
 /////////////////////////////////////////////////////////////////////////////

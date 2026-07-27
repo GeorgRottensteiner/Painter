@@ -63,7 +63,7 @@ CFormatManager& CFormatManager::Instance()
 
 
 
-ImageSet* CFormatManager::Load( SaveType& saveType, const GR::Char* FileName )
+ImageSet* CFormatManager::Load( SaveType& saveType, const char* FileName )
 {
   tMapSupportedFormats::iterator    it( m_mapSupportedFormats.begin() );
   while ( it != m_mapSupportedFormats.end() )
@@ -91,7 +91,7 @@ ImageSet* CFormatManager::Load( SaveType& saveType, const GR::Char* FileName )
 
 
 
-bool CFormatManager::Save( const SaveType saveType, const GR::Char* FileName, ImageSet* pSet )
+bool CFormatManager::Save( const SaveType saveType, const char* FileName, ImageSet* pSet )
 {
   tMapSupportedFormats::iterator    it( m_mapSupportedFormats.find( saveType ) );
   if ( it == m_mapSupportedFormats.end() )
@@ -204,7 +204,7 @@ bool CFormatManager::SupportsFormat( const SaveType saveType )
 
 
 
-bool CFormatManager::SaveWithFreeImage( int fif, const GR::Char* FileName, ImageSet* pSet )
+bool CFormatManager::SaveWithFreeImage( int fif, const char* FileName, ImageSet* pSet )
 {
   if ( ( pSet->FrameCount() > 1 )
   &&   ( AfxMessageBox( _T( "Das gewünschte Format unterstützt nur Einzelbilder.\nSoll nur der erste Frame gespeichert werden?" ), MB_YESNO ) != IDYES ) )
@@ -262,7 +262,7 @@ bool CFormatManager::SaveWithFreeImage( int fif, const GR::Char* FileName, Image
             dwOption = JPEG_QUALITYBAD;
             break;
         }
-        if ( !FreeImage_SaveU( FIF_JPEG, dib, GR::Convert::ToUTF16( FileName ).c_str(), dwOption ) )
+        if ( !FreeImage_SaveU( FIF_JPEG, dib, GR::Convert::ToUTF16( GR::String( FileName ) ).c_str(), dwOption ) )
         {
           AfxMessageBox( _T( "Failed to save to JPEG! (not supported color depth?)" ) );
           return false;
@@ -288,7 +288,7 @@ tFileFormatSupport* CFormatManager::GetFormat( const SaveType saveType )
 
 
 
-bool CFormatManager::ExtraProcessing( const GR::Char* FileName, const SaveType saveType, tFileFormatSupport& Format, GR::Graphic::ImageData* pData )
+bool CFormatManager::ExtraProcessing( const char* FileName, const SaveType saveType, tFileFormatSupport& Format, GR::Graphic::ImageData* pData )
 {
   switch ( saveType )
   {

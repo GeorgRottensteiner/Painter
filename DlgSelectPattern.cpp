@@ -310,7 +310,7 @@ void CDlgSelectPattern::OnContextMenu( CWnd* pWnd, CPoint point )
         break;
       case 2:
         {
-          if ( AfxGetMainWnd()->MessageBox( GR::Convert::ToUTF16( CMisc::printf( "Pattern \"%s\" wirklich aus der Liste entfernen?", pPP->pPattern->m_strDescription.c_str() ) ).c_str(),
+          if ( AfxGetMainWnd()->MessageBox( GR::Convert::ToUTF16( Misc::Format( "Really delete pattern \"%1%\" from the list?" ) << pPP->pPattern->m_strDescription.c_str() ).c_str(),
                            _T( "Sind Sie sicher?" ), MB_YESNO ) != IDYES )
           {
             return;

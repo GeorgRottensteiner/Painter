@@ -485,11 +485,11 @@ CSize GRMenuBar::EstimateSize( GR::u32 SizingFlags )
       {
         if ( ItemInfo.Text[j] == '&' )
         {
-          strVertText += ItemInfo.Text[j + 1];
+          strVertText += (GR::u16)ItemInfo.Text[j + 1];
           ++j;
           continue;
         }
-        strVertText += ItemInfo.Text[j];
+        strVertText += (GR::u16)ItemInfo.Text[j];
       }
       pDC->DrawText( strVertText.c_str(), (int)strVertText.length(), &ItemInfo.RectButton, DT_CALCRECT | DT_SINGLELINE | DT_NOPREFIX );
 
@@ -776,11 +776,11 @@ void GRMenuBar::OnPaint()
       {
         if ( ItemInfo.Text[j] == '&' )
         {
-          strVertText += ItemInfo.Text[j + 1];
+          strVertText += (GR::u16)ItemInfo.Text[j + 1];
           ++j;
           continue;
         }
-        strVertText += ItemInfo.Text[j];
+        strVertText += (GR::u16)ItemInfo.Text[j];
       }
       if ( ItemInfo.ButtonStyle & tItemInfo::IF_DISABLED )
       {

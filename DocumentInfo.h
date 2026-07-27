@@ -53,7 +53,7 @@ class DocumentInfo : public INotifyMember<GR::u32>
 
     bool                          m_HasSelection;
 
-    DWORD                         m_DocWidth,
+    GR::u32                       m_DocWidth,
                                   m_DocHeight;
 
 
@@ -66,7 +66,7 @@ class DocumentInfo : public INotifyMember<GR::u32>
 
   public:
 
-    typedef std::vector<CLayer*>  tVectLayers;
+    typedef std::vector<CLayer>   tVectLayers;
 
     typedef std::vector<Frame>    tVectLayeredFrames;
 
@@ -147,6 +147,7 @@ class DocumentInfo : public INotifyMember<GR::u32>
     void                        RemoveFrame( size_t dwFrameNr );
     size_t                      CurrentFrame();
     void                        CurrentFrame( size_t dwFrameNr );
+    bool                        IsValidFrame();
     Frame*                      GetFrame( size_t iFrameNr );
 
     CLayer*                     AddLayer( GR::Graphic::Image *pOrigin = NULL, size_t iFrame = -1, size_t iLayerInsertPos = -1 );
@@ -161,8 +162,8 @@ class DocumentInfo : public INotifyMember<GR::u32>
     size_t                      CurrentLayer();
     void                        CurrentLayer( size_t dwLayerNr );
 
-    DWORD                       Width() const;
-    DWORD                       Height() const;
+    GR::u32                     Width() const;
+    GR::u32                     Height() const;
 
     CMaskedContextDescriptor    GetCD();
 
